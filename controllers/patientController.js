@@ -17,6 +17,8 @@ exports.addNewPatientRecord = (req, response, next) => {
     const consentPath = getConsentPath(folderPath);
     const signaturePath = getSignaturePath(folderPath);
     patientData.signaturePath = signaturePath;
+    patientData.filePath = filePath;
+    patientData.consentPath = consentPath;
     saveSignatureImage(patientData.signatureImg,signaturePath);
     if(patientData.adult == "Yes"){
       createConsentDoc(consentPath,patientData.fullName,patientData.guardianName,patientData.witnessName);
@@ -57,6 +59,8 @@ exports.addExistingPatientRecord = (req, response, next) => {
       const signaturePath = getSignaturePath(folderPath);
       const consentPath = getConsentPath(folderPath);
       patientData.signaturePath = signaturePath;
+      patientData.filePath = filePath;
+      patientData.consentPath = consentPath;
       saveSignatureImage(patientData.signatureImg,signaturePath);
       const doc = documentController.writeExistingPatientData(patientData);
       if(patientData.adult == "Yes"){
@@ -101,6 +105,7 @@ exports.addExistingPatientRecord = (req, response, next) => {
     });
   
   };
+
 
   function createPatientRecordFolder(dir){
 
