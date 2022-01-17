@@ -32,11 +32,11 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-// MongoClient.connect(url, function(err, db) {
-//   if (err) throw err;
-//   console.log("Database created!");
-//   db.close();
-// });
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
