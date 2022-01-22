@@ -52,7 +52,6 @@ exports.addNewPatientRecord = (req, response, next) => {
 
   
 exports.addExistingPatientRecord = (req, response, next) => {
-
     MongoClient.connect(url, function(err, db) {
       const patientData = req.body;
       console.log(patientData.idCardPicturePath);
@@ -74,6 +73,7 @@ exports.addExistingPatientRecord = (req, response, next) => {
       Packer.toBuffer(doc).then((buffer) => {
           fs.writeFileSync(filePath, buffer);
           var dbo = db.db("mydb");
+          patientData.signatureImg = null;
           dbo.collection("ExistingPatientRecords").insertOne(patientData, function(err, res) {
             if (err) throw err;
             console.log("Existing Patient Record Inserted");
