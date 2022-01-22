@@ -11,6 +11,7 @@ var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var patientRouter = require('./routes/patient');
+var pdfRouter = require('./routes/pdf');
 const bodyParser = require('body-parser');
 var app = express();
 
@@ -48,6 +49,7 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/patient', patientRouter);
+app.use('/pdf', pdfRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

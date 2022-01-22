@@ -13,16 +13,27 @@ var storage = multer.diskStorage({
   
     // Setting name of file saved
     filename: function (req, file, cb) {
-        console.log(file.originalname);
-        if(req.body.insuranceForntPath && req.body.insuranceForntPath.includes(file.originalname)){
-            cb(null, req.body.insuranceForntPath+ '.' + fileExtension(file.originalname))
+        try{
+            console.log(file.originalname);
+            console.log(req.body.adult);
+            if(req.body.insuranceForntPath && req.body.insuranceForntPath.includes(file.originalname)){
+                cb(null, req.body.insuranceForntPath+ '.' + fileExtension(file.originalname))
+            }
+            else if(req.body.insuranceBackPath && req.body.insuranceBackPath.includes(file.originalname)){
+                cb(null, req.body.insuranceBackPath+ '.' + fileExtension(file.originalname))
+            }
+            else if(req.body.adult == "No" && req.body.guardianIdPath && req.body.guardianIdPath.includes(file.originalname)){
+                cb(null, req.body.guardianIdPath+ '.' + fileExtension(file.originalname))
+            }
+            else if(req.body.idCardPicturePath && req.body.idCardPicturePath.includes(file.originalname)){
+                cb(null, req.body.idCardPicturePath+ '.' + fileExtension(file.originalname))
+            }
         }
-        else if(req.body.insuranceBackPath && req.body.insuranceBackPath.includes(file.originalname)){
-            cb(null, req.body.insuranceBackPath+ '.' + fileExtension(file.originalname))
+        catch(e){
+            console.log(e);
         }
-        else if(req.body.idCardPicturePath && req.body.idCardPicturePath.includes(file.originalname)){
-            cb(null, req.body.idCardPicturePath+ '.' + fileExtension(file.originalname))
-        }
+
+
 
     }
   })
@@ -44,6 +55,7 @@ var storage = multer.diskStorage({
   })
 
 const patientController = require('../controllers/patientController');
+const { typedArrayFor } = require('pdf-lib');
 
 
 router.post('/addNewPatient',upload.array("file"),patientController.addNewPatientRecord);

@@ -3,9 +3,11 @@ const documentController = require('./documentController');
 const docx = require("docx");
 const { Document, Packer, Paragraph, TextRun } = docx;
 var MongoClient = require('mongodb').MongoClient;
+const res = require("express/lib/response");
 var url = "mongodb://localhost:27017/";
 
 exports.addNewPatientRecord = (req, response, next) => {
+  //response.json('return the data');
   MongoClient.connect(url, function(err, db) {
     console.log('New patient data.');
     console.log(req.body);
@@ -20,14 +22,15 @@ exports.addNewPatientRecord = (req, response, next) => {
     patientData.filePath = filePath;
     patientData.consentPath = consentPath;
     saveSignatureImage(patientData.signatureImg,signaturePath);
-    if(patientData.adult == "Yes"){
-      createConsentDoc(consentPath,patientData.fullName,patientData.guardianName,patientData.witnessName);
+    if(patientData.adult == "No"){
+      createConsentDoc(consentPath,(patientData.firstName+' '+patientData.lastName),patientData.guardianName,patientData.witnessName);
     }
     const doc = documentController.writeNewPatientData(patientData);
     try{
       Packer.toBuffer(doc).then((buffer) => {
         fs.writeFileSync(filePath, buffer);
         var dbo = db.db("mydb");
+        patientData.signatureImg = null;
         dbo.collection("NewPatientRecords").insertOne(patientData, function(err, res) {
           if (err) throw err;
           console.log("New Patient Record Inserted");
@@ -52,12 +55,14 @@ exports.addExistingPatientRecord = (req, response, next) => {
 
     MongoClient.connect(url, function(err, db) {
       const patientData = req.body;
+      console.log(patientData.idCardPicturePath);
       const dir = './public/existingPatientRecords';
       const folderPath = createTodayFolder(dir);
       createPatientRecordFolder(folderPath);
       const filePath = getFilePath(folderPath,'existing-patient');
       const signaturePath = getSignaturePath(folderPath);
       const consentPath = getConsentPath(folderPath);
+      const guardianPath = getGuardianPath(folderPath);
       patientData.signaturePath = signaturePath;
       patientData.filePath = filePath;
       patientData.consentPath = consentPath;
@@ -145,6 +150,11 @@ function getConsentPath(dir){
   return dir + '/consent-'+ (now.getHours())+'-'+now.getMinutes()+'-'+now.getSeconds()+".docx";
 }
 
+function getGuardianPath(dir){
+  var now = new Date();
+  return dir + '/guardian-'+ (now.getHours())+'-'+now.getMinutes()+'-'+now.getSeconds()+".png";
+}
+
 function getSignaturePath(dir){
   var now = new Date();
   return dir + '/signature-'+ (now.getHours())+'-'+now.getMinutes()+'-'+now.getSeconds()+".png";
@@ -156,4 +166,12 @@ function saveSignatureImage(imageData,path){
     console.log(err);
   });
 }
+
+function saveGuardianImage(imageData,path){
+  var base64Data = imageData.replace(/^data:image\/png;base64,/, "");
+  fs.writeFileSync(path, base64Data, 'base64', function(err) {
+    console.log(err);
+  });
+}
+
 

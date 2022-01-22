@@ -6,10 +6,13 @@ const { AlignmentType, Document, HeadingLevel, Packer, Paragraph, TabStopPositio
 var fileExtension = require('file-extension');
 
 exports.writeNewPatientData = (patientData) => {
-    let widht = 600;
-    let height = 400;
+    let insWidth,adultWidth = 600;
+    let insHeight,adultHeight = 400;
     if(patientData.insurance == "No"){
-        widht = height = 0;
+        insWidth = insHeight = 0;
+    }
+    if(patientData.adult == "Yes"){
+        adultWidth = adultHeight = 0;
     }
     const doc = new Document({
         sections: [{
@@ -18,7 +21,11 @@ exports.writeNewPatientData = (patientData) => {
                 new Paragraph({
                     children: [
                         new TextRun({
-                            text: "Full Name  \t"+ ((patientData.fullName && patientData.fullName != undefined) ? patientData.fullName : ''),
+                            text: "First Name  \t"+ (patientData.firstName ? patientData.firstName : ''),
+                            break: 2,
+                        }),
+                        new TextRun({
+                            text: "Last Name  \t"+ (patientData.lastName ? patientData.lastName : ''),
                             break: 2,
                         }),
                         new TextRun({
@@ -65,8 +72,8 @@ exports.writeNewPatientData = (patientData) => {
                         new ImageRun({
                             data: (patientData.insurance == "Yes" ? fs.readFileSync("./uploads/"+patientData.insuranceForntPath+'.'+fileExtension(patientData.insuranceFrontFileName)) : ''),
                             transformation: {
-                                width: widht,
-                                height: height,
+                                width: insWidth,
+                                height: insHeight,
                             }
                         }),
                         new TextRun({
@@ -76,12 +83,31 @@ exports.writeNewPatientData = (patientData) => {
                         new ImageRun({
                             data: (patientData.insurance == "Yes" ? fs.readFileSync("./uploads/"+patientData.insuranceBackPath+'.'+fileExtension(patientData.insuranceBackFileName)) : ''),
                             transformation: {
-                                width: widht,
-                                height: height,
+                                width: insWidth,
+                                height: insHeight,
                             }
                         }),
                         new TextRun({
-                            text: "ID CARD PICTURE \t",
+                            text: (patientData.adult == "No" ? "Guardian Id Card Piciture \t" : ""),
+                            break: (patientData.adult == "No" ? 2 : 0),
+                        }),
+                        new ImageRun({
+                            data: (patientData.adult == "No" ? fs.readFileSync("./uploads/"+patientData.guardianIdPath+'.'+fileExtension(patientData.guardianIdFileName)): ''),
+                            transformation: {
+                                width: adultWidth,
+                                height: adultHeight,
+                            }
+                        }),
+                        new TextRun({
+                            text: (patientData.adult == "No" ? "Guardian Name \t"+patientData.guardianName : ""),
+                            break: (patientData.adult == "No" ? 2 : 0),
+                        }),
+                        new TextRun({
+                            text: (patientData.adult == "No" ? "Guardian Relation \t"+patientData.guardianRelation : ""),
+                            break: (patientData.adult == "No" ? 2 : 0),
+                        }),
+                        new TextRun({
+                            text: "ID Card Piciture \t",
                             break: 2,
                         }),
                         new ImageRun({
