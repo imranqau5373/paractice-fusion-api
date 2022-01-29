@@ -1,5 +1,6 @@
 const fs = require("fs");
 const documentController = require('./documentController');
+const pdfController = require('./pdfController');
 const docx = require("docx");
 const { Document, Packer, Paragraph, TextRun } = docx;
 var MongoClient = require('mongodb').MongoClient;
@@ -16,14 +17,27 @@ exports.addNewPatientRecord = (req, response, next) => {
     createPatientRecordFolder(dir);
     const folderPath = createTodayFolder(dir);
     const filePath = getFilePath(folderPath,'new-patient');
-    const consentPath = getConsentPath(folderPath);
+    const doctorFilePath = getPdfPath(folderPath,'doctor-form');
     const signaturePath = getSignaturePath(folderPath);
     patientData.signaturePath = signaturePath;
     patientData.filePath = filePath;
-    patientData.consentPath = consentPath;
+    patientData.doctorFormPath = doctorFilePath;
     saveSignatureImage(patientData.signatureImg,signaturePath);
+    createDoctorForm(doctorFilePath,patientData);
     if(patientData.adult == "No"){
+      const consentPath = getConsentPath(folderPath);
+      patientData.consentPath = consentPath;
       createConsentDoc(consentPath,(patientData.firstName+' '+patientData.lastName),patientData.guardianName,patientData.witnessName);
+    }
+    if(patientData.insurance == "No"){
+      const cashSuperBillFilePath = getPdfPath(folderPath,'cash-super-bill');
+      patientData.cashSuperBillFilePath = cashSuperBillFilePath;
+      createCashSuperBill(cashSuperBillFilePath,patientData);
+    }
+    else{
+      const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
+      patientData.imigrationFilePath = imigrationFilePath;
+      createImgrationForm(imigrationFilePath,patientData);
     }
     const doc = documentController.writeNewPatientData(patientData);
     try{
@@ -62,13 +76,27 @@ exports.addExistingPatientRecord = (req, response, next) => {
       const signaturePath = getSignaturePath(folderPath);
       const consentPath = getConsentPath(folderPath);
       const guardianPath = getGuardianPath(folderPath);
+      const doctorFilePath = getPdfPath(folderPath,'doctor-form');
       patientData.signaturePath = signaturePath;
       patientData.filePath = filePath;
       patientData.consentPath = consentPath;
       saveSignatureImage(patientData.signatureImg,signaturePath);
       const doc = documentController.writeExistingPatientData(patientData);
+      createDoctorForm(doctorFilePath,patientData);
       if(patientData.adult == "Yes"){
+        const consentPath = getConsentPath(folderPath);
+        patientData.consentPath = consentPath;
         createConsentDoc(consentPath,patientData.firstName+' '+patientData.lastName,patientData.guardianName,patientData.witnessName);
+      }
+      if(patientData.insurance == "No"){
+        const cashSuperBillFilePath = getPdfPath(folderPath,'cash-super-bill');
+        patientData.cashSuperBillFilePath = cashSuperBillFilePath;
+        createCashSuperBill(cashSuperBillFilePath,patientData);
+      }
+      else{
+        const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
+        patientData.imigrationFilePath = imigrationFilePath;
+        createImgrationForm(imigrationFilePath,patientData);
       }
       Packer.toBuffer(doc).then((buffer) => {
           fs.writeFileSync(filePath, buffer);
@@ -129,6 +157,18 @@ exports.addExistingPatientRecord = (req, response, next) => {
 
   }
 
+  function createImgrationForm(filePath,patientData){
+    pdfController.writeImigrationData(filePath,patientData);
+  }
+
+  function createCashSuperBill(filePath,patientData){
+    pdfController.writeCashSuperBill(filePath,patientData);
+  }
+
+  function createDoctorForm(filePath,patientData){
+    pdfController.writeDoctorData(filePath,patientData);
+  }
+
   function createTodayFolder(dir){
 
     var now = new Date();
@@ -144,6 +184,11 @@ exports.addExistingPatientRecord = (req, response, next) => {
 function getFilePath(dir,fileStartName){
     var now = new Date();
     return dir + '/'+fileStartName+"-"+(now.getHours())+'-'+now.getMinutes()+'-'+now.getSeconds()+".docx";
+}
+
+function getPdfPath(dir,fileStartName){
+  var now = new Date();
+  return dir + '/'+fileStartName+"-"+(now.getHours())+'-'+now.getMinutes()+'-'+now.getSeconds()+".pdf";
 }
 function getConsentPath(dir){
   var now = new Date();

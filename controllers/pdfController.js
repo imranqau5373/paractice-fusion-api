@@ -9,17 +9,134 @@ exports.readPdfDocument = (req, res, next) => {
 
 async function modifyPdf() {
 
-    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/i-693-latest.pdf'),{ ignoreEncryption: true });
+    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/imigration.pdf'),{ ignoreEncryption: true });
     const form = pdfDoc.getForm();
     const fields = form.getFields()
     fields.forEach(field => {
     const name = field.getName()
     console.log('Field name:', name)
     })
-    const textField = form.getTextField('form1[0].#subform[0].Pt1Line1c_MiddleName[0]');
-    textField.setText('Imran khan')
+    // const textField = form.getTextField('form1[0].#subform[0].Pt1Line1c_MiddleName[0]');
+    // textField.setText('Imran khan')
     // const textField = form.createTextField('best.gundam')
     // textField.setText('Exia')
-     fs.writeFileSync('./public/pdfFile/i-693-latest.pdf', await pdfDoc.save({updateFieldAppearances: false}));
+    // fs.writeFileSync('./public/patientRecords/imigration-latest.pdf', await pdfDoc.save({updateFieldAppearances: false}));
     //const pdfBytes = await pdfDoc.save()
-  }
+}
+
+exports.writeImigrationData = (filePath,patientData) => {
+    writeImigrationData(filePath,patientData);
+};
+
+exports.writeDoctorData = (filePath,patientData) => {
+    writeDoctorData(filePath,patientData);
+};
+
+exports.writeCashSuperBill = (filePath,patientData) => {
+    writeCashSuperBill(filePath,patientData);
+};
+
+async function writeImigrationData(filePath,patientData){
+
+    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/imigration.pdf'),{ ignoreEncryption: true });
+    const form = pdfDoc.getForm();
+    const lastNameTextField = form.getTextField('form1[0].#subform[0].Pt1Line1a_FamilyName[0]');
+    lastNameTextField.setText(patientData.lastName);
+    const firstNameTextField = form.getTextField('form1[0].#subform[0].Pt1Line1b_GivenName[0]');
+    firstNameTextField.setText(patientData.firstName);
+    const middleNameTextField = form.getTextField('form1[0].#subform[0].Pt1Line1c_MiddleName[0]');
+    middleNameTextField.setText(patientData.middleName);
+    const addressTextField = form.getTextField('form1[0].#subform[0].Pt1Line2_StreetNumberName[0]');
+    addressTextField.setText(patientData.address);
+    const ssnTextField = form.getTextField('form1[0].#subform[0].Pt1Line2_AptSteFlrNumber[0]');
+    ssnTextField.setText('123456');
+    // const aptTextField = form.getTextField('form1[0].#subform[0].Pt1Line2_Unit[0]');
+    // aptTextField.setText(true);
+    // const cityTextField = form.getTextField('form1[0].#subform[0].P1Line2_CityOrTown[0]');
+    // cityTextField.setText(patientData.city);
+    // const stateTextField = form.getTextField('form1[0].#subform[0].P1Line2_State[0]');
+    // stateTextField.setText(patientData.state);
+    // const zipCodeTextField = form.getTextField('form1[0].#subform[0].P1Line2_ZipCode[0]');
+    // zipCodeTextField.setText(patientData.zipCode);
+     fs.writeFileSync(filePath, await pdfDoc.save({updateFieldAppearances: false}));
+    //const pdfBytes = await pdfDoc.save()
+}
+
+async function writeCashSuperBill(filePath,patientData){
+
+    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/cashSuperBill.pdf'),{ ignoreEncryption: true });
+    const form = pdfDoc.getForm();
+    const lastNameTextField = form.getTextField('LAST NAME');
+    lastNameTextField.setText(patientData.lastName);
+    const firstNameTextField = form.getTextField('FIRST NAME');
+    firstNameTextField.setText(patientData.firstName);
+    const middleNameTextField = form.getTextField('MIDDLE NAME');
+    middleNameTextField.setText(patientData.middleName);
+    const dateTextField = form.getTextField('DATE');
+    const d = new Date();
+    dateTextField.setText(d.toString());
+    const gender = form.getTextField('SEX');
+    gender.setText(patientData.gender);
+    const dobTextField = form.getTextField('DOB');
+    dobTextField.setText(patientData.dateOfBirth);
+     fs.writeFileSync(filePath, await pdfDoc.save({updateFieldAppearances: false}));
+}
+
+async function writeDoctorData(filePath,patientData){
+    console.log('In write docotr data.');
+    console.log('In write imigration data with doctor data.',patientData);
+    
+    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/doctorForm.pdf'),{ ignoreEncryption: true });
+    const form = pdfDoc.getForm();
+    const firstName = form.getTextField('PT FIRST NAME');
+    firstName.setText(patientData.firstName);
+    const lastName = form.getTextField('PT LAST NAME');
+    lastName.setText(patientData.lastName);
+    const gender = form.getTextField('GENDER');
+    gender.setText(patientData.gender);
+    const dobTextField = form.getTextField('DOB');
+    dobTextField.setText(patientData.dateOfBirth);
+    const ageTextField = form.getTextField('AGE');
+    //ageTextField.setText(getAge(patientData.dateOfBirth));
+    const dateTextField = form.getTextField('DATE');
+    const d = new Date();
+    dateTextField.setText(d.toString());
+    const timeTextField = form.getTextField('TIME');
+    dateTextField.setText(d.getHours()+'-'+d.getMinutes()+'-'+d.getSeconds());
+    const alergiesTextField = form.getTextField('ALLERGIES');
+    alergiesTextField.setText(patientData.alergicExplain);
+    const familyMedicialHistoryTextField = form.getTextField('FAMILY MEDICAL HISTORY');
+    familyMedicialHistoryTextField.setText(patientData.familyMedicialHistory);
+    const surgeriesTextField = form.getTextField('SURGERIES');
+    surgeriesTextField.setText(patientData.surgeryExplain);
+    const smokingTextField = form.getTextField('SMOKING');
+    smokingTextField.setText(patientData.smoke);
+    const tbaccoTextField = form.getTextField('TOBACCO');
+    tbaccoTextField.setText(patientData.tobacco);
+    const alcoholTextField = form.getTextField('ALCOHOL');
+    alcoholTextField.setText(patientData.alcohol);
+    const drugsTextField = form.getTextField('DRUGS');
+    drugsTextField.setText(patientData.drugs);
+    const marriedTextField = form.getTextField('MARRIED');
+    marriedTextField.setText(patientData.maritalStatus);
+    const medicationListTextField = form.getTextField('MEDICATIONS');
+    medicationListTextField.setText(patientData.medicationList);
+    const pharmacyNameTextField = form.getTextField('PHARMACY NAME 1');
+    pharmacyNameTextField.setText(patientData.pharmacyName);
+    const streetPharmacyTextField = form.getTextField('CROSS STREETS');
+    streetPharmacyTextField.setText(patientData.streetPharmacy);
+     fs.writeFileSync(filePath, await pdfDoc.save({updateFieldAppearances: false}));
+    //const pdfBytes = await pdfDoc.save()
+}
+
+
+function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}

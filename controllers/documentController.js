@@ -25,7 +25,15 @@ exports.writeNewPatientData = (patientData) => {
                             break: 2,
                         }),
                         new TextRun({
+                            text: "Middle Name  \t"+ (patientData.middleName ? patientData.middleName : ''),
+                            break: 2,
+                        }),
+                        new TextRun({
                             text: "Last Name  \t"+ (patientData.lastName ? patientData.lastName : ''),
+                            break: 2,
+                        }),
+                        new TextRun({
+                            text: "Address  \t"+ (patientData.address ? patientData.address : ''),
                             break: 2,
                         }),
                         new TextRun({
@@ -287,6 +295,10 @@ exports.writeNewPatientData = (patientData) => {
                             break: 2,
                         }),
                         new TextRun({
+                            text: "Family Medicial History \t"+ (patientData.familyMedicialHistory ? patientData.familyMedicialHistory : ''),
+                            break: 2,
+                        }),
+                        new TextRun({
                             text: "How did you hear about us? \t"+ (patientData.hearAboutUs ? patientData.hearAboutUs : ''),
                             break: 2,
                         }),
@@ -342,6 +354,10 @@ exports.writeExistingPatientData = (patientData) => {
                             break: 2,
                         }),
                         new TextRun({
+                            text: "Middle Name  \t"+ (patientData.middleName ? patientData.middleName : ''),
+                            break: 2,
+                        }),
+                        new TextRun({
                             text: "Last Name  \t"+ (patientData.lastName ? patientData.lastName : ''),
                             break: 2,
                         }),
@@ -383,6 +399,10 @@ exports.writeExistingPatientData = (patientData) => {
                         }),
                         new TextRun({
                             text: "DO YOU HAVE INSURANCE? \t" +(patientData.insurance),
+                            break: 2,
+                        }),
+                        new TextRun({
+                            text: "Family Medicial History \t"+ (patientData.familyMedicialHistory ? patientData.familyMedicialHistory : ''),
                             break: 2,
                         }),
                         new TextRun({
@@ -586,4 +606,8 @@ exports.writeConsentForm = (patientName,guardianName,witnessName) => {
         }],
     });
     return doc;
+}
+
+exports.writeImagrationForm = (patientData) =>{
+
 }
