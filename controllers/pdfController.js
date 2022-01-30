@@ -50,16 +50,29 @@ async function writeImigrationData(filePath,patientData){
     addressTextField.setText(patientData.address);
     const ssnTextField = form.getTextField('form1[0].#subform[0].Pt1Line2_AptSteFlrNumber[0]');
     ssnTextField.setText('123456');
-    // const aptTextField = form.getTextField('form1[0].#subform[0].Pt1Line2_Unit[0]');
-    // aptTextField.setText(true);
-    // const cityTextField = form.getTextField('form1[0].#subform[0].P1Line2_CityOrTown[0]');
-    // cityTextField.setText(patientData.city);
-    // const stateTextField = form.getTextField('form1[0].#subform[0].P1Line2_State[0]');
-    // stateTextField.setText(patientData.state);
-    // const zipCodeTextField = form.getTextField('form1[0].#subform[0].P1Line2_ZipCode[0]');
-    // zipCodeTextField.setText(patientData.zipCode);
-     fs.writeFileSync(filePath, await pdfDoc.save({updateFieldAppearances: false}));
-    //const pdfBytes = await pdfDoc.save()
+    const daytimePhoneTextField = form.getTextField('form1[0].#subform[1].Pt2Line2_DaytimePhone[0]');
+    daytimePhoneTextField.setText(patientData.dayTimePhoneNo);
+    const dayTimeMobileField = form.getTextField('form1[0].#subform[1].Pt2Line3_Mobilephone[0]');
+    dayTimeMobileField.setText(patientData.mobilePhoneNo);
+    const emailTextField = form.getTextField('form1[0].#subform[1].Pt2Line4_EmailAddress[0]');
+    emailTextField.setText(patientData.email);
+    const zipCodeTextField = form.getTextField('form1[0].#subform[0].P1Line2_ZipCode[0]');
+    zipCodeTextField.setText(patientData.zipCode);
+    if(patientData.gender == "Male"){
+        const maleCheckBox = form.getCheckBox('form1[0].#subform[0].Pt1Line3_Gender[0]');
+        maleCheckBox.check();
+    }
+    else{
+        const femaleCheckBox = form.getCheckBox('form1[0].#subform[0].Pt1Line3_Gender[1]');
+        femaleCheckBox.check();
+    }
+    const dobTextField = form.getTextField('form1[0].#subform[0].Pt1Line7_DateOfBirth[0]');
+    dobTextField.setText(patientData.dateOfBirth);
+    const birthCityTextField = form.getTextField('form1[0].#subform[0].Pt1Line8_CityTownVillageofBirth[0]');
+    birthCityTextField.setText(patientData.city);
+    const cityTextField = form.getTextField('form1[0].#subform[0].P1Line2_CityOrTown[0]');
+    cityTextField.setText(patientData.city);
+    fs.writeFileSync(filePath, await pdfDoc.save({updateFieldAppearances: false}));
 }
 
 async function writeCashSuperBill(filePath,patientData){
@@ -93,6 +106,7 @@ async function writeDoctorData(filePath,patientData){
     const lastName = form.getTextField('PT LAST NAME');
     lastName.setText(patientData.lastName);
     const gender = form.getTextField('GENDER');
+    console.log(patientData.gender)
     gender.setText(patientData.gender);
     const dobTextField = form.getTextField('DOB');
     dobTextField.setText(patientData.dateOfBirth);
@@ -125,6 +139,22 @@ async function writeDoctorData(filePath,patientData){
     pharmacyNameTextField.setText(patientData.pharmacyName);
     const streetPharmacyTextField = form.getTextField('CROSS STREETS');
     streetPharmacyTextField.setText(patientData.streetPharmacy);
+
+    if(patientData.gender == 'Male'){
+        const maleLastPsaTextField = form.getTextField('MALES LAST PSA');
+        maleLastPsaTextField.setText(patientData.ProstateExamDate);
+    }
+    else{
+        const lmpPregnantTextField = form.getTextField('LMP PREGNANT');
+        lmpPregnantTextField.setText(patientData.pregnantMonths);
+        const breastFeedingTextField = form.getTextField('BREAST FEEDINGLACTATING');
+        breastFeedingTextField.setText(patientData.breastFeeding);
+        const lastMamoTextField = form.getTextField('LAST MAMMO');
+        lastMamoTextField.setText(patientData.lastMammogram);
+        const lastPapTextField = form.getTextField('LAST PAPSMEAR');
+        lastPapTextField.setText(patientData.lastmenstrualPeriod);
+    }
+
      fs.writeFileSync(filePath, await pdfDoc.save({updateFieldAppearances: false}));
     //const pdfBytes = await pdfDoc.save()
 }
