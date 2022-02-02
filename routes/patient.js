@@ -16,6 +16,7 @@ var storage = multer.diskStorage({
         try{
             console.log(file.originalname);
             console.log(req.body.adult);
+            console.log(req.body.idCardPicturePath);
             if(req.body.insuranceForntPath && req.body.insuranceForntPath.includes(file.originalname)){
                 cb(null, req.body.insuranceForntPath+ '.' + fileExtension(file.originalname))
             }

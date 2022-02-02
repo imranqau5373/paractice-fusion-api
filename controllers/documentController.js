@@ -118,11 +118,12 @@ exports.writeNewPatientData = (patientData) => {
                             text: "ID Card Piciture \t",
                             break: 2,
                         }),
+
                         new ImageRun({
-                            data: fs.readFileSync("./uploads/"+patientData.idCardPicturePath+'.'+fileExtension(patientData.idCardPictureName)),
+                            data: (patientData.adult == "Yes" && patientData.insurance == "No" ? fs.readFileSync("./uploads/"+patientData.idCardPicturePath+'.'+fileExtension(patientData.idCardPictureName)) : ''),
                             transformation: {
-                                width: 600,
-                                height: 400,
+                                width: (patientData.adult == "Yes" && patientData.insurance == "No" ? 600 : 0),
+                                height: (patientData.adult == "Yes" && patientData.insurance == "No" ? 400 : 0),
                             }
                         }),
                         new TextRun({
@@ -451,10 +452,10 @@ exports.writeExistingPatientData = (patientData) => {
                             break: 2,
                         }),
                         new ImageRun({
-                            data: fs.readFileSync("./uploads/"+patientData.idCardPicturePath+'.'+fileExtension(patientData.idCardPictureName)),
+                            data: (patientData.adult == "Yes" && patientData.insurance == "No" ? fs.readFileSync("./uploads/"+patientData.idCardPicturePath+'.'+fileExtension(patientData.idCardPictureName)) : ''),
                             transformation: {
-                                width: 600,
-                                height: 400,
+                                width: (patientData.adult == "Yes" && patientData.insurance == "No" ? 600 : 0),
+                                height: (patientData.adult == "Yes" && patientData.insurance == "No" ? 400 : 0),
                             }
                         }),
 

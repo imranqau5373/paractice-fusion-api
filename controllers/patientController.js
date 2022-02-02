@@ -11,7 +11,6 @@ exports.addNewPatientRecord = (req, response, next) => {
   //response.json('return the data');
   MongoClient.connect(url, function(err, db) {
     console.log('New patient data.');
-    console.log(req.body);
     const patientData = req.body;
     const dir = './public/patientRecords';
     createPatientRecordFolder(dir);
@@ -35,9 +34,13 @@ exports.addNewPatientRecord = (req, response, next) => {
       createCashSuperBill(cashSuperBillFilePath,patientData);
     }
     else{
-      const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
-      patientData.imigrationFilePath = imigrationFilePath;
-      createImgrationForm(imigrationFilePath,patientData);
+      // const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
+      // patientData.imigrationFilePath = imigrationFilePath;
+      // createImgrationForm(imigrationFilePath,patientData);
+      patientData.isNewPatient = 'Yes';
+      const insuranceFilePath = getPdfPath(folderPath,'insurance-file');
+      patientData.insuranceFilePath = insuranceFilePath;
+      createInsuranceForm(insuranceFilePath,patientData);
     }
     const doc = documentController.writeNewPatientData(patientData);
     try{
@@ -94,9 +97,13 @@ exports.addExistingPatientRecord = (req, response, next) => {
         createCashSuperBill(cashSuperBillFilePath,patientData);
       }
       else{
-        const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
-        patientData.imigrationFilePath = imigrationFilePath;
-        createImgrationForm(imigrationFilePath,patientData);
+        // const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
+        // patientData.imigrationFilePath = imigrationFilePath;
+        // createImgrationForm(imigrationFilePath,patientData);
+        patientData.isNewPatient = 'No';
+        const insuranceFilePath = getPdfPath(folderPath,'insurance-file');
+        patientData.insuranceFilePath = insuranceFilePath;
+        createInsuranceForm(insuranceFilePath,patientData);
       }
       Packer.toBuffer(doc).then((buffer) => {
           fs.writeFileSync(filePath, buffer);
@@ -159,6 +166,10 @@ exports.addExistingPatientRecord = (req, response, next) => {
 
   function createImgrationForm(filePath,patientData){
     pdfController.writeImigrationData(filePath,patientData);
+  }
+
+  function createInsuranceForm(filePath,patientData){
+    pdfController.writeInsuranceSuperBill(filePath,patientData);
   }
 
   function createCashSuperBill(filePath,patientData){

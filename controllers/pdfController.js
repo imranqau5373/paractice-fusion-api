@@ -9,7 +9,7 @@ exports.readPdfDocument = (req, res, next) => {
 
 async function modifyPdf() {
 
-    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/imigration.pdf'),{ ignoreEncryption: true });
+    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/insurace-superbill.pdf'),{ ignoreEncryption: true });
     const form = pdfDoc.getForm();
     const fields = form.getFields()
     fields.forEach(field => {
@@ -34,6 +34,10 @@ exports.writeDoctorData = (filePath,patientData) => {
 
 exports.writeCashSuperBill = (filePath,patientData) => {
     writeCashSuperBill(filePath,patientData);
+};
+
+exports.writeInsuranceSuperBill = (filePath,patientData) => {
+    insuranceSuperBill(filePath,patientData);
 };
 
 async function writeImigrationData(filePath,patientData){
@@ -111,18 +115,25 @@ async function writeDoctorData(filePath,patientData){
     const dobTextField = form.getTextField('DOB');
     dobTextField.setText(patientData.dateOfBirth);
     const ageTextField = form.getTextField('AGE');
-    //ageTextField.setText(getAge(patientData.dateOfBirth));
+    ageTextField.setText(getAge(patientData.dateOfBirth));
+    //ageTextField.setText('12');
     const dateTextField = form.getTextField('DATE');
     const d = new Date();
     dateTextField.setText(d.toString());
     const timeTextField = form.getTextField('TIME');
-    dateTextField.setText(d.getHours()+'-'+d.getMinutes()+'-'+d.getSeconds());
+    timeTextField.setText(d.getHours()+'-'+d.getMinutes()+'-'+d.getSeconds());
     const alergiesTextField = form.getTextField('ALLERGIES');
     alergiesTextField.setText(patientData.alergicExplain);
     const familyMedicialHistoryTextField = form.getTextField('FAMILY MEDICAL HISTORY');
     familyMedicialHistoryTextField.setText(patientData.familyMedicialHistory);
     const surgeriesTextField = form.getTextField('SURGERIES');
-    surgeriesTextField.setText(patientData.surgeryExplain);
+    if(patientData.surgery == 'No'){
+        surgeriesTextField.setText(patientData.surgery);
+    }
+    else{
+        surgeriesTextField.setText(patientData.surgery+','+patientData.surgeryExplain);
+    }
+
     const smokingTextField = form.getTextField('SMOKING');
     smokingTextField.setText(patientData.smoke);
     const tbaccoTextField = form.getTextField('TOBACCO');
@@ -159,6 +170,34 @@ async function writeDoctorData(filePath,patientData){
     //const pdfBytes = await pdfDoc.save()
 }
 
+async function insuranceSuperBill(filePath,patientData){
+
+    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/insurace-superbill.pdf'),{ ignoreEncryption: true });
+    const form = pdfDoc.getForm();
+    const lastNameTextField = form.getTextField('LAST NAME');
+    lastNameTextField.setText(patientData.lastName);
+    const firstNameTextField = form.getTextField('FIRST NAME');
+    firstNameTextField.setText(patientData.firstName);
+    const middleNameTextField = form.getTextField('MIDDLE NAME');
+    middleNameTextField.setText(patientData.middleName);
+    const phoneNumberTextField = form.getTextField('PHONE NUMBER');
+    phoneNumberTextField.setText(patientData.mobilePhoneNo);
+    const alergiesTextField = form.getTextField('ALLERGIES');
+    alergiesTextField.setText(patientData.alergic);
+    const pharmacyNameTextField = form.getTextField('PHARMACY NAME');
+    pharmacyNameTextField.setText(patientData.pharmacyName);
+    const ptYesNoTextField = form.getTextField('NEW PATIENT YES OR NO');
+    ptYesNoTextField.setText(patientData.isNewPatient);
+    const dateTextField = form.getTextField('DATE');
+    const d = new Date();
+    dateTextField.setText(d.toString());
+    const gender = form.getTextField('SEX');
+    gender.setText(patientData.gender);
+    const dobTextField = form.getTextField('DOB');
+    dobTextField.setText(patientData.dateOfBirth);
+     fs.writeFileSync(filePath, await pdfDoc.save({updateFieldAppearances: false}));
+}
+
 
 function getAge(dateString) {
     var today = new Date();
@@ -168,5 +207,5 @@ function getAge(dateString) {
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-    return age;
+    return age.toString();
 }
