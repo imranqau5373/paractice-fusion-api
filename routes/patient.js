@@ -63,6 +63,8 @@ router.post('/addNewPatient',upload.array("file"),patientController.addNewPatien
 
 router.post('/addExistingPatient',upload.array("file"),patientController.addExistingPatientRecord);
 
+router.get('/checkMRNNumber/:mrn',patientController.checkMRNNumber);
+
 router.get('/getAllNewPatients',patientController.getAllNewPatients);
 
 router.get('/getAllExistingPatients',patientController.getAllExistingPatients);

@@ -133,6 +133,22 @@ exports.addExistingPatientRecord = (req, response, next) => {
   
   };
 
+  exports.checkMRNNumber = (req, response, next) => {
+    MongoClient.connect(url, function(err, db) {
+      var dbo = db.db("mydb");
+      dbo.collection("NewPatientRecords").find({mrnNumber : req.params.mrn}).toArray(function(err, result) {
+        if (err) throw err;
+        db.close();
+        if(result && result.length == 0)
+          response.status(400).json({ error: 'No mrn number found.' })
+        else
+          response.status(200).json({ data: result })
+        });
+    });
+    
+  
+  };
+
   exports.getAllExistingPatients = (req, response, next) => {
     MongoClient.connect(url, function(err, db) {
       var dbo = db.db("mydb");
