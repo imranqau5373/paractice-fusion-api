@@ -91,15 +91,17 @@ exports.addExistingPatientRecord = (req, response, next) => {
         patientData.consentPath = consentPath;
         createConsentDoc(consentPath,patientData.firstName+' '+patientData.lastName,patientData.guardianName,patientData.witnessName);
       }
+      if(patientData.reasonForVisit == "Immigration"){
+         const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
+         patientData.imigrationFilePath = imigrationFilePath;
+         createImgrationForm(imigrationFilePath,patientData);
+      }
       if(patientData.insurance == "No"){
         const cashSuperBillFilePath = getPdfPath(folderPath,'cash-super-bill');
         patientData.cashSuperBillFilePath = cashSuperBillFilePath;
         createCashSuperBill(cashSuperBillFilePath,patientData);
       }
       else{
-        // const imigrationFilePath = getPdfPath(folderPath,'imigration-file');
-        // patientData.imigrationFilePath = imigrationFilePath;
-        // createImgrationForm(imigrationFilePath,patientData);
         patientData.isNewPatient = 'No';
         const insuranceFilePath = getPdfPath(folderPath,'insurance-file');
         patientData.insuranceFilePath = insuranceFilePath;
@@ -123,7 +125,12 @@ exports.addExistingPatientRecord = (req, response, next) => {
   exports.getAllNewPatients = (req, response, next) => {
     MongoClient.connect(url, function(err, db) {
       var dbo = db.db("mydb");
-      dbo.collection("NewPatientRecords").find({}).toArray(function(err, result) {
+      dbo.collection("NewPatientRecords").find({},{   projection: {
+        _id: false,
+        firstName : true,lastName:true,email:true,dateOfBirth:true,insurance:true,filePath:true,
+        insuranceFilePath:true,cashSuperBillFilePath:true,doctorFormPath:true,consentPath:true,
+        someField: true
+      }}).toArray(function(err, result) {
         if (err) throw err;
         console.log("New Patient Record Inserted");
         db.close();

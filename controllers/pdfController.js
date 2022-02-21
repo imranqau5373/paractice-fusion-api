@@ -9,7 +9,7 @@ exports.readPdfDocument = (req, res, next) => {
 
 async function modifyPdf() {
 
-    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/insurace-superbill.pdf'),{ ignoreEncryption: true });
+    const pdfDoc = await PDFDocument.load(fs.readFileSync('./public/pdfFile/imigration.pdf'),{ ignoreEncryption: true });
     const form = pdfDoc.getForm();
     const fields = form.getFields()
     fields.forEach(field => {
@@ -46,6 +46,12 @@ async function writeImigrationData(filePath,patientData){
     const form = pdfDoc.getForm();
     const lastNameTextField = form.getTextField('form1[0].#subform[0].Pt1Line1a_FamilyName[0]');
     lastNameTextField.setText(patientData.lastName);
+    const cityOfBirthTextField = form.getTextField('form1[0].#subform[0].Pt1Line1a_FamilyName[0]');
+    cityOfBirthTextField.setText(patientData.cityOfBirth);
+    const countryOfBirthTextField = form.getTextField('form1[0].#subform[0].Pt1Line9_CountryofBirth[0]');
+    countryOfBirthTextField.setText(patientData.countryOfBirth);
+    const imgNumberTextField = form.getTextField('form1[0].#subform[0].#area[0].Pt1Line3e_AlienNumber[0]');
+    imgNumberTextField.setText(patientData.imgNumber);
     const firstNameTextField = form.getTextField('form1[0].#subform[0].Pt1Line1b_GivenName[0]');
     firstNameTextField.setText(patientData.firstName);
     const middleNameTextField = form.getTextField('form1[0].#subform[0].Pt1Line1c_MiddleName[0]');
