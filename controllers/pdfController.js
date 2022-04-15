@@ -145,7 +145,19 @@ async function writeCashSuperBill(filePath, patientData) {
 
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  dateTextField.setText(d.toString())
+  let day = d.getDay()
+  let month = d.getMonth()
+  let year = d.getFullYear()
+  dateTextField.setText(day + '/' + month + '/' + year)
+
+  const timeTextField = form.getTextField('TIME')
+  const date = new Date()
+  let hours = date.getUTCHours()
+  let min = date.getUTCMinutes()
+  let sec = date.getUTCSeconds()
+
+  timeTextField.setText(hours + ':' + min + ':' + sec)
+
   const gender = form.getTextField('SEX')
   gender.setText(patientData.gender)
   const dobTextField = form.getTextField('DOB')
@@ -172,6 +184,9 @@ async function writeDoctorData(filePath, patientData) {
   const gender = form.getTextField('GENDER')
   console.log(patientData.gender)
   gender.setText(patientData.gender)
+  //Reason of Visit
+  const reasonTextField = form.getTextField('CHIEF COMPLAINT')
+  reasonTextField.setText(patientData.reasonForVisitOther)
   const dobTextField = form.getTextField('DOB')
   dobTextField.setText(patientData.dateOfBirth)
   const ageTextField = form.getTextField('AGE')
@@ -207,22 +222,37 @@ async function writeDoctorData(filePath, patientData) {
 
   // Surgeries
   const surgeriesTextField = form.getTextField('SURGERIES')
-  if (patientData.surgery == 'No') {
-    surgeriesTextField.setText(patientData.surgery)
-  } else {
-    surgeriesTextField.setText(
-      patientData.surgery + ',' + patientData.surgeryExplain
-    )
-  }
-
+  surgeriesTextField.setText(
+    patientData.surgery == 'No'
+      ? patientData.surgery
+      : patientData.surgeryExplain
+  )
+  //Smoke
   const smokingTextField = form.getTextField('SMOKING')
-  smokingTextField.setText(patientData.smoke)
+  if (patientData.smoke == 'No') {
+    smokingTextField.setText(patientData.smoke)
+  } else {
+    smokingTextField.setText(patientData.smokeExplain)
+  }
+  // Tobacco
   const tbaccoTextField = form.getTextField('TOBACCO')
-  tbaccoTextField.setText(patientData.tobacco)
+  if (patientData.tobacco == 'No') {
+    tbaccoTextField.setText(patientData.tobacco)
+  } else {
+    tbaccoTextField.setText(patientData.tobaccoExplain)
+  }
+  // Alcohol
   const alcoholTextField = form.getTextField('ALCOHOL')
-  alcoholTextField.setText(patientData.alcohol)
+  alcoholTextField.setText(
+    patientData.alcohol == 'No'
+      ? patientData.alcohol
+      : patientData.alcoholExplain
+  )
+
   const drugsTextField = form.getTextField('DRUGS')
-  drugsTextField.setText(patientData.drugs)
+  drugsTextField.setText(
+    patientData.drugs == 'No' ? patientData.drugs : patientData.drugsExplain
+  )
   // Marital Status
   const marriedTextField = form.getTextField('MARRIED')
 
@@ -343,9 +373,21 @@ async function insuranceSuperBill(filePath, patientData) {
 
   const ptYesNoTextField = form.getTextField('NEW PATIENT YES OR NO')
   ptYesNoTextField.setText(patientData.isNewPatient)
+  // Date
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  dateTextField.setText(d.toString())
+  let day = d.getDay()
+  let month = d.getMonth()
+  let year = d.getFullYear()
+  dateTextField.setText(day + '/' + month + '/' + year)
+  // Time
+  const timeTextField = form.getTextField('TIME IN')
+  const date = new Date()
+  let hours = date.getHours()
+  let min = date.getMinutes()
+  let sec = date.getSeconds()
+  timeTextField.setText(hours + ':' + min + ':' + sec)
+
   const gender = form.getTextField('SEX')
   gender.setText(patientData.gender)
   const dobTextField = form.getTextField('DOB')
