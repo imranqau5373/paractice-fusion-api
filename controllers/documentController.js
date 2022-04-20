@@ -14,10 +14,10 @@ const {
 var fileExtension = require('file-extension')
 
 exports.writeNewPatientData = (patientData) => {
-  let insWidth,
-    adultWidth = 600
-  let insHeight,
-    adultHeight = 400
+  let insWidth = 600
+  let insHeight = 400
+  let adultWidth = 600
+  let adultHeight = 400
   if (patientData.insurance == 'No') {
     insWidth = insHeight = 0
   }
@@ -128,6 +128,7 @@ exports.writeNewPatientData = (patientData) => {
                     : '',
                 break: patientData.insurance == 'Yes' ? 4 : 0,
               }),
+
               new ImageRun({
                 data:
                   patientData.insurance == 'Yes'
@@ -143,6 +144,7 @@ exports.writeNewPatientData = (patientData) => {
                   height: insHeight,
                 },
               }),
+
               new TextRun({
                 text:
                   patientData.insurance == 'Yes'
@@ -165,10 +167,11 @@ exports.writeNewPatientData = (patientData) => {
                   height: insHeight,
                 },
               }),
+
               new TextRun({
                 text:
                   patientData.adult == 'No'
-                    ? 'Guardian Id Card Piciture \t'
+                    ? 'Guardian Id Card Picture \t'
                     : '',
                 break: patientData.adult == 'No' ? 2 : 0,
               }),

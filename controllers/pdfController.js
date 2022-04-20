@@ -1,3 +1,4 @@
+const { time } = require('console')
 const res = require('express/lib/response')
 const fs = require('fs')
 const pdfDoc = require('pdf-lib')
@@ -145,18 +146,17 @@ async function writeCashSuperBill(filePath, patientData) {
 
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  let day = d.getDay()
-  let month = d.getMonth()
-  let year = d.getFullYear()
-  dateTextField.setText(day + '/' + month + '/' + year)
+  dateTextField.setText(d.toLocaleDateString('en-us'))
 
   const timeTextField = form.getTextField('TIME')
-  const date = new Date()
-  let hours = date.getUTCHours()
-  let min = date.getUTCMinutes()
-  let sec = date.getUTCSeconds()
-
-  timeTextField.setText(hours + ':' + min + ':' + sec)
+  var time = new Date()
+  timeTextField.setText(
+    time.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    })
+  )
 
   const gender = form.getTextField('SEX')
   gender.setText(patientData.gender)
@@ -186,7 +186,11 @@ async function writeDoctorData(filePath, patientData) {
   gender.setText(patientData.gender)
   //Reason of Visit
   const reasonTextField = form.getTextField('CHIEF COMPLAINT')
-  reasonTextField.setText(patientData.reasonForVisitOther)
+  reasonTextField.setText(
+    patientData.reasonForVisit == 'Other'
+      ? patientData.reasonForVisitOther
+      : patientData.reasonForVisit
+  )
   const dobTextField = form.getTextField('DOB')
   dobTextField.setText(patientData.dateOfBirth)
   const ageTextField = form.getTextField('AGE')
@@ -194,20 +198,26 @@ async function writeDoctorData(filePath, patientData) {
   //ageTextField.setText('12');
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  dateTextField.setText(d.toString())
+  dateTextField.setText(d.toLocaleDateString('en-us'))
+
+  //Time
   const timeTextField = form.getTextField('TIME')
   timeTextField.setText(
-    d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds()
+    d.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    })
   )
+
   /// Alergic
   const alergiesTextField = form.getTextField('ALLERGIES')
-  if ((patientData.alergic = 'No')) {
-    alergiesTextField.setText(patientData.alergic)
-  } else {
-    alergiesTextField.setText(
-      patientData.alergic + ',' + patientData.alergicExplain
-    )
-  }
+  alergiesTextField.setText(
+    patientData.alergic == 'No'
+      ? patientData.alergic
+      : patientData.alergicExplain
+  )
+
   // Medical Family History
   const familyMedicialHistoryTextField = form.getTextField(
     'FAMILY MEDICAL HISTORY'
@@ -376,17 +386,17 @@ async function insuranceSuperBill(filePath, patientData) {
   // Date
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  let day = d.getDay()
-  let month = d.getMonth()
-  let year = d.getFullYear()
-  dateTextField.setText(day + '/' + month + '/' + year)
+  dateTextField.setText(d.toLocaleDateString('en-us'))
   // Time
   const timeTextField = form.getTextField('TIME IN')
-  const date = new Date()
-  let hours = date.getHours()
-  let min = date.getMinutes()
-  let sec = date.getSeconds()
-  timeTextField.setText(hours + ':' + min + ':' + sec)
+  var time = new Date()
+  timeTextField.setText(
+    time.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    })
+  )
 
   const gender = form.getTextField('SEX')
   gender.setText(patientData.gender)
