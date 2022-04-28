@@ -33,31 +33,25 @@ exports.writeNewPatientData = (patientData) => {
             children: [
               new TextRun({
                 text:
-                  'First Name  \t' +
+                  'First Name: \t' +
                   (patientData.firstName ? patientData.firstName : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text:
-                  'Middle Name  \t' +
+                  '\t Middle Name: \t ' +
                   (patientData.middleName ? patientData.middleName : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text:
-                  'Last Name  \t' +
+                  '\t  Last Name: \t' +
                   (patientData.lastName ? patientData.lastName : ''),
-                break: 2,
+                //   break: 2,
               }),
               new TextRun({
                 text:
-                  'Address  \t' +
-                  (patientData.address ? patientData.address : ''),
-                break: 2,
-              }),
-              new TextRun({
-                text:
-                  'Date of Birth \t' +
+                  'Date of Birth: \t' +
                   (patientData.dateOfBirth &&
                   patientData.dateOfBirth != undefined
                     ? patientData.dateOfBirth
@@ -66,15 +60,22 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Age \t' +
+                  '\t Age: \t' +
                   (patientData.age && patientData.age != undefined
                     ? patientData.age
                     : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text:
-                  'APT \t' +
+                  'Address:  \t' +
+                  (patientData.address ? patientData.address : ''),
+                break: 2,
+              }),
+
+              new TextRun({
+                text:
+                  'APT: \t' +
                   (patientData.apt && patientData.apt != undefined
                     ? patientData.apt
                     : ''),
@@ -82,23 +83,23 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'City \t' +
+                  '\t City: \t' +
                   (patientData.city && patientData.city != undefined
                     ? patientData.city
                     : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text:
-                  'Race \t' +
+                  '\t Race: \t' +
                   (patientData.race && patientData.race != undefined
                     ? patientData.race
                     : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text:
-                  'State \t' +
+                  'State: \t' +
                   (patientData.state && patientData.state != undefined
                     ? patientData.state
                     : ''),
@@ -106,15 +107,15 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Zip \t' +
+                  '\t Zip: \t' +
                   (patientData.zipCode && patientData.zipCode != undefined
                     ? patientData.zipCode
                     : ''),
-                break: 2,
+                //   break: 2,
               }),
 
               new TextRun({
-                text: 'Gender \t' + patientData.gender,
+                text: 'Gender: \t' + patientData.gender,
                 break: 2,
               }),
               new TextRun({
@@ -193,19 +194,19 @@ exports.writeNewPatientData = (patientData) => {
               new TextRun({
                 text:
                   patientData.adult == 'No'
-                    ? 'Guardian Name \t' + patientData.guardianName
+                    ? 'Guardian Name: \t' + patientData.guardianName
                     : '',
                 break: patientData.adult == 'No' ? 2 : 0,
               }),
               new TextRun({
                 text:
                   patientData.adult == 'No'
-                    ? 'Guardian Relation \t' + patientData.guardianRelation
+                    ? 'Guardian Relation: \t' + patientData.guardianRelation
                     : '',
                 break: patientData.adult == 'No' ? 2 : 0,
               }),
               new TextRun({
-                text: 'ID Card Piciture \t',
+                text: 'ID Card Piciture: \t',
                 break: 2,
               }),
 
@@ -232,7 +233,7 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Marital Status \t' +
+                  'Marital Status: \t' +
                   (patientData.maritalStatus &&
                   patientData.maritalStatus != undefined
                     ? patientData.maritalStatus
@@ -242,16 +243,16 @@ exports.writeNewPatientData = (patientData) => {
 
               new TextRun({
                 text:
-                  'Occupation \t' +
+                  '\t Occupation: \t' +
                   (patientData.occupation && patientData.occupation != undefined
                     ? patientData.occupation
                     : ''),
-                break: 2,
+                //  break: 2,
               }),
 
               new TextRun({
                 text:
-                  'Mobile Phone No \t' +
+                  'Mobile Phone No: \t' +
                   (patientData.mobilePhoneNo &&
                   patientData.mobilePhoneNo != undefined
                     ? patientData.mobilePhoneNo
@@ -260,16 +261,16 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'DayTime Phone No \t' +
+                  '\t DayTime Phone No: \t' +
                   (patientData.dayTimePhoneNo &&
                   patientData.dayTimePhoneNo != undefined
                     ? patientData.dayTimePhoneNo
                     : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text:
-                  'SSN \t' +
+                  'SSN: \t' +
                   (patientData.ssn && patientData.ssn != undefined
                     ? patientData.ssn
                     : ''),
@@ -277,7 +278,7 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Email \t' +
+                  'Email: \t' +
                   (patientData.email && patientData.email != undefined
                     ? patientData.email
                     : ''),
@@ -291,7 +292,7 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Surgery Reason Explain \t' +
+                  'Surgery Reason Explain: \t' +
                   (patientData.surgeryExplain
                     ? patientData.surgeryExplain
                     : ''),
@@ -305,7 +306,7 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'ALLERGIC MEDICATIONS Explain \t' +
+                  'ALLERGIC MEDICATIONS Explain: \t' +
                   (patientData.alergicExplain
                     ? patientData.alergicExplain
                     : ''),
@@ -320,7 +321,7 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Medical Problem Explain \t' +
+                  'Medical Problem Explain: \t' +
                   (patientData.medicalProblemExplain
                     ? patientData.medicalProblemExplain
                     : ''),
@@ -342,9 +343,9 @@ exports.writeNewPatientData = (patientData) => {
 
               new TextRun({
                 text:
-                  'HOW MUCH: \t' +
+                  '\t HOW MUCH: \t' +
                   (patientData.smokeExplain ? patientData.smokeExplain : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text: 'CHEW TOBACCO?  \t' + patientData.tobacco,
@@ -352,11 +353,11 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'HOW MUCH: \t' +
+                  '\t HOW MUCH: \t' +
                   (patientData.tobaccoExplain
                     ? patientData.tobaccoExplain
                     : ''),
-                break: 2,
+                //   break: 2,
               }),
               new TextRun({
                 text: 'DO YOU DRINK ALCOHOL?  \t' + patientData.alcohol,
@@ -364,11 +365,11 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'HOW MUCH: \t' +
+                  '\t HOW MUCH: \t' +
                   (patientData.alcoholExplain
                     ? patientData.alcoholExplain
                     : ''),
-                break: 2,
+                //   break: 2,
               }),
               new TextRun({
                 text: 'DO YOU USE DRUGS?  \t' + patientData.drugs,
@@ -376,9 +377,9 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'HOW MUCH: \t' +
+                  '\t HOW MUCH: \t' +
                   (patientData.drugsExplain ? patientData.drugsExplain : ''),
-                break: 2,
+                //  break: 2,
               }),
               new TextRun({
                 text:
@@ -485,18 +486,18 @@ exports.writeNewPatientData = (patientData) => {
                 break: 2,
               }),
               new TextRun({
-                text: 'IF YES, PLEASE PROVIDE INFORMATION BELOW \t',
+                text: 'IF YES, PLEASE PROVIDE INFORMATION BELOW: \t',
                 break: 2,
               }),
               new TextRun({
                 text:
-                  'Family Member Name \t' +
+                  'Family Member Name: \t' +
                   (patientData.contactName ? patientData.contactName : ''),
                 break: 2,
               }),
               new TextRun({
                 text:
-                  'Family Member Relationship \t' +
+                  'Family Member Relationship: \t' +
                   (patientData.contactRelation
                     ? patientData.contactRelation
                     : ''),
@@ -504,13 +505,13 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Family Member Phone \t' +
+                  'Family Member Phone: \t' +
                   (patientData.contactPhone ? patientData.contactPhone : ''),
                 break: 2,
               }),
               new TextRun({
                 text:
-                  'Family Medicial History \t' +
+                  'Family Medicial History: \t' +
                   (patientData.familyMedicialHistory
                     ? patientData.familyMedicialHistory
                     : ''),
@@ -523,7 +524,7 @@ exports.writeNewPatientData = (patientData) => {
                 break: 2,
               }),
               new TextRun({
-                text: 'Patient Signature \t',
+                text: 'Patient Signature: \t',
                 break: 2,
               }),
               new ImageRun({
