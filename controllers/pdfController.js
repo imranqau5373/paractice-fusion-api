@@ -109,10 +109,11 @@ async function writeImigrationData(filePath, patientData) {
   )
   addressTextField.setText(patientData.inputAddress)
   // Apt/Suite/floorNumber
-  const aptNumberTextField = form.getTextField(
+  /* const aptSteFlrNumberTextField = form.getTextField(
     'form1[0].#subform[0].Pt1Line2_AptSteFlrNumber[0]'
   )
-  aptNumberTextField.setText(patientData.aptNumber)
+  aptSteFlrNumberTextField.setText(patientData.aptNumber) */
+
   const daytimePhoneTextField = form.getTextField(
     'form1[0].#subform[1].Pt2Line2_DaytimePhone[0]'
   )
