@@ -37,15 +37,18 @@ exports.addNewPatientRecord = (req, response, next) => {
       const cashSuperBillFilePath = getPdfPath(folderPath, 'cash-super-bill')
       patientData.cashSuperBillFilePath = cashSuperBillFilePath
       createCashSuperBill(cashSuperBillFilePath, patientData)
-    } else {
+    }
+    if (patientData.reasonForVisit == 'Immigration') {
       const imigrationFilePath = getPdfPath(folderPath, 'imigration-file')
       patientData.imigrationFilePath = imigrationFilePath
       createImgrationForm(imigrationFilePath, patientData)
+    } else {
       patientData.isNewPatient = 'Yes'
       const insuranceFilePath = getPdfPath(folderPath, 'insurance-file')
       patientData.insuranceFilePath = insuranceFilePath
       createInsuranceForm(insuranceFilePath, patientData)
     }
+
     const doc = documentController.writeNewPatientData(patientData)
     try {
       Packer.toBuffer(doc).then((buffer) => {
@@ -145,6 +148,8 @@ exports.getAllNewPatients = (req, response, next) => {
             dateOfBirth: true,
             insurance: true,
             filePath: true,
+            reasonForVisit: true,
+            imigrationFilePath: true,
             insuranceFilePath: true,
             cashSuperBillFilePath: true,
             doctorFormPath: true,

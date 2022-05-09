@@ -49,38 +49,70 @@ async function writeImigrationData(filePath, patientData) {
     { ignoreEncryption: true }
   )
   const form = pdfDoc.getForm()
+  //First Name
+  const firstNameTextField = form.getTextField(
+    'form1[0].#subform[0].Pt1Line1b_GivenName[0]'
+  )
+  firstNameTextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNameTextField = form.getTextField(
+    'form1[0].#subform[0].Pt1Line1c_MiddleName[0]'
+  )
+  middleNameTextField.setText(patientData.middleName)
+  // Last Name
   const lastNameTextField = form.getTextField(
     'form1[0].#subform[0].Pt1Line1a_FamilyName[0]'
   )
   lastNameTextField.setText(patientData.lastName)
+
   const cityOfBirthTextField = form.getTextField(
-    'form1[0].#subform[0].Pt1Line1a_FamilyName[0]'
+    'form1[0].#subform[0].P1Line2_CityOrTown[0]'
   )
   cityOfBirthTextField.setText(patientData.cityOfBirth)
   const countryOfBirthTextField = form.getTextField(
     'form1[0].#subform[0].Pt1Line9_CountryofBirth[0]'
   )
   countryOfBirthTextField.setText(patientData.countryOfBirth)
+  //AlienNumber
   const imgNumberTextField = form.getTextField(
     'form1[0].#subform[0].#area[0].Pt1Line3e_AlienNumber[0]'
   )
   imgNumberTextField.setText(patientData.imgNumber)
-  const firstNameTextField = form.getTextField(
-    'form1[0].#subform[0].Pt1Line1b_GivenName[0]'
+  // uscisNumber
+  const uscisNumberTextField = form.getTextField(
+    'form1[0].#subform[0].Pt1Line2_USCISELISAcctNumber[0]'
   )
-  firstNameTextField.setText(patientData.firstName)
-  const middleNameTextField = form.getTextField(
-    'form1[0].#subform[0].Pt1Line1c_MiddleName[0]'
-  )
-  middleNameTextField.setText(patientData.middleName)
+  uscisNumberTextField.setText(patientData.uscisNumber)
+
+  // Apartment
+  if (patientData.apt == 'Apartment') {
+    const apartmentCheckBox = form.getCheckBox(
+      'form1[0].#subform[0].Pt1Line2_Unit[2]'
+    )
+    apartmentCheckBox.check()
+  } else if (patientData.apt == 'Suite') {
+    const suiteCheckBox = form.getCheckBox(
+      'form1[0].#subform[0].Pt1Line2_Unit[1]'
+    )
+    suiteCheckBox.check()
+  } else {
+    const floorCheckBox = form.getCheckBox(
+      'form1[0].#subform[0].Pt1Line2_Unit[0]'
+    )
+    floorCheckBox.check()
+  }
+  // City
+
   const addressTextField = form.getTextField(
     'form1[0].#subform[0].Pt1Line2_StreetNumberName[0]'
   )
-  addressTextField.setText(patientData.address)
-  const ssnTextField = form.getTextField(
+  addressTextField.setText(patientData.inputAddress)
+  // Apt/Suite/floorNumber
+  const aptNumberTextField = form.getTextField(
     'form1[0].#subform[0].Pt1Line2_AptSteFlrNumber[0]'
   )
-  ssnTextField.setText('123456')
+  aptNumberTextField.setText(patientData.aptNumber)
   const daytimePhoneTextField = form.getTextField(
     'form1[0].#subform[1].Pt2Line2_DaytimePhone[0]'
   )
@@ -112,14 +144,29 @@ async function writeImigrationData(filePath, patientData) {
     'form1[0].#subform[0].Pt1Line7_DateOfBirth[0]'
   )
   dobTextField.setText(patientData.dateOfBirth)
+  // City Village Town
   const birthCityTextField = form.getTextField(
     'form1[0].#subform[0].Pt1Line8_CityTownVillageofBirth[0]'
   )
-  birthCityTextField.setText(patientData.city)
+  birthCityTextField.setText(patientData.cityTownVillage)
+  // City or Town
   const cityTextField = form.getTextField(
     'form1[0].#subform[0].P1Line2_CityOrTown[0]'
   )
-  cityTextField.setText(patientData.city)
+  cityTextField.setText(patientData.cityOfBirth)
+  // InterPreter
+  if (patientData.interpreter == 'Yes') {
+    const interpreterCheckBox = form.getCheckBox(
+      'form1[0].#subform[0].Pt2Line1_Checkbox[0]'
+    )
+    interpreterCheckBox.check()
+  } else {
+    const interpreter2CheckBox = form.getCheckBox(
+      'form1[0].#subform[0].Pt2Line1_Checkbox[1]'
+    )
+    interpreter2CheckBox.check()
+  }
+
   fs.writeFileSync(
     filePath,
     await pdfDoc.save({ updateFieldAppearances: false })
