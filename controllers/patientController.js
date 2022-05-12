@@ -42,6 +42,14 @@ exports.addNewPatientRecord = (req, response, next) => {
       const imigrationFilePath = getPdfPath(folderPath, 'imigration-file')
       patientData.imigrationFilePath = imigrationFilePath
       createImgrationForm(imigrationFilePath, patientData)
+    }
+    if (patientData.reasonForVisit == 'dotPhysical') {
+      const medicalExaminationFilePath = getPdfPath(
+        folderPath,
+        'medical-examination'
+      )
+      patientData.medicalExaminationFilePath = medicalExaminationFilePath
+      createMedicalExaminationForm(medicalExaminationFilePath, patientData)
     } else {
       patientData.isNewPatient = 'Yes'
       const insuranceFilePath = getPdfPath(folderPath, 'insurance-file')
@@ -106,6 +114,14 @@ exports.addExistingPatientRecord = (req, response, next) => {
       patientData.imigrationFilePath = imigrationFilePath
       createImgrationForm(imigrationFilePath, patientData)
     }
+    if (patientData.reasonForVisit == 'dotPhysical') {
+      const medicalExaminationFilePath = getPdfPath(
+        folderPath,
+        'medical-examination'
+      )
+      patientData.medicalExaminationFilePath = medicalExaminationFilePath
+      createMedicalExaminationForm(medicalExaminationFilePath, patientData)
+    }
     if (patientData.insurance == 'No') {
       const cashSuperBillFilePath = getPdfPath(folderPath, 'cash-super-bill')
       patientData.cashSuperBillFilePath = cashSuperBillFilePath
@@ -152,6 +168,7 @@ exports.getAllNewPatients = (req, response, next) => {
             imigrationFilePath: true,
             insuranceFilePath: true,
             cashSuperBillFilePath: true,
+            medicalExaminationFilePath: true,
             doctorFormPath: true,
             consentPath: true,
             someField: true,
@@ -239,6 +256,10 @@ function createConsentDoc(filePath, patientName, guardianName, witnessName) {
 
 function createImgrationForm(filePath, patientData) {
   pdfController.writeImigrationData(filePath, patientData)
+}
+
+function createMedicalExaminationForm(filePath, patientData) {
+  pdfController.writeMedicalExaminationData(filePath, patientData)
 }
 
 function createInsuranceForm(filePath, patientData) {

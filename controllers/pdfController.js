@@ -10,7 +10,7 @@ exports.readPdfDocument = (req, res, next) => {
 
 async function modifyPdf() {
   const pdfDoc = await PDFDocument.load(
-    fs.readFileSync('./public/pdfFile/imigration.pdf'),
+    fs.readFileSync('./public/pdfFile/medicalexamination.pdf'),
     { ignoreEncryption: true }
   )
   const form = pdfDoc.getForm()
@@ -25,6 +25,9 @@ async function modifyPdf() {
   // textField.setText('Exia')
   // fs.writeFileSync('./public/patientRecords/imigration-latest.pdf', await pdfDoc.save({updateFieldAppearances: false}));
   //const pdfBytes = await pdfDoc.save()
+}
+exports.writeMedicalExaminationData = (filePath, patientData) => {
+  writeMedicalExaminationData(filePath, patientData)
 }
 
 exports.writeImigrationData = (filePath, patientData) => {
@@ -109,10 +112,16 @@ async function writeImigrationData(filePath, patientData) {
   )
   addressTextField.setText(patientData.inputAddress)
   // Apt/Suite/floorNumber
-  /* const aptSteFlrNumberTextField = form.getTextField(
+  const aptSteFlrNumberTextField = form.getTextField(
     'form1[0].#subform[0].Pt1Line2_AptSteFlrNumber[0]'
   )
-  aptSteFlrNumberTextField.setText(patientData.aptNumber) */
+  aptSteFlrNumberTextField.setText(
+    patientData.aptNumber &&
+      patientData.aptNumber != undefined &&
+      patientData.aptNumber != 'undefined'
+      ? patientData.aptNumber
+      : ''
+  )
 
   const daytimePhoneTextField = form.getTextField(
     'form1[0].#subform[1].Pt2Line2_DaytimePhone[0]'
@@ -173,6 +182,127 @@ async function writeImigrationData(filePath, patientData) {
     await pdfDoc.save({ updateFieldAppearances: false })
   )
 }
+/*    ====Medical examination Report ==== */
+async function writeMedicalExaminationData(filePath, patientData) {
+  const pdfDoc = await PDFDocument.load(
+    fs.readFileSync('./public/pdfFile/medicalexamination.pdf'),
+    { ignoreEncryption: true }
+  )
+  console.log('Writing Medical Data')
+  const form = pdfDoc.getForm()
+  const lastNameTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].nameLast[0]'
+  )
+  lastNameTextField.setText(patientData.lastName)
+  console.log(patientData.lastName)
+  const firstNameTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].nameFirst[0]'
+  )
+  firstNameTextField.setText(patientData.firstName)
+
+  const dobTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].birthDate[0]'
+  )
+  dobTextField.setText(patientData.dateOfBirth)
+
+  const ageTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverAge[0]'
+  )
+  ageTextField.setText(getAge(patientData.dateOfBirth))
+  const addressTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverAddress[0]'
+  )
+  addressTextField.setText(patientData.inputAddress)
+
+  const cityTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverCity[0]'
+  )
+  cityTextField.setText(patientData.city)
+
+  const stateDropdown = form.getDropdown(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverState[0]'
+  )
+  const options = stateDropdown.getOptions(patientData.state)
+  stateDropdown.select(patientData.state)
+
+  const zipCodeTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverZip[0]'
+  )
+  zipCodeTextField.setText(patientData.zipCode)
+  const driverLicenseNumberTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverLicense[0]'
+  )
+  driverLicenseNumberTextField.setText(patientData.driverLicenseNumber)
+  /* ========License State========== */
+  const licenseStateDropdown = form.getDropdown(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].licenseState[0]'
+  )
+  const optionss = licenseStateDropdown.getOptions(patientData.licenseState)
+  licenseStateDropdown.select(patientData.licenseState)
+
+  const emailTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].emailAddress[0]'
+  )
+  emailTextField.setText(patientData.email)
+
+  if (patientData.clpCdl == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].driverPersonal[0].cdlLicense[0].cdlButtonList[0]'
+    )
+    radioGroup.select('Yes')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].driverPersonal[0].cdlLicense[0].cdlButtonList[0]'
+    )
+    radioGroup.select('No')
+  }
+
+  const driverIdVerifiedByTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverVerify[0]'
+  )
+  driverIdVerifiedByTextField.setText(patientData.driverIdVerifiedBy)
+
+  if (patientData.usdotFmcsa == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].driverPersonal[0].certDenyGroup[0].certDenyButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.usdotFmcsa == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].driverPersonal[0].certDenyGroup[0].certDenyButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].driverPersonal[0].certDenyGroup[0].certDenyButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  // Gender
+  if (patientData.gender == 'Male') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].driverPersonal[0].genderGroup[0].genderButtons[0]'
+    )
+    radioGroup.select('1')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].driverPersonal[0].genderGroup[0].genderButtons[0]'
+    )
+    radioGroup.select('2')
+  }
+
+  const driverPhoneTextField = form.getTextField(
+    'MCSA-5875[0].Page1[0].driverPersonal[0].driverPhone[0]'
+  )
+  driverPhoneTextField.setText(patientData.driverPhone)
+
+  fs.writeFileSync(
+    filePath,
+    await pdfDoc.save({ updateFieldAppearances: false })
+  )
+}
+
+/*   ============================================ */
 
 async function writeCashSuperBill(filePath, patientData) {
   const pdfDoc = await PDFDocument.load(
