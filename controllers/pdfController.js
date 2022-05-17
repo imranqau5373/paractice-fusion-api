@@ -296,6 +296,672 @@ async function writeMedicalExaminationData(filePath, patientData) {
   )
   driverPhoneTextField.setText(patientData.driverPhone)
 
+  //
+  if (patientData.driverSurgery == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].surgeryGroup[0].surgeryButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.driverSurgery == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].surgeryGroup[0].surgeryButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].surgeryGroup[0].surgeryButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  const driverSurgeryExplain = form.getTextField(
+    'MCSA-5875[0].Page1[0].surgeryGroup[0].surgeryDescribe[0]'
+  )
+  driverSurgeryExplain.setText(patientData.driverSurgeryExplain)
+  //
+  if (patientData.driverMedicine == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].medicineGroup[0].medicineButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.driverMedicine == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].medicineGroup[0].medicineButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page1[0].medicineGroup[0].medicineButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  const driverMedicineExplain = form.getTextField(
+    'MCSA-5875[0].Page1[0].surgeryGroup[0].medicineDescribe[0]'
+  )
+  driverMedicineExplain.setText(patientData.driverMedicineExplain)
+
+  /* Diver Health Info Part Two */
+  if (patientData.head == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].headGroup[0].headButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.head == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].headGroup[0].headButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].headGroup[0].headButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* seizures */
+
+  if (patientData.seizures == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].seizeGroup[0].seizeButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.seizures == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].seizeGroup[0].seizeButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].seizeGroup[0].seizeButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* EYE */
+  if (patientData.eye == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].eyeGroup[0].eyeButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.eye == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].eyeGroup[0].eyeButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].eyeGroup[0].eyeButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Ear */
+  if (patientData.ear == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].earGroup[0].earButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.ear == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].earGroup[0].earButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].earGroup[0].earButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* heart */
+  if (patientData.heart == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].heartGroup[0].heartButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.heart == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].heartGroup[0].heartButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].heartGroup[0].heartButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Pace */
+  if (patientData.pace == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].paceGroup[0].paceButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.pace == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].paceGroup[0].paceButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].paceGroup[0].paceButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* highBlood */
+  if (patientData.highBlood == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].highGroup[0].highButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.highBlood == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].highGroup[0].highButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].highGroup[0].highButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* High Cholestrol */
+  if (patientData.highCholestrol == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].cholesterolGroup[0].cholesterolButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.highCholestrol == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].cholesterolGroup[0].cholesterolButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].cholesterolGroup[0].cholesterolButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Breath */
+  if (patientData.breath == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].breathGroup[0].breathButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.breath == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].breathGroup[0].breathButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].breathGroup[0].breathButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Lung */
+  if (patientData.lung == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].lungGroup[0].lungButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.lung == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].lungGroup[0].lungButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].lungGroup[0].lungButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Kidney */
+  if (patientData.kidney == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].kidneyGroup[0].kidneyButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.kidney == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].kidneyGroup[0].kidneyButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].kidneyGroup[0].kidneyButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Stomach */
+  if (patientData.stomach == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].stomachGroup[0].stomachButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.stomach == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].stomachGroup[0].stomachButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].stomachGroup[0].stomachButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* bloodSugar */
+  if (patientData.bloodSugar == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].sugarGroup[0].sugarButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.bloodSugar == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].sugarGroup[0].sugarButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].sugarGroup[0].sugarButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Insulin */
+  if (patientData.insulin == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].insulinGroup[0].insulinButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.insulin == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].insulinGroup[0].insulinButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].insulinGroup[0].insulinButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Mental Health */
+  if (patientData.mentalHealth == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].mentalGroup[0].mentalButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.mentalHealth == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].mentalGroup[0].mentalButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].mentalGroup[0].mentalButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Fainting */
+  if (patientData.fainting == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].faintGroup[0].faintButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.fainting == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].faintGroup[0].faintButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].faintGroup[0].faintButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Dizzyness */
+  if (patientData.dizzy == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].dizzyGroup[0].dizzyButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.dizzy == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].dizzyGroup[0].dizzyButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].dizzyGroup[0].dizzyButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* WeightLoss */
+  if (patientData.weightLoss == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].weightGroup[0].weightButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.weightLoss == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].weightGroup[0].weightButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].weightGroup[0].weightButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Stroke */
+  if (patientData.stroke == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].strokeGroup[0].strokeButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.stroke == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].strokeGroup[0].strokeButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].strokeGroup[0].strokeButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* useLimit */
+  if (patientData.useLimit == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].uselimitGroup[0].uselimitButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.useLimit == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].uselimitGroup[0].uselimitButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].uselimitGroup[0].uselimitButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Neck */
+  if (patientData.neck == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].neckbackGroup[0].neckbackButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.neck == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].neckbackGroup[0].neckbackButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].neckbackGroup[0].neckbackButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Bone */
+  if (patientData.bone == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].boneGroup[0].boneButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.bone == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].boneGroup[0].boneButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].boneGroup[0].boneButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* blood */
+  if (patientData.blood == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].bloodGroup[0].bloodButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.blood == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].bloodGroup[0].bloodButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].bloodGroup[0].bloodButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Cancer  */
+  if (patientData.cancer == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].cancerGroup[0].cancerButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.cancer == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].cancerGroup[0].cancerButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].cancerGroup[0].cancerButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Chronic */
+  if (patientData.chronic == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].infectGroup[0].infectButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.chronic == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].infectGroup[0].infectButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].infectGroup[0].infectButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Apnea */
+  if (patientData.apnea == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].apneaGroup[0].apneaButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.apnea == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].apneaGroup[0].apneaButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].apneaGroup[0].apneaButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* SleepTest */
+  if (patientData.sleepTest == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].sleeptestGroup[0].sleeptestButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.sleepTest == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].sleeptestGroup[0].sleeptestButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].sleeptestGroup[0].sleeptestButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Hospital Night */
+  if (patientData.hospitalNight == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].hospitalGroup[0].hospitalButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.hospitalNight == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].hospitalGroup[0].hospitalButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].hospitalGroup[0].hospitalButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /*  Broken Bone */
+
+  if (patientData.brokenBone == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].brokenGroup[0].brokenButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.brokenBone == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].brokenGroup[0].brokenButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].brokenGroup[0].brokenButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  /* Tobacco */
+  if (patientData.dTabacco == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].tobaccoGroup[0].tobaccoButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.dTabacco == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].tobaccoGroup[0].tobaccoButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].tobaccoGroup[0].tobaccoButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* Alcohol */
+  if (patientData.dAlcohol == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].alcoholGroup[0].alcoholButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.dAlcohol == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].alcoholGroup[0].alcoholButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].alcoholGroup[0].alcoholButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* illegal */
+  if (patientData.illegal == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].illegalGroup[0].illegalButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.illegal == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].illegalGroup[0].illegalButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].illegalGroup[0].illegalButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* illegalDrug */
+  if (patientData.illegalDrug == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].failedGroup[0].failedButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.illegalDrug == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].failedGroup[0].failedButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].driverHealth[0].failedGroup[0].failedButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+  /* other Health */
+  if (patientData.otherHealth == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].otherGroup[0].otherButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.otherHealth == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].otherGroup[0].otherButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].otherGroup[0].otherButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  const otherHealthExplainTextField = form.getTextField(
+    'MCSA-5875[0].Page2[0].otherGroup[0].otherDescribe[0]'
+  )
+  otherHealthExplainTextField.setText(patientData.otherHealthExplain)
+
+  /* Driver Comment */
+  if (patientData.dComment == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].commentGroup[0].commentButtons[0]'
+    )
+    radioGroup.select('1')
+  } else if (patientData.dComment == 'No') {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].commentGroup[0].commentButtons[0]'
+    )
+    radioGroup.select('2')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'MCSA-5875[0].Page2[0].commentGroup[0].commentButtons[0]'
+    )
+    radioGroup.select('3')
+  }
+
+  const dCommentExplainTextField = form.getTextField(
+    'MCSA-5875[0].Page2[0].commentGroup[0].commentDescribe[0]'
+  )
+  dCommentExplainTextField.setText(patientData.dCommentExplain)
+
   fs.writeFileSync(
     filePath,
     await pdfDoc.save({ updateFieldAppearances: false })
