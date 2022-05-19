@@ -50,6 +50,14 @@ exports.addNewPatientRecord = (req, response, next) => {
       )
       patientData.medicalExaminationFilePath = medicalExaminationFilePath
       createMedicalExaminationForm(medicalExaminationFilePath, patientData)
+    }
+    if (patientData.reasonForVisit == 'dotPhysical') {
+      const medicalCertificateFilePath = getPdfPath(
+        folderPath,
+        'medical-certificate'
+      )
+      patientData.medicalCertificateFilePath = medicalCertificateFilePath
+      createMedicalCertificateForm(medicalCertificateFilePath, patientData)
     } else {
       patientData.isNewPatient = 'Yes'
       const insuranceFilePath = getPdfPath(folderPath, 'insurance-file')
@@ -121,6 +129,13 @@ exports.addExistingPatientRecord = (req, response, next) => {
       )
       patientData.medicalExaminationFilePath = medicalExaminationFilePath
       createMedicalExaminationForm(medicalExaminationFilePath, patientData)
+
+      const medicalCertificateFilePath = getPdfPath(
+        folderPath,
+        'medical-certificate'
+      )
+      patientData.medicalCertificateFilePath = medicalCertificateFilePath
+      createMedicalCertificateForm(medicalCertificateFilePath, patientData)
     }
     if (patientData.insurance == 'No') {
       const cashSuperBillFilePath = getPdfPath(folderPath, 'cash-super-bill')
@@ -169,6 +184,7 @@ exports.getAllNewPatients = (req, response, next) => {
             insuranceFilePath: true,
             cashSuperBillFilePath: true,
             medicalExaminationFilePath: true,
+            medicalCertificateFilePath: true,
             doctorFormPath: true,
             consentPath: true,
             someField: true,
@@ -261,7 +277,11 @@ function createImgrationForm(filePath, patientData) {
 function createMedicalExaminationForm(filePath, patientData) {
   pdfController.writeMedicalExaminationData(filePath, patientData)
 }
-
+/*  */
+function createMedicalCertificateForm(filePath, patientData) {
+  pdfController.writeMedicalCertificateData(filePath, patientData)
+}
+/*  */
 function createInsuranceForm(filePath, patientData) {
   pdfController.writeInsuranceSuperBill(filePath, patientData)
 }

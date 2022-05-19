@@ -26,6 +26,12 @@ async function modifyPdf() {
   // fs.writeFileSync('./public/patientRecords/imigration-latest.pdf', await pdfDoc.save({updateFieldAppearances: false}));
   //const pdfBytes = await pdfDoc.save()
 }
+
+/* Medical Certificate */
+exports.writeMedicalCertificateData = (filePath, patientData) => {
+  writeMedicalCertificateData(filePath, patientData)
+}
+
 exports.writeMedicalExaminationData = (filePath, patientData) => {
   writeMedicalExaminationData(filePath, patientData)
 }
@@ -45,6 +51,78 @@ exports.writeCashSuperBill = (filePath, patientData) => {
 exports.writeInsuranceSuperBill = (filePath, patientData) => {
   insuranceSuperBill(filePath, patientData)
 }
+
+/*  */
+async function writeMedicalCertificateData(filePath, patientData) {
+  const pdfDoc = await PDFDocument.load(
+    fs.readFileSync('./public/pdfFile/medicalcertificate.pdf'),
+    { ignoreEncryption: true }
+  )
+  const form = pdfDoc.getForm()
+  //First Name
+  const firstNameTextField = form.getTextField(
+    'formMCSA-5876[0].page1[0].certifyBox[0].nameFirst[0]'
+  )
+  firstNameTextField.setText(patientData.firstName)
+  // Last Name
+  const lastNameTextField = form.getTextField(
+    'formMCSA-5876[0].page1[0].certifyBox[0].nameLast[0]'
+  )
+  lastNameTextField.setText(patientData.lastName)
+  // Driver Licinse
+  const driverLicenseNumberTextField = form.getTextField(
+    'formMCSA-5876[0].page1[0].driverBox[0].licenseNumber[0]'
+  )
+  driverLicenseNumberTextField.setText(patientData.driverLicenseNumber)
+  /* ========License State========== */
+  const licenseStateDropdown = form.getDropdown(
+    'formMCSA-5876[0].page1[0].driverBox[0].licenseState[0]'
+  )
+  const optionss = licenseStateDropdown.getOptions(patientData.licenseState)
+  licenseStateDropdown.select(patientData.licenseState)
+
+  /* Driver Address */
+  const addressTextField = form.getTextField(
+    'formMCSA-5876[0].page1[0].driverBox[0].driverStreet[0]'
+  )
+  addressTextField.setText(patientData.inputAddress)
+  /* Driver City */
+  const cityTextField = form.getTextField(
+    'formMCSA-5876[0].page1[0].driverBox[0].driverCity[0]'
+  )
+  cityTextField.setText(patientData.city)
+  /* state */
+  const stateDropdown = form.getDropdown(
+    'formMCSA-5876[0].page1[0].driverBox[0].driverState[0]'
+  )
+  const options = stateDropdown.getOptions(patientData.state)
+  stateDropdown.select(patientData.state)
+  /* zipcode */
+  const zipCodeTextField = form.getTextField(
+    'formMCSA-5876[0].page1[0].driverBox[0].driverZip[0]'
+  )
+  zipCodeTextField.setText(patientData.zipCode)
+
+  // clpcdl
+  if (patientData.clpCdl == 'Yes') {
+    const radioGroup = form.getRadioGroup(
+      'formMCSA-5876[0].page1[0].driverBox[0].cdlMaybe[0].cdlButtonList[0]'
+    )
+    radioGroup.select('Yes')
+  } else {
+    const radioGroup = form.getRadioGroup(
+      'formMCSA-5876[0].page1[0].driverBox[0].cdlMaybe[0].cdlButtonList[0]'
+    )
+    radioGroup.select('No')
+  }
+
+  fs.writeFileSync(
+    filePath,
+    await pdfDoc.save({ updateFieldAppearances: false })
+  )
+}
+
+/*  */
 
 async function writeImigrationData(filePath, patientData) {
   const pdfDoc = await PDFDocument.load(
@@ -190,11 +268,11 @@ async function writeMedicalExaminationData(filePath, patientData) {
   )
   console.log('Writing Medical Data')
   const form = pdfDoc.getForm()
+
   const lastNameTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].nameLast[0]'
   )
   lastNameTextField.setText(patientData.lastName)
-  console.log(patientData.lastName)
   const firstNameTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].nameFirst[0]'
   )
@@ -204,6 +282,95 @@ async function writeMedicalExaminationData(filePath, patientData) {
     'MCSA-5875[0].Page1[0].driverPersonal[0].birthDate[0]'
   )
   dobTextField.setText(patientData.dateOfBirth)
+
+  /* Second Page */
+  const lNameTextField = form.getTextField(
+    'MCSA-5875[0].Page2[0].pageHead2[0].nameLastHead2[0]'
+  )
+  lNameTextField.setText(patientData.lastName)
+  const fNameTextField = form.getTextField(
+    'MCSA-5875[0].Page2[0].pageHead2[0].nameFirstHead2[0]'
+  )
+  fNameTextField.setText(patientData.firstName)
+
+  const dob_TextField = form.getTextField(
+    'MCSA-5875[0].Page2[0].pageHead2[0].dateBirth2[0]'
+  )
+  dob_TextField.setText(patientData.dateOfBirth)
+
+  const dateTextField = form.getTextField(
+    'MCSA-5875[0].Page2[0].pageHead2[0].dateForm2[0]'
+  )
+  const d = new Date()
+  dateTextField.setText(d.toLocaleDateString('en-us'))
+
+  /*  */
+  /* Third Page */
+  const lName3TextField = form.getTextField(
+    'MCSA-5875[0].Page3[0].pageHead3[0].nameLastHead3[0]'
+  )
+  lName3TextField.setText(patientData.lastName)
+  const fName3TextField = form.getTextField(
+    'MCSA-5875[0].Page3[0].pageHead3[0].nameFirstHead3[0]'
+  )
+  fName3TextField.setText(patientData.firstName)
+
+  const dob3TextField = form.getTextField(
+    'MCSA-5875[0].Page3[0].pageHead3[0].dateBirth3[0]'
+  )
+  dob3TextField.setText(patientData.dateOfBirth)
+
+  const date3TextField = form.getTextField(
+    'MCSA-5875[0].Page3[0].pageHead3[0].dateForm3[0]'
+  )
+  const d3 = new Date()
+  date3TextField.setText(d3.toLocaleDateString('en-us'))
+
+  /*  */
+  /* Fourth Page */
+  const lName4TextField = form.getTextField(
+    'MCSA-5875[0].Page4[0].pageHead4[0].nameLastHead4[0]'
+  )
+  lName4TextField.setText(patientData.lastName)
+  const fName4TextField = form.getTextField(
+    'MCSA-5875[0].Page4[0].pageHead4[0].nameFirstHead4[0]'
+  )
+  fName4TextField.setText(patientData.firstName)
+
+  const dob4TextField = form.getTextField(
+    'MCSA-5875[0].Page4[0].pageHead4[0].dateBirth4[0]'
+  )
+  dob4TextField.setText(patientData.dateOfBirth)
+
+  const date4TextField = form.getTextField(
+    'MCSA-5875[0].Page4[0].pageHead4[0].dateForm4[0]'
+  )
+  const d4 = new Date()
+  date4TextField.setText(d4.toLocaleDateString('en-us'))
+
+  /*  */
+  /* Fifth Page */
+  const lName5TextField = form.getTextField(
+    'MCSA-5875[0].Page5[0].pageHead5[0].nameLastHead5[0]'
+  )
+  lName5TextField.setText(patientData.lastName)
+  const fName5TextField = form.getTextField(
+    'MCSA-5875[0].Page5[0].pageHead5[0].nameFirstHead5[0]'
+  )
+  fName5TextField.setText(patientData.firstName)
+
+  const dob5TextField = form.getTextField(
+    'MCSA-5875[0].Page5[0].pageHead5[0].dateBirth5[0]'
+  )
+  dob5TextField.setText(patientData.dateOfBirth)
+
+  const date5TextField = form.getTextField(
+    'MCSA-5875[0].Page5[0].pageHead5[0].dateForm5[0]'
+  )
+  const d5 = new Date()
+  date5TextField.setText(d5.toLocaleDateString('en-us'))
+
+  /*  */
 
   const ageTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverAge[0]'
@@ -1119,6 +1286,7 @@ async function writeDoctorData(filePath, patientData) {
   )
 
   // Empty values of Undefined Medications
+
   const medicationListTextField = form.getTextField('MEDICATIONS')
   medicationListTextField.setText(
     patientData.medicationList &&
@@ -1241,7 +1409,7 @@ async function insuranceSuperBill(filePath, patientData) {
       hour12: true,
     })
   )
-
+  console.log(patientData.emergencyName)
   const gender = form.getTextField('SEX')
   gender.setText(patientData.gender)
   const dobTextField = form.getTextField('DOB')

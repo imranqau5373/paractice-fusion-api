@@ -13,7 +13,7 @@ const {
 } = docx
 var fileExtension = require('file-extension')
 
-exports.writeNewPatientData = (patientData) => {
+exports.writeNewPatientData = (patientData, medicineData) => {
   let insWidth = 600
   let insHeight = 400
   let adultWidth = 600
@@ -62,7 +62,7 @@ exports.writeNewPatientData = (patientData) => {
                 text:
                   '\t Age: \t' +
                   (patientData.age && patientData.age != undefined
-                    ? patientData.age
+                    ? getAge(patientData.dateOfBirth)
                     : ''),
                 //  break: 2,
               }),
@@ -168,6 +168,29 @@ exports.writeNewPatientData = (patientData) => {
                   height: insHeight,
                 },
               }),
+
+              /* Insurance ID Card */
+              new TextRun({
+                text:
+                  patientData.insurance == 'Yes' ? 'ID CARD PICTURE \t' : '',
+                break: patientData.insurance == 'Yes' ? 2 : 0,
+              }),
+              new ImageRun({
+                data:
+                  patientData.insurance == 'Yes'
+                    ? fs.readFileSync(
+                        './uploads/' +
+                          patientData.idCardPicturePath +
+                          '.' +
+                          fileExtension(patientData.idCardPictureName)
+                      )
+                    : '',
+                transformation: {
+                  width: insWidth,
+                  height: insHeight,
+                },
+              }),
+              /*  */
 
               new TextRun({
                 text:
@@ -333,6 +356,7 @@ exports.writeNewPatientData = (patientData) => {
                   (patientData.medicationList
                     ? patientData.medicationList
                     : ''),
+
                 break: 2,
               }),
 
@@ -390,9 +414,19 @@ exports.writeNewPatientData = (patientData) => {
               new TextRun({
                 text:
                   'DID YOU HAVE YEARLY PHYSICAL THIS YEAR?  \t' +
-                  patientData.yearlyPhysical,
+                  (patientData.yearlyPhysical
+                    ? patientData.yearlyPhysical
+                    : ''),
                 break: 2,
               }),
+              /* explain */
+              new TextRun({
+                text:
+                  'LAST ANNUAL PHYSICAL?  \t' +
+                  patientData.yearlyPhysicalExplain,
+                break: 2,
+              }),
+
               new TextRun({
                 text: 'HAVE YOU BEEN EXPOSED TO COVID? \t' + patientData.covid,
                 break: 2,
@@ -462,7 +496,7 @@ exports.writeNewPatientData = (patientData) => {
               new TextRun({
                 text:
                   'Emergency Contact First Name: \t' +
-                  (patientData.emergencyName ? patientData.emergencyName : ''),
+                  patientData.emergencyName,
                 break: 2,
               }),
               new TextRun({
@@ -491,8 +525,18 @@ exports.writeNewPatientData = (patientData) => {
               }),
               new TextRun({
                 text:
-                  'Family Member Name: \t' +
-                  (patientData.contactName ? patientData.contactName : ''),
+                  'Family Member First Name: \t' +
+                  (patientData.contactFirstName
+                    ? patientData.contactFirstName
+                    : ''),
+                break: 2,
+              }),
+              new TextRun({
+                text:
+                  'Family Member Last Name: \t' +
+                  (patientData.contactLastName
+                    ? patientData.contactLastName
+                    : ''),
                 break: 2,
               }),
               new TextRun({
@@ -928,6 +972,17 @@ exports.writeConsentForm = (patientName, guardianName, witnessName) => {
     ],
   })
   return doc
+}
+
+function getAge(dateString) {
+  var today = new Date()
+  var birthDate = new Date(dateString)
+  var age = today.getFullYear() - birthDate.getFullYear()
+  var m = today.getMonth() - birthDate.getMonth()
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--
+  }
+  return age.toString()
 }
 
 exports.writeImagrationForm = (patientData) => {}
