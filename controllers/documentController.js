@@ -1,4 +1,4 @@
-const { ImageRun } = require('docx')
+const { ImageRun, VerticalAlign } = require('docx')
 const docx = require('docx')
 const fs = require('fs')
 const {
@@ -32,101 +32,165 @@ exports.writeNewPatientData = (patientData, medicineData) => {
           new Paragraph({
             children: [
               new TextRun({
-                text:
-                  'First Name: \t' +
-                  (patientData.firstName ? patientData.firstName : ''),
+                text: 'First Name: \t',
+                font: 'Calibri',
+
+                bold: true,
+
                 //  break: 2,
               }),
               new TextRun({
-                text:
-                  '\t Middle Name: \t ' +
-                  (patientData.middleName ? patientData.middleName : ''),
+                text: patientData.firstName ? patientData.firstName : '',
+              }),
+              new TextRun({
+                text: '\t Middle Name: \t ',
+                font: 'Calibri',
+
+                bold: true,
+
                 //  break: 2,
               }),
               new TextRun({
-                text:
-                  '\t  Last Name: \t' +
-                  (patientData.lastName ? patientData.lastName : ''),
+                text: patientData.middleName ? patientData.middleName : '',
+              }),
+              new TextRun({
+                text: '\t  Last Name: \t',
+                font: 'Calibri',
+
+                bold: true,
                 //   break: 2,
               }),
               new TextRun({
+                text: patientData.lastName ? patientData.lastName : '',
+              }),
+              new TextRun({
+                text: 'Date of Birth: \t',
+
+                bold: true,
+                break: 2,
+              }),
+              new TextRun({
                 text:
-                  'Date of Birth: \t' +
-                  (patientData.dateOfBirth &&
+                  patientData.dateOfBirth &&
                   patientData.dateOfBirth != undefined
                     ? patientData.dateOfBirth
-                    : ''),
-                break: 2,
+                    : '',
+              }),
+              new TextRun({
+                text: '\t Age: \t',
+
+                bold: true,
               }),
               new TextRun({
                 text:
-                  '\t Age: \t' +
-                  (patientData.age && patientData.age != undefined
+                  patientData.age && patientData.age != undefined
                     ? getAge(patientData.dateOfBirth)
-                    : ''),
+                    : '',
+
                 //  break: 2,
               }),
               new TextRun({
-                text:
-                  'Address:  \t' +
-                  (patientData.address ? patientData.address : ''),
+                text: 'Address:  \t',
+
+                bold: true,
                 break: 2,
+              }),
+              new TextRun({
+                text: patientData.address ? patientData.address : '',
               }),
 
               new TextRun({
+                text: 'APT: \t',
+
+                bold: true,
+                break: 2,
+              }),
+              new TextRun({
                 text:
-                  'APT: \t' +
-                  (patientData.apt && patientData.apt != undefined
+                  patientData.apt && patientData.apt != undefined
                     ? patientData.apt
-                    : ''),
-                break: 2,
+                    : '',
+              }),
+              new TextRun({
+                text: '\t City: \t',
+
+                bold: true,
               }),
               new TextRun({
                 text:
-                  '\t City: \t' +
-                  (patientData.city && patientData.city != undefined
+                  patientData.city && patientData.city != undefined
                     ? patientData.city
-                    : ''),
+                    : '',
+
+                //  break: 2,
+              }),
+              new TextRun({
+                text: '\t Race: ',
+
+                bold: true,
                 //  break: 2,
               }),
               new TextRun({
                 text:
-                  '\t Race: \t' +
-                  (patientData.race && patientData.race != undefined
+                  patientData.race && patientData.race != undefined
                     ? patientData.race
-                    : ''),
+                    : '',
+
                 //  break: 2,
               }),
               new TextRun({
-                text:
-                  'State: \t' +
-                  (patientData.state && patientData.state != undefined
-                    ? patientData.state
-                    : ''),
+                text: 'State: \t',
+
+                bold: true,
+
                 break: 2,
               }),
               new TextRun({
                 text:
-                  '\t Zip: \t' +
-                  (patientData.zipCode && patientData.zipCode != undefined
-                    ? patientData.zipCode
-                    : ''),
+                  patientData.state && patientData.state != undefined
+                    ? patientData.state
+                    : '',
+              }),
+              new TextRun({
+                text: '\t Zip: \t',
+
+                bold: true,
+
                 //   break: 2,
               }),
+              new TextRun({
+                text:
+                  patientData.zipCode && patientData.zipCode != undefined
+                    ? patientData.zipCode
+                    : '',
+              }),
 
               new TextRun({
-                text: 'Gender: \t' + patientData.gender,
+                text: 'Gender: \t',
+
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text: 'DO YOU HAVE INSURANCE? \t' + patientData.insurance,
+                text: patientData.gender,
+              }),
+
+              new TextRun({
+                text: 'DO YOU HAVE INSURANCE? \t',
+
+                bold: true,
                 break: 3,
               }),
+              new TextRun({
+                text: patientData.insurance,
+              }),
+
               new TextRun({
                 text:
                   patientData.insurance == 'Yes'
                     ? 'INSURANCE FRONT PICTURE \t'
                     : '',
+                bold: true,
                 break: patientData.insurance == 'Yes' ? 4 : 0,
               }),
 
@@ -151,6 +215,7 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                   patientData.insurance == 'Yes'
                     ? 'INSURANCE BACK PICTURE \t'
                     : '',
+                bold: true,
                 break: patientData.insurance == 'Yes' ? 2 : 0,
               }),
               new ImageRun({
@@ -173,6 +238,7 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               new TextRun({
                 text:
                   patientData.insurance == 'Yes' ? 'ID CARD PICTURE \t' : '',
+                bold: true,
                 break: patientData.insurance == 'Yes' ? 2 : 0,
               }),
               new ImageRun({
@@ -197,6 +263,7 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                   patientData.adult == 'No'
                     ? 'Guardian Id Card Picture \t'
                     : '',
+                bold: true,
                 break: patientData.adult == 'No' ? 2 : 0,
               }),
               new ImageRun({
@@ -229,7 +296,9 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                 break: patientData.adult == 'No' ? 2 : 0,
               }),
               new TextRun({
-                text: 'ID Card Piciture: \t',
+                text: 'ID Card Picture: \t',
+                bold: true,
+
                 break: 2,
               }),
 
@@ -255,203 +324,300 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                 },
               }),
               new TextRun({
+                text: 'Marital Status: \t',
+
+                bold: true,
+
+                break: 2,
+              }),
+              new TextRun({
                 text:
-                  'Marital Status: \t' +
-                  (patientData.maritalStatus &&
+                  patientData.maritalStatus &&
                   patientData.maritalStatus != undefined
                     ? patientData.maritalStatus
-                    : ''),
-                break: 2,
+                    : '',
               }),
-
               new TextRun({
-                text:
-                  '\t Occupation: \t' +
-                  (patientData.occupation && patientData.occupation != undefined
-                    ? patientData.occupation
-                    : ''),
+                text: '\t Occupation: \t',
+
+                bold: true,
+
                 //  break: 2,
               }),
-
               new TextRun({
                 text:
-                  'Mobile Phone No: \t' +
-                  (patientData.mobilePhoneNo &&
+                  patientData.occupation && patientData.occupation != undefined
+                    ? patientData.occupation
+                    : '',
+              }),
+
+              new TextRun({
+                text: 'Mobile Phone No: \t',
+
+                bold: true,
+
+                break: 2,
+              }),
+              new TextRun({
+                tetx:
+                  patientData.mobilePhoneNo &&
                   patientData.mobilePhoneNo != undefined
                     ? patientData.mobilePhoneNo
-                    : ''),
-                break: 2,
+                    : '',
+              }),
+              new TextRun({
+                text: '\t Day Time Phone No: \t',
+
+                bold: true,
+                //  break: 2,
               }),
               new TextRun({
                 text:
-                  '\t DayTime Phone No: \t' +
-                  (patientData.dayTimePhoneNo &&
+                  patientData.dayTimePhoneNo &&
                   patientData.dayTimePhoneNo != undefined
                     ? patientData.dayTimePhoneNo
-                    : ''),
-                //  break: 2,
+                    : '',
+              }),
+              new TextRun({
+                text: 'SSN: \t',
+                bold: true,
+
+                break: 2,
               }),
               new TextRun({
                 text:
-                  'SSN: \t' +
-                  (patientData.ssn && patientData.ssn != undefined
+                  patientData.ssn && patientData.ssn != undefined
                     ? patientData.ssn
-                    : ''),
-                break: 2,
+                    : '',
               }),
               new TextRun({
+                text: 'Email: \t',
+
+                bold: true,
+
+                break: 2,
+              }),
+
+              new TextRun({
                 text:
-                  'Email: \t' +
-                  (patientData.email && patientData.email != undefined
+                  patientData.email && patientData.email != undefined
                     ? patientData.email
-                    : ''),
-                break: 2,
+                    : '',
               }),
               new TextRun({
-                text:
-                  'HAVE YOU HAD ANY SURGERIES IN THE PAST? \t' +
-                  patientData.surgery,
-                break: 2,
-              }),
-              new TextRun({
-                text:
-                  'Surgery Reason Explain: \t' +
-                  (patientData.surgeryExplain
-                    ? patientData.surgeryExplain
-                    : ''),
-                break: 2,
-              }),
-              new TextRun({
-                text:
-                  'ARE YOU ALLERGIC TO ANY MEDICATIONS? \t' +
-                  patientData.alergic,
-                break: 2,
-              }),
-              new TextRun({
-                text:
-                  'ALLERGIC MEDICATIONS Explain: \t' +
-                  (patientData.alergicExplain
-                    ? patientData.alergicExplain
-                    : ''),
-                break: 2,
-              }),
-
-              new TextRun({
-                text:
-                  'DO YOU HAVE ANY ONGOING MEDICAL PROBLEMS? \t' +
-                  patientData.medicalProblem,
-                break: 2,
-              }),
-              new TextRun({
-                text:
-                  'Medical Problem Explain: \t' +
-                  (patientData.medicalProblemExplain
-                    ? patientData.medicalProblemExplain
-                    : ''),
-                break: 2,
-              }),
-              new TextRun({
-                text:
-                  'LIST HERE ANY MEDICATIONS YOU ARE CURRENTLY TAKING: \t' +
-                  (patientData.medicationList
-                    ? patientData.medicationList
-                    : ''),
+                text: 'HAVE YOU HAD ANY SURGERIES IN THE PAST? \t',
+                bold: true,
 
                 break: 2,
               }),
-
               new TextRun({
-                text: 'DO YOU SMOKE? \t' + patientData.smoke,
+                text: patientData.surgery,
+              }),
+              new TextRun({
+                text: 'Surgery Reason Explain: \t',
+
+                bold: true,
+
                 break: 2,
+              }),
+              new TextRun({
+                text: patientData.surgeryExplain
+                  ? patientData.surgeryExplain
+                  : '',
+              }),
+              new TextRun({
+                text: 'ARE YOU ALLERGIC TO ANY MEDICATIONS? \t',
+                bold: true,
+
+                break: 2,
+              }),
+              new TextRun({
+                text: patientData.alergic,
+              }),
+              new TextRun({
+                text: 'ALLERGIC MEDICATIONS Explain: \t',
+                bold: true,
+                break: 2,
+              }),
+              new TextRun({
+                text: patientData.alergicExplain
+                  ? patientData.alergicExplain
+                  : '',
               }),
 
               new TextRun({
-                text:
-                  '\t HOW MUCH: \t' +
-                  (patientData.smokeExplain ? patientData.smokeExplain : ''),
+                text: 'DO YOU HAVE ANY ONGOING MEDICAL PROBLEMS? \t',
+                bold: true,
+                break: 2,
+              }),
+              new TextRun({
+                text: patientData.medicalProblem,
+              }),
+              new TextRun({
+                text: 'Medical Problem Explain: \t',
+
+                bold: true,
+
+                break: 2,
+              }),
+              new TextRun({
+                text: patientData.medicalProblemExplain
+                  ? patientData.medicalProblemExplain
+                  : '',
+              }),
+              new TextRun({
+                text: 'LIST HERE ANY MEDICATIONS YOU ARE CURRENTLY TAKING: \t',
+                bold: true,
+
+                break: 2,
+              }),
+              new TextRun({
+                text: patientData.medicationList
+                  ? patientData.medicationList
+                  : '',
+              }),
+              console.log('This is Medi' + patientData.medicationList),
+
+              new TextRun({
+                text: 'DO YOU SMOKE? \t',
+                bold: true,
+                break: 2,
+              }),
+              new TextRun({
+                text: patientData.smoke,
+              }),
+
+              new TextRun({
+                text: '\t HOW MUCH: \t',
+                bold: true,
+
                 //  break: 2,
               }),
               new TextRun({
-                text: 'CHEW TOBACCO?  \t' + patientData.tobacco,
+                text: patientData.smokeExplain ? patientData.smokeExplain : '',
+              }),
+              new TextRun({
+                text: 'CHEW TOBACCO?  \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  '\t HOW MUCH: \t' +
-                  (patientData.tobaccoExplain
-                    ? patientData.tobaccoExplain
-                    : ''),
+                text: patientData.tobacco,
+              }),
+              new TextRun({
+                text: '\t HOW MUCH: \t',
+                bold: true,
+
                 //   break: 2,
               }),
               new TextRun({
-                text: 'DO YOU DRINK ALCOHOL?  \t' + patientData.alcohol,
+                text: patientData.tobaccoExplain
+                  ? patientData.tobaccoExplain
+                  : '',
+              }),
+              new TextRun({
+                text: 'DO YOU DRINK ALCOHOL?  \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  '\t HOW MUCH: \t' +
-                  (patientData.alcoholExplain
-                    ? patientData.alcoholExplain
-                    : ''),
+                text: patientData.alcohol,
+              }),
+              new TextRun({
+                text: '\t HOW MUCH: \t',
+                bold: true,
+
                 //   break: 2,
               }),
               new TextRun({
-                text: 'DO YOU USE DRUGS?  \t' + patientData.drugs,
+                text: patientData.alcoholExplain
+                  ? patientData.alcoholExplain
+                  : '',
+              }),
+              new TextRun({
+                text: 'DO YOU USE DRUGS?  \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  '\t HOW MUCH: \t' +
-                  (patientData.drugsExplain ? patientData.drugsExplain : ''),
+                text: patientData.drugs,
+              }),
+              new TextRun({
+                text: '\t HOW MUCH: \t',
+                bold: true,
                 //  break: 2,
               }),
               new TextRun({
-                text:
-                  'REASON FOR VISIT TODAY:  \t' +
-                  (patientData.visitReason ? patientData.visitReason : ''),
+                text: patientData.drugsExplain ? patientData.drugsExplain : '',
+              }),
+              new TextRun({
+                text: 'REASON FOR VISIT TODAY:  \t',
+                bold: true,
+
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'DID YOU HAVE YEARLY PHYSICAL THIS YEAR?  \t' +
-                  (patientData.yearlyPhysical
-                    ? patientData.yearlyPhysical
-                    : ''),
+                text: patientData.visitReason ? patientData.visitReason : '',
+              }),
+              new TextRun({
+                text: 'DID YOU HAVE YEARLY PHYSICAL THIS YEAR?  \t',
+                bold: true,
                 break: 2,
+              }),
+              new TextRun({
+                text: patientData.yearlyPhysical
+                  ? patientData.yearlyPhysical
+                  : '',
               }),
               /* explain */
               new TextRun({
-                text:
-                  'LAST ANNUAL PHYSICAL?  \t' +
-                  patientData.yearlyPhysicalExplain,
+                text: 'LAST ANNUAL PHYSICAL?  \t',
+                bold: true,
                 break: 2,
+              }),
+              new TextRun({
+                text: patientData.yearlyPhysicalExplain,
               }),
 
               new TextRun({
-                text: 'HAVE YOU BEEN EXPOSED TO COVID? \t' + patientData.covid,
+                text: 'HAVE YOU BEEN EXPOSED TO COVID? \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'DO YOU HAVE ANY COUGH , CONGESTION OR SORE THROAT?  \t' +
-                  patientData.coughCongestion,
+                text: +patientData.covid,
+              }),
+              new TextRun({
+                text: 'DO YOU HAVE ANY COUGH , CONGESTION OR SORE THROAT?  \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'ARE YOU HAVING SHORTNESS OF BREATH? \t' +
-                  patientData.breathShortness,
+                text: patientData.coughCongestion,
+              }),
+              new TextRun({
+                text: 'ARE YOU HAVING SHORTNESS OF BREATH? \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text: 'DO YOU HAVE FEVER? \t' + patientData.fever,
+                text: patientData.breathShortness,
+              }),
+              new TextRun({
+                text: 'DO YOU HAVE FEVER? \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'ARE YOU HAVING COVID 19 SYMPTOMS?? \t' +
-                  patientData.covidSymptons,
+                text: patientData.fever,
+              }),
+              new TextRun({
+                text: 'ARE YOU HAVING COVID 19 SYMPTOMS?? \t',
+                bold: true,
                 break: 2,
+              }),
+              new TextRun({
+                text: patientData.covidSymptons,
               }),
               new TextRun({
                 text:
@@ -464,113 +630,153 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'NAME OF YOUR PHARMACY: \t' +
-                  (patientData.pharmacyName ? patientData.pharmacyName : ''),
+                text: 'NAME OF YOUR PHARMACY: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'STREET OF PHARMACY: \t' +
-                  (patientData.streetPharmacy
-                    ? patientData.streetPharmacy
-                    : ''),
+                text: patientData.pharmacyName ? patientData.pharmacyName : '',
+              }),
+              new TextRun({
+                text: 'STREET OF PHARMACY: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'CROSS INTERSECTION: \t' +
-                  (patientData.crossIntersectin
-                    ? patientData.crossIntersectin
-                    : ''),
+                text: patientData.streetPharmacy
+                  ? patientData.streetPharmacy
+                  : '',
+              }),
+              new TextRun({
+                text: 'CROSS INTERSECTION: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'ZIP CODE OF PHARMACY: \t' +
-                  (patientData.zipcodePharmacy
-                    ? patientData.zipcodePharmacy
-                    : ''),
+                Text: patientData.crossIntersectin
+                  ? patientData.crossIntersectin
+                  : '',
+              }),
+              new TextRun({
+                text: 'ZIP CODE OF PHARMACY: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Emergency Contact First Name: \t' +
-                  patientData.emergencyName,
+                text: patientData.zipcodePharmacy
+                  ? patientData.zipcodePharmacy
+                  : '',
+              }),
+              new TextRun({
+                text: 'Emergency Contact First Name: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Emergency Contact Last Name: \t' +
-                  (patientData.emergencyLast ? patientData.emergencyLast : ''),
+                text: patientData.emergencyName,
+              }),
+              new TextRun({
+                text: 'Emergency Contact Last Name: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Emergency Contact Phone Number: \t' +
-                  (patientData.emergencyPhone
-                    ? patientData.emergencyPhone
-                    : ''),
+                text: patientData.emergencyLast
+                  ? patientData.emergencyLast
+                  : '',
+              }),
+              new TextRun({
+                text: 'Emergency Contact Phone Number: \t',
+                bold: true,
+
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'CAN WE DISCLOSE YOUR MEDICAL RECORDS TO ANY ONE (eg FAMILY MEMBER )? \t' +
-                  (patientData.medicalRecord ? patientData.medicalRecord : ''),
+                text: patientData.emergencyPhone
+                  ? patientData.emergencyPhone
+                  : '',
+              }),
+              new TextRun({
+                text: 'CAN WE DISCLOSE YOUR MEDICAL RECORDS TO ANY ONE (eg FAMILY MEMBER )? \t',
+                bold: true,
+
                 break: 2,
+              }),
+              new TextRun({
+                text: patientData.medicalRecord
+                  ? patientData.medicalRecord
+                  : '',
               }),
               new TextRun({
                 text: 'IF YES, PLEASE PROVIDE INFORMATION BELOW: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Family Member First Name: \t' +
-                  (patientData.contactFirstName
-                    ? patientData.contactFirstName
-                    : ''),
+                text: 'Family Member First Name: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Family Member Last Name: \t' +
-                  (patientData.contactLastName
-                    ? patientData.contactLastName
-                    : ''),
+                text: patientData.contactFirstName
+                  ? patientData.contactFirstName
+                  : '',
+              }),
+              new TextRun({
+                text: 'Family Member Last Name: \t',
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Family Member Relationship: \t' +
-                  (patientData.contactRelation
-                    ? patientData.contactRelation
-                    : ''),
+                text: patientData.contactLastName
+                  ? patientData.contactLastName
+                  : '',
+              }),
+              new TextRun({
+                text: 'Family Member Relationship: \t',
+                bold: true,
+
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Family Member Phone: \t' +
-                  (patientData.contactPhone ? patientData.contactPhone : ''),
+                text: patientData.contactRelation
+                  ? patientData.contactRelation
+                  : '',
+              }),
+              new TextRun({
+                text: 'Family Member Phone: \t',
+                bold: true,
+
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'Family Medicial History: \t' +
-                  (patientData.familyMedicialHistory
-                    ? patientData.familyMedicialHistory
-                    : ''),
+                text: patientData.contactPhone ? patientData.contactPhone : '',
+              }),
+              new TextRun({
+                text: 'Family Medicial History: \t',
+                bold: true,
+
                 break: 2,
               }),
               new TextRun({
-                text:
-                  'How did you hear about us? \t' +
-                  (patientData.hearAboutUs ? patientData.hearAboutUs : ''),
+                text: patientData.familyMedicialHistory
+                  ? patientData.familyMedicialHistory
+                  : '',
+              }),
+              new TextRun({
+                text: 'How did you hear about us? \t',
+                bold: true,
                 break: 2,
+              }),
+              new TextRun({
+                text: patientData.hearAboutUs ? patientData.hearAboutUs : '',
               }),
               new TextRun({
                 text: 'Patient Signature: \t',
+                bold: true,
                 break: 2,
               }),
+
               new ImageRun({
                 data: fs.readFileSync(patientData.signaturePath),
                 transformation: {

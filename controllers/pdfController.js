@@ -379,34 +379,63 @@ async function writeMedicalExaminationData(filePath, patientData) {
   const addressTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverAddress[0]'
   )
-  addressTextField.setText(patientData.inputAddress)
+  addressTextField.setText(
+    patientData.inputAddress &&
+      patientData.inputAddress != undefined &&
+      patientData.inputAddress != 'undefined'
+      ? patientData.inputAddress
+      : ''
+  )
 
   const cityTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverCity[0]'
   )
-  cityTextField.setText(patientData.city)
+  cityTextField.setText(
+    patientData.city &&
+      patientData.city != undefined &&
+      patientData.city != 'undefined'
+      ? patientData.city
+      : ''
+  )
 
   const stateDropdown = form.getDropdown(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverState[0]'
   )
   const options = stateDropdown.getOptions(patientData.state)
   stateDropdown.select(patientData.state)
+  if (patientData.state == 'undefined') {
+    stateDropdown.select('')
+  }
 
   const zipCodeTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverZip[0]'
   )
-  zipCodeTextField.setText(patientData.zipCode)
+  zipCodeTextField.setText(
+    patientData.zipCode &&
+      patientData.zipCode != undefined &&
+      patientData.zipCode != 'undefined'
+      ? patientData.zipCode
+      : ''
+  )
   const driverLicenseNumberTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverLicense[0]'
   )
-  driverLicenseNumberTextField.setText(patientData.driverLicenseNumber)
+  driverLicenseNumberTextField.setText(
+    patientData.driverLicenseNumber &&
+      patientData.driverLicenseNumber != undefined &&
+      patientData.driverLicenseNumber != 'undefined'
+      ? patientData.driverLicenseNumber
+      : ''
+  )
   /* ========License State========== */
   const licenseStateDropdown = form.getDropdown(
     'MCSA-5875[0].Page1[0].driverPersonal[0].licenseState[0]'
   )
   const optionss = licenseStateDropdown.getOptions(patientData.licenseState)
   licenseStateDropdown.select(patientData.licenseState)
-
+  if (patientData.licenseState == 'undefined') {
+    licenseStateDropdown.select('')
+  }
   const emailTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].emailAddress[0]'
   )
@@ -427,7 +456,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
   const driverIdVerifiedByTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverVerify[0]'
   )
-  driverIdVerifiedByTextField.setText(patientData.driverIdVerifiedBy)
+  driverIdVerifiedByTextField.setText(
+    patientData.driverIdVerifiedBy &&
+      patientData.driverIdVerifiedBy != undefined &&
+      patientData.driverIdVerifiedBy != 'undefined'
+      ? patientData.driverIdVerifiedBy
+      : ''
+  )
 
   if (patientData.usdotFmcsa == 'Yes') {
     const radioGroup = form.getRadioGroup(
@@ -461,7 +496,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
   const driverPhoneTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverPhone[0]'
   )
-  driverPhoneTextField.setText(patientData.driverPhone)
+  driverPhoneTextField.setText(
+    patientData.driverPhone &&
+      patientData.driverPhone != undefined &&
+      patientData.driverPhone != 'undefined'
+      ? patientData.driverPhone
+      : ''
+  )
 
   //
   if (patientData.driverSurgery == 'Yes') {
@@ -484,7 +525,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
   const driverSurgeryExplain = form.getTextField(
     'MCSA-5875[0].Page1[0].surgeryGroup[0].surgeryDescribe[0]'
   )
-  driverSurgeryExplain.setText(patientData.driverSurgeryExplain)
+  driverSurgeryExplain.setText(
+    patientData.driverSurgeryExplain &&
+      patientData.driverSurgeryExplain != undefined &&
+      patientData.driverSurgeryExplain != 'undefined'
+      ? patientData.driverSurgeryExplain
+      : ''
+  )
   //
   if (patientData.driverMedicine == 'Yes') {
     const radioGroup = form.getRadioGroup(
@@ -506,7 +553,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
   const driverMedicineExplain = form.getTextField(
     'MCSA-5875[0].Page1[0].surgeryGroup[0].medicineDescribe[0]'
   )
-  driverMedicineExplain.setText(patientData.driverMedicineExplain)
+  driverMedicineExplain.setText(
+    patientData.driverMedicineExplain &&
+      patientData.driverMedicineExplain != undefined &&
+      patientData.driverMedicineExplain != 'undefined'
+      ? patientData.driverMedicineExplain
+      : ''
+  )
 
   /* Diver Health Info Part Two */
   if (patientData.head == 'Yes') {
@@ -1104,7 +1157,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
   const otherHealthExplainTextField = form.getTextField(
     'MCSA-5875[0].Page2[0].otherGroup[0].otherDescribe[0]'
   )
-  otherHealthExplainTextField.setText(patientData.otherHealthExplain)
+  otherHealthExplainTextField.setText(
+    patientData.otherHealthExplain &&
+      patientData.otherHealthExplain != undefined &&
+      patientData.otherHealthExplain != 'undefined'
+      ? patientData.otherHealthExplain
+      : ''
+  )
 
   /* Driver Comment */
   if (patientData.dComment == 'Yes') {
@@ -1127,7 +1186,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
   const dCommentExplainTextField = form.getTextField(
     'MCSA-5875[0].Page2[0].commentGroup[0].commentDescribe[0]'
   )
-  dCommentExplainTextField.setText(patientData.dCommentExplain)
+  dCommentExplainTextField.setText(
+    patientData.dCommentExplain &&
+      patientData.dCommentExplain != undefined &&
+      patientData.dCommentExplain != 'undefined'
+      ? patientData.dCommentExplain
+      : ''
+  )
 
   fs.writeFileSync(
     filePath,
@@ -1288,13 +1353,8 @@ async function writeDoctorData(filePath, patientData) {
   // Empty values of Undefined Medications
 
   const medicationListTextField = form.getTextField('MEDICATIONS')
-  medicationListTextField.setText(
-    patientData.medicationList &&
-      patientData.medicationList != undefined &&
-      patientData.medicationList != 'undefined'
-      ? patientData.medicationList
-      : ''
-  )
+  medicationListTextField.setText(patientData.medicineData)
+  console.log(' Medicine Data ', patientData.medicationList.name)
 
   // Empty values of Undefined Pharmacy Name
   const pharmacyNameTextField = form.getTextField('PHARMACY NAME 1')
