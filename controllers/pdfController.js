@@ -254,6 +254,320 @@ async function writeImigrationData(filePath, patientData) {
     )
     interpreter2CheckBox.check()
   }
+  const interpreterFnameTextField = form.getTextField(
+    'form1[0].#subform[1].Pt3Line1_InterpreterGivenName[0]'
+  )
+  interpreterFnameTextField.setText(patientData.interpreterFName)
+
+  const interpreterLastnameTextField = form.getTextField(
+    'form1[0].#subform[1].Pt3Line1_InterpreterFamilyName[0]'
+  )
+  interpreterLastnameTextField.setText(patientData.interpreterLName)
+
+  const interpreterBusinessNameTextField = form.getTextField(
+    'form1[0].#subform[1].Pt3Line2_NameofBusinessorOrgName[0]'
+  )
+  interpreterBusinessNameTextField.setText(patientData.interpreterBusinessName)
+
+  /* Page 2*/
+  //First Name
+  const firstNamep2TextField = form.getTextField(
+    'form1[0].#subform[1].Pt1Line1b_GivenName[1]'
+  )
+  firstNamep2TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep2TextField = form.getTextField(
+    'form1[0].#subform[1].Pt1Line1c_MiddleName[1]'
+  )
+  middleNamep2TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName2TextField = form.getTextField(
+    'form1[0].#subform[1].Pt1Line1a_FamilyName[1]'
+  )
+  lastName2TextField.setText(patientData.lastName)
+
+  //AlienNumber
+  const imgNumberp2TextField = form.getTextField(
+    'form1[0].#subform[1].Pt1Line3e_AlienNumber[1]'
+  )
+  imgNumberp2TextField.setText(patientData.imgNumber)
+
+  /* Page 3*/
+  //First Name
+  const firstNamep3TextField = form.getTextField(
+    'form1[0].#subform[2].Pt1Line1b_GivenName[2]'
+  )
+  firstNamep3TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep3TextField = form.getTextField(
+    'form1[0].#subform[2].Pt1Line1c_MiddleName[2]'
+  )
+  middleNamep3TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName3TextField = form.getTextField(
+    'form1[0].#subform[2].Pt1Line1a_FamilyName[2]'
+  )
+  lastName3TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp3TextField = form.getTextField(
+    'form1[0].#subform[2].Pt1Line3e_AlienNumber[2]'
+  )
+  imgNumberp3TextField.setText(patientData.imgNumber)
+
+  /* Page 4*/
+  //First Name
+  const firstNamep4TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line1b_GivenName[3]'
+  )
+  firstNamep4TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep4TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line1c_MiddleName[3]'
+  )
+  middleNamep4TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName4TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line1a_FamilyName[3]'
+  )
+  lastName4TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp4TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line3e_AlienNumber[3]'
+  )
+  imgNumberp4TextField.setText(patientData.imgNumber)
+
+  /* Page 5*/
+  //First Name
+  const firstNamep5TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line1b_GivenName[3]'
+  )
+  firstNamep5TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep5TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line1c_MiddleName[3]'
+  )
+  middleNamep5TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName5TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line1a_FamilyName[3]'
+  )
+  lastName5TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp5TextField = form.getTextField(
+    'form1[0].#subform[3].Pt1Line3e_AlienNumber[3]'
+  )
+  imgNumberp5TextField.setText(patientData.imgNumber)
+
+  /* Page 6*/
+  //First Name
+  const firstNamep6TextField = form.getTextField(
+    'form1[0].#subform[5].Pt1Line1b_GivenName[4]'
+  )
+  firstNamep6TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep6TextField = form.getTextField(
+    'form1[0].#subform[5].Pt1Line1c_MiddleName[4]'
+  )
+  middleNamep6TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName6TextField = form.getTextField(
+    'form1[0].#subform[5].Pt1Line1a_FamilyName[4]'
+  )
+  lastName6TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp6TextField = form.getTextField(
+    'form1[0].#subform[5].Pt1Line3e_AlienNumber[4]'
+  )
+  imgNumberp6TextField.setText(patientData.imgNumber)
+
+  /* Page 7*/
+  //First Name
+  const firstNamep7TextField = form.getTextField(
+    'form1[0].#subform[6].Pt1Line1b_GivenName[5]'
+  )
+  firstNamep7TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep7TextField = form.getTextField(
+    'form1[0].#subform[6].Pt1Line1c_MiddleName[5]'
+  )
+  middleNamep7TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName7TextField = form.getTextField(
+    'form1[0].#subform[6].Pt1Line1a_FamilyName[5]'
+  )
+  lastName7TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp7TextField = form.getTextField(
+    'form1[0].#subform[6].Pt1Line3e_AlienNumber[5]'
+  )
+  imgNumberp7TextField.setText(patientData.imgNumber)
+
+  /* Page 8*/
+  //First Name
+  const firstNamep8TextField = form.getTextField(
+    'form1[0].#subform[7].Pt1Line1b_GivenName[6]'
+  )
+  firstNamep8TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep8TextField = form.getTextField(
+    'form1[0].#subform[7].Pt1Line1c_MiddleName[6]'
+  )
+  middleNamep8TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName8TextField = form.getTextField(
+    'form1[0].#subform[7].Pt1Line1a_FamilyName[6]'
+  )
+  lastName8TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp8TextField = form.getTextField(
+    'form1[0].#subform[7].Pt1Line3e_AlienNumber[6]'
+  )
+  imgNumberp8TextField.setText(patientData.imgNumber)
+
+  /* Page 9*/
+  //First Name
+  const firstNamep9TextField = form.getTextField(
+    'form1[0].#subform[8].Pt1Line1b_GivenName[7]'
+  )
+  firstNamep9TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep9TextField = form.getTextField(
+    'form1[0].#subform[8].Pt1Line1c_MiddleName[7]'
+  )
+  middleNamep9TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName9TextField = form.getTextField(
+    'form1[0].#subform[8].Pt1Line1a_FamilyName[7]'
+  )
+  lastName9TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp9TextField = form.getTextField(
+    'form1[0].#subform[8].Pt1Line3e_AlienNumber[7]'
+  )
+  imgNumberp9TextField.setText(patientData.imgNumber)
+
+  /* Page9  Missing*/
+  //First Name
+  const firstNamep9mTextField = form.getTextField(
+    'form1[0].#subform[9].Pt1Line1b_GivenName[8]'
+  )
+  firstNamep9mTextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep9mTextField = form.getTextField(
+    'form1[0].#subform[9].Pt1Line1c_MiddleName[8]'
+  )
+  middleNamep9mTextField.setText(patientData.middleName)
+  // Last Name
+  const lastName9mTextField = form.getTextField(
+    'form1[0].#subform[9].Pt1Line1a_FamilyName[8]'
+  )
+  lastName9mTextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp9mTextField = form.getTextField(
+    'form1[0].#subform[9].Pt1Line3e_AlienNumber[8]'
+  )
+  imgNumberp9mTextField.setText(patientData.imgNumber)
+
+  /* Page 10*/
+  //First Name
+  const firstNamep10TextField = form.getTextField(
+    'form1[0].#subform[10].Pt1Line1b_GivenName[9]'
+  )
+  firstNamep10TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep10TextField = form.getTextField(
+    'form1[0].#subform[10].Pt1Line1c_MiddleName[9]'
+  )
+  middleNamep10TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName10TextField = form.getTextField(
+    'form1[0].#subform[10].Pt1Line1a_FamilyName[9]'
+  )
+  lastName10TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp10TextField = form.getTextField(
+    'form1[0].#subform[10].Pt1Line3e_AlienNumber[9]'
+  )
+  imgNumberp10TextField.setText(patientData.imgNumber)
+
+  /* Page 11*/
+  //First Name
+  const firstNamep11TextField = form.getTextField(
+    'form1[0].#subform[11].Pt1Line1b_GivenName[10]'
+  )
+  firstNamep11TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep11TextField = form.getTextField(
+    'form1[0].#subform[11].Pt1Line1c_MiddleName[10]'
+  )
+  middleNamep11TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName11TextField = form.getTextField(
+    'form1[0].#subform[11].Pt1Line1a_FamilyName[10]'
+  )
+  lastName11TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp11TextField = form.getTextField(
+    'form1[0].#subform[11].Pt1Line3e_AlienNumber[10]'
+  )
+  imgNumberp11TextField.setText(patientData.imgNumber)
+
+  /* Page 12*/
+  //First Name
+  const firstNamep12TextField = form.getTextField(
+    'form1[0].#subform[12].Pt1Line1b_GivenName[11]'
+  )
+  firstNamep12TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep12TextField = form.getTextField(
+    'form1[0].#subform[12].Pt1Line1c_MiddleName[11]'
+  )
+  middleNamep12TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName12TextField = form.getTextField(
+    'form1[0].#subform[12].Pt1Line1a_FamilyName[11]'
+  )
+  lastName12TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp12TextField = form.getTextField(
+    'form1[0].#subform[12].Pt1Line3e_AlienNumber[11]'
+  )
+  imgNumberp12TextField.setText(patientData.imgNumber)
+
+  /* Page 13*/
+  //First Name
+  const firstNamep13TextField = form.getTextField(
+    'form1[0].#subform[13].Pt1Line1b_GivenName[12]'
+  )
+  firstNamep13TextField.setText(patientData.firstName)
+
+  // Middle Name
+  const middleNamep13TextField = form.getTextField(
+    'form1[0].#subform[13].Pt1Line1c_MiddleName[12]'
+  )
+  middleNamep13TextField.setText(patientData.middleName)
+  // Last Name
+  const lastName13TextField = form.getTextField(
+    'form1[0].#subform[13].Pt1Line1a_FamilyName[12]'
+  )
+  lastName13TextField.setText(patientData.lastName)
+  //AlienNumber
+  const imgNumberp13TextField = form.getTextField(
+    'form1[0].#subform[13].Pt1Line3e_AlienNumber[12]'
+  )
+  imgNumberp13TextField.setText(patientData.imgNumber)
 
   fs.writeFileSync(
     filePath,
