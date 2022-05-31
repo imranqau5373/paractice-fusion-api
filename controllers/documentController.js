@@ -18,6 +18,12 @@ exports.writeNewPatientData = (patientData, medicineData) => {
   let insHeight = 400
   let adultWidth = 600
   let adultHeight = 400
+  const med =
+    patientData.medicationList &&
+    patientData.medicationList != undefined &&
+    patientData.medicationList != 'undefined'
+      ? JSON.parse(patientData.medicationList)
+      : ''
   if (patientData.insurance == 'No') {
     insWidth = insHeight = 0
   }
@@ -184,145 +190,7 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               new TextRun({
                 text: patientData.insurance,
               }),
-
-              new TextRun({
-                text:
-                  patientData.insurance == 'Yes'
-                    ? 'INSURANCE FRONT PICTURE \t'
-                    : '',
-                bold: true,
-                break: patientData.insurance == 'Yes' ? 4 : 0,
-              }),
-
-              new ImageRun({
-                data:
-                  patientData.insurance == 'Yes'
-                    ? fs.readFileSync(
-                        './uploads/' +
-                          patientData.insuranceForntPath +
-                          '.' +
-                          fileExtension(patientData.insuranceFrontFileName)
-                      )
-                    : '',
-                transformation: {
-                  width: insWidth,
-                  height: insHeight,
-                },
-              }),
-
-              new TextRun({
-                text:
-                  patientData.insurance == 'Yes'
-                    ? 'INSURANCE BACK PICTURE \t'
-                    : '',
-                bold: true,
-                break: patientData.insurance == 'Yes' ? 2 : 0,
-              }),
-              new ImageRun({
-                data:
-                  patientData.insurance == 'Yes'
-                    ? fs.readFileSync(
-                        './uploads/' +
-                          patientData.insuranceBackPath +
-                          '.' +
-                          fileExtension(patientData.insuranceBackFileName)
-                      )
-                    : '',
-                transformation: {
-                  width: insWidth,
-                  height: insHeight,
-                },
-              }),
-
-              /* Insurance ID Card */
-              new TextRun({
-                text:
-                  patientData.insurance == 'Yes' ? 'ID CARD PICTURE \t' : '',
-                bold: true,
-                break: patientData.insurance == 'Yes' ? 2 : 0,
-              }),
-              new ImageRun({
-                data:
-                  patientData.insurance == 'Yes'
-                    ? fs.readFileSync(
-                        './uploads/' +
-                          patientData.idCardPicturePath +
-                          '.' +
-                          fileExtension(patientData.idCardPictureName)
-                      )
-                    : '',
-                transformation: {
-                  width: insWidth,
-                  height: insHeight,
-                },
-              }),
-              /*  */
-
-              new TextRun({
-                text:
-                  patientData.adult == 'No'
-                    ? 'Guardian Id Card Picture \t'
-                    : '',
-                bold: true,
-                break: patientData.adult == 'No' ? 2 : 0,
-              }),
-              new ImageRun({
-                data:
-                  patientData.adult == 'No'
-                    ? fs.readFileSync(
-                        './uploads/' +
-                          patientData.guardianIdPath +
-                          '.' +
-                          fileExtension(patientData.guardianIdFileName)
-                      )
-                    : '',
-                transformation: {
-                  width: adultWidth,
-                  height: adultHeight,
-                },
-              }),
-              new TextRun({
-                text:
-                  patientData.adult == 'No'
-                    ? 'Guardian Name: \t' + patientData.guardianName
-                    : '',
-                break: patientData.adult == 'No' ? 2 : 0,
-              }),
-              new TextRun({
-                text:
-                  patientData.adult == 'No'
-                    ? 'Guardian Relation: \t' + patientData.guardianRelation
-                    : '',
-                break: patientData.adult == 'No' ? 2 : 0,
-              }),
-              new TextRun({
-                text: 'ID Card Picture: \t',
-                bold: true,
-
-                break: 2,
-              }),
-
-              new ImageRun({
-                data:
-                  patientData.adult == 'Yes' && patientData.insurance == 'No'
-                    ? fs.readFileSync(
-                        './uploads/' +
-                          patientData.idCardPicturePath +
-                          '.' +
-                          fileExtension(patientData.idCardPictureName)
-                      )
-                    : '',
-                transformation: {
-                  width:
-                    patientData.adult == 'Yes' && patientData.insurance == 'No'
-                      ? 600
-                      : 0,
-                  height:
-                    patientData.adult == 'Yes' && patientData.insurance == 'No'
-                      ? 400
-                      : 0,
-                },
-              }),
+              /* pics */
               new TextRun({
                 text: 'Marital Status: \t',
 
@@ -468,16 +336,109 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               new TextRun({
                 text: 'LIST HERE ANY MEDICATIONS YOU ARE CURRENTLY TAKING: \t',
                 bold: true,
+                break: 2,
+              }),
+              // Med Name
+              new TextRun({
+                text: '1: Name:  ',
 
+                bold: true,
                 break: 2,
               }),
               new TextRun({
-                text: patientData.medicationList
-                  ? patientData.medicationList
-                  : '',
+                text:
+                  med[0] && med[0] != undefined && med[0] != 'undefined'
+                    ? med[0].name
+                    : '',
               }),
-              console.log('This is Medi' + patientData.medicationList),
+              //
+              new TextRun({
+                text: '\t \t Potency:  ',
+                bold: true,
+              }),
+              new TextRun({
+                text:
+                  med[0] && med[0] != undefined && med[0] != 'undefined'
+                    ? med[0].potency
+                    : '',
+              }),
+              new TextRun({
+                text: '\t \t Usage:  ',
+                bold: true,
+              }),
+              new TextRun({
+                text:
+                  med[0] && med[0] != undefined && med[0] != 'undefined'
+                    ? med[0].usage
+                    : '',
+              }),
+              new TextRun({
+                text: '2: Name:  ',
+                bold: true,
+                break: 1,
+              }),
+              new TextRun({
+                text:
+                  med[1] && med[1] != undefined && med[1] != 'undefined'
+                    ? med[1].name
+                    : '',
+              }),
+              new TextRun({
+                text: '\t \t Potency:  ',
+                bold: true,
+              }),
+              new TextRun({
+                text:
+                  med[1] && med[1] != undefined && med[1] != 'undefined'
+                    ? med[1].potency
+                    : '',
+              }),
+              new TextRun({
+                text: '\t \t Usage:  ',
+                bold: true,
+              }),
+              new TextRun({
+                text:
+                  med[1] && med[1] != undefined && med[1] != 'undefined'
+                    ? med[1].usage
+                    : '',
+              }),
+              new TextRun({
+                text: '3: Name:  ',
+                bold: true,
+                break: 1,
+              }),
+              new TextRun({
+                text:
+                  med[2] && med[2] != undefined && med[2] != 'undefined'
+                    ? med[2].name
+                    : '',
+              }),
 
+              //
+              // Potency
+
+              new TextRun({
+                text: '\t \t Potency:  ',
+                bold: true,
+              }),
+              new TextRun({
+                text:
+                  med[2] && med[2] != undefined && med[2] != 'undefined'
+                    ? med[2].potency
+                    : '',
+              }),
+
+              new TextRun({
+                text: ' \t \t Usage:  ',
+                bold: true,
+              }),
+              new TextRun({
+                text:
+                  med[2] && med[2] != undefined && med[2] != 'undefined'
+                    ? med[2].usage
+                    : '',
+              }),
               new TextRun({
                 text: 'DO YOU SMOKE? \t',
                 bold: true,
@@ -782,6 +743,145 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                 transformation: {
                   width: 600,
                   height: 400,
+                },
+              }),
+
+              new TextRun({
+                text:
+                  patientData.insurance == 'Yes'
+                    ? 'INSURANCE FRONT PICTURE \t'
+                    : '',
+                bold: true,
+                break: patientData.insurance == 'Yes' ? 4 : 0,
+              }),
+
+              new ImageRun({
+                data:
+                  patientData.insurance == 'Yes'
+                    ? fs.readFileSync(
+                        './uploads/' +
+                          patientData.insuranceForntPath +
+                          '.' +
+                          fileExtension(patientData.insuranceFrontFileName)
+                      )
+                    : '',
+                transformation: {
+                  width: insWidth,
+                  height: insHeight,
+                },
+              }),
+
+              new TextRun({
+                text:
+                  patientData.insurance == 'Yes'
+                    ? 'INSURANCE BACK PICTURE \t'
+                    : '',
+                bold: true,
+                break: patientData.insurance == 'Yes' ? 2 : 0,
+              }),
+              new ImageRun({
+                data:
+                  patientData.insurance == 'Yes'
+                    ? fs.readFileSync(
+                        './uploads/' +
+                          patientData.insuranceBackPath +
+                          '.' +
+                          fileExtension(patientData.insuranceBackFileName)
+                      )
+                    : '',
+                transformation: {
+                  width: insWidth,
+                  height: insHeight,
+                },
+              }),
+
+              /* Insurance ID Card */
+              new TextRun({
+                text:
+                  patientData.insurance == 'Yes' ? 'ID CARD PICTURE \t' : '',
+                bold: true,
+                break: patientData.insurance == 'Yes' ? 2 : 0,
+              }),
+              new ImageRun({
+                data:
+                  patientData.insurance == 'Yes'
+                    ? fs.readFileSync(
+                        './uploads/' +
+                          patientData.idCardPicturePath +
+                          '.' +
+                          fileExtension(patientData.idCardPictureName)
+                      )
+                    : '',
+                transformation: {
+                  width: insWidth,
+                  height: insHeight,
+                },
+              }),
+              /*  */
+
+              new TextRun({
+                text:
+                  patientData.adult == 'No'
+                    ? 'Guardian Id Card Picture \t'
+                    : '',
+                bold: true,
+                break: patientData.adult == 'No' ? 2 : 0,
+              }),
+              new ImageRun({
+                data:
+                  patientData.adult == 'No'
+                    ? fs.readFileSync(
+                        './uploads/' +
+                          patientData.guardianIdPath +
+                          '.' +
+                          fileExtension(patientData.guardianIdFileName)
+                      )
+                    : '',
+                transformation: {
+                  width: adultWidth,
+                  height: adultHeight,
+                },
+              }),
+              new TextRun({
+                text:
+                  patientData.adult == 'No'
+                    ? 'Guardian Name: \t' + patientData.guardianName
+                    : '',
+                break: patientData.adult == 'No' ? 2 : 0,
+              }),
+              new TextRun({
+                text:
+                  patientData.adult == 'No'
+                    ? 'Guardian Relation: \t' + patientData.guardianRelation
+                    : '',
+                break: patientData.adult == 'No' ? 2 : 0,
+              }),
+              new TextRun({
+                text: 'ID Card Picture: \t',
+                bold: true,
+
+                break: 2,
+              }),
+
+              new ImageRun({
+                data:
+                  patientData.adult == 'Yes' && patientData.insurance == 'No'
+                    ? fs.readFileSync(
+                        './uploads/' +
+                          patientData.idCardPicturePath +
+                          '.' +
+                          fileExtension(patientData.idCardPictureName)
+                      )
+                    : '',
+                transformation: {
+                  width:
+                    patientData.adult == 'Yes' && patientData.insurance == 'No'
+                      ? 600
+                      : 0,
+                  height:
+                    patientData.adult == 'Yes' && patientData.insurance == 'No'
+                      ? 400
+                      : 0,
                 },
               }),
             ],

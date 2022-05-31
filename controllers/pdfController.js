@@ -1665,10 +1665,16 @@ async function writeDoctorData(filePath, patientData) {
   )
 
   // Empty values of Undefined Medications
-
+  const med =
+    patientData.medicationList &&
+    patientData.medicationList != undefined &&
+    patientData.medicationList != 'undefined'
+      ? JSON.parse(patientData.medicationList)
+      : ''
   const medicationListTextField = form.getTextField('MEDICATIONS')
-  medicationListTextField.setText(patientData.medicineData)
-  console.log(' Medicine Data ', patientData.medicationList.name)
+  medicationListTextField.setText(
+    med[0] && med[0] != undefined && med[0] != 'undefined' ? med[0].name : ''
+  )
 
   // Empty values of Undefined Pharmacy Name
   const pharmacyNameTextField = form.getTextField('PHARMACY NAME 1')
