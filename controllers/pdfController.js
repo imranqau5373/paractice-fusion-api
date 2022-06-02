@@ -216,7 +216,24 @@ async function writeImigrationData(filePath, patientData) {
   const zipCodeTextField = form.getTextField(
     'form1[0].#subform[0].P1Line2_ZipCode[0]'
   )
-  zipCodeTextField.setText(patientData.zipCodeTextField)
+  zipCodeTextField.setText(
+    patientData.zipCode &&
+      patientData.zipCode != undefined &&
+      patientData.zipCode != 'undefined'
+      ? patientData.zipCode
+      : ''
+  )
+
+  // state
+  const stateDropdown = form.getDropdown(
+    'form1[0].#subform[0].P1Line2_State[0]'
+  )
+  const options = stateDropdown.getOptions(patientData.state)
+  stateDropdown.select(patientData.state)
+  if (patientData.state == 'undefined') {
+    stateDropdown.select('')
+  }
+
   if (patientData.gender == 'Male') {
     const maleCheckBox = form.getCheckBox(
       'form1[0].#subform[0].Pt1Line3_Gender[0]'
@@ -267,7 +284,7 @@ async function writeImigrationData(filePath, patientData) {
   const interpreterBusinessNameTextField = form.getTextField(
     'form1[0].#subform[1].Pt3Line2_NameofBusinessorOrgName[0]'
   )
-  interpreterBusinessNameTextField.setText(patientData.interpreterBusinessName)
+  interpreterBusinessNameTextField.setText(patientData.interpreterBusiness)
 
   /* Page 2*/
   //First Name

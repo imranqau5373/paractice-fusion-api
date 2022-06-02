@@ -353,8 +353,9 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               }),
               //
               new TextRun({
-                text: '\t \t Potency:  ',
+                text: '    Potency:  ',
                 bold: true,
+                break: 1,
               }),
               new TextRun({
                 text:
@@ -363,8 +364,9 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '\t \t Usage:  ',
+                text: '    Usage:  ',
                 bold: true,
+                break: 1,
               }),
               new TextRun({
                 text:
@@ -375,7 +377,7 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               new TextRun({
                 text: '2: Name:  ',
                 bold: true,
-                break: 1,
+                break: 2,
               }),
               new TextRun({
                 text:
@@ -384,8 +386,9 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '\t \t Potency:  ',
+                text: '    Potency:  ',
                 bold: true,
+                break: 1,
               }),
               new TextRun({
                 text:
@@ -394,8 +397,9 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '\t \t Usage:  ',
+                text: '    Usage:  ',
                 bold: true,
+                break: 1,
               }),
               new TextRun({
                 text:
@@ -406,7 +410,7 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               new TextRun({
                 text: '3: Name:  ',
                 bold: true,
-                break: 1,
+                break: 2,
               }),
               new TextRun({
                 text:
@@ -419,8 +423,9 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               // Potency
 
               new TextRun({
-                text: '\t \t Potency:  ',
+                text: '    Potency:  ',
                 bold: true,
+                break: 1,
               }),
               new TextRun({
                 text:
@@ -430,8 +435,9 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               }),
 
               new TextRun({
-                text: ' \t \t Usage:  ',
+                text: '    Usage:  ',
                 bold: true,
+                break: 1,
               }),
               new TextRun({
                 text:
