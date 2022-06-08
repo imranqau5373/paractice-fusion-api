@@ -633,7 +633,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
     'MCSA-5875[0].Page2[0].pageHead2[0].dateForm2[0]'
   )
   const d = new Date()
-  dateTextField.setText(d.toLocaleDateString('en-us'))
+  dateTextField.setText(
+    d.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
 
   /*  */
   /* Third Page */
@@ -655,7 +661,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
     'MCSA-5875[0].Page3[0].pageHead3[0].dateForm3[0]'
   )
   const d3 = new Date()
-  date3TextField.setText(d3.toLocaleDateString('en-us'))
+  date3TextField.setText(
+    d3.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
 
   /*  */
   /* Fourth Page */
@@ -677,7 +689,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
     'MCSA-5875[0].Page4[0].pageHead4[0].dateForm4[0]'
   )
   const d4 = new Date()
-  date4TextField.setText(d4.toLocaleDateString('en-us'))
+  date4TextField.setText(
+    d4.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
 
   /*  */
   /* Fifth Page */
@@ -699,7 +717,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
     'MCSA-5875[0].Page5[0].pageHead5[0].dateForm5[0]'
   )
   const d5 = new Date()
-  date5TextField.setText(d5.toLocaleDateString('en-us'))
+  date5TextField.setText(
+    d5.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
 
   /*  */
 
@@ -1553,7 +1577,13 @@ async function writeCashSuperBill(filePath, patientData) {
 
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  dateTextField.setText(d.toLocaleDateString('en-us'))
+  dateTextField.setText(
+    d.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
 
   const timeTextField = form.getTextField('TIME')
   var time = new Date()
@@ -1605,7 +1635,13 @@ async function writeDoctorData(filePath, patientData) {
   //ageTextField.setText('12');
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  dateTextField.setText(d.toLocaleDateString('en-us'))
+  dateTextField.setText(
+    d.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
 
   //Time
   const timeTextField = form.getTextField('TIME')
@@ -1795,7 +1831,13 @@ async function insuranceSuperBill(filePath, patientData) {
   // Date
   const dateTextField = form.getTextField('DATE')
   const d = new Date()
-  dateTextField.setText(d.toLocaleDateString('en-us'))
+  dateTextField.setText(
+    d.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
   // Time
   const timeTextField = form.getTextField('TIME IN')
   var time = new Date()
