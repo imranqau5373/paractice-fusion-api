@@ -1771,13 +1771,23 @@ async function writeDoctorData(filePath, patientData) {
         : ''
     )
     const lastPapTextField = form.getTextField('LAST PAPSMEAR')
-    lastPapTextField.setText(
-      patientData.lastmenstrualPeriod &&
-        patientData.lastmenstrualPeriod != undefined &&
-        patientData.lastmenstrualPeriod != 'undefined'
-        ? patientData.lastmenstrualPeriod
-        : ''
-    )
+    if (patientData.lastmenstrualPeriod == 'Date') {
+      lastPapTextField.setText(
+        patientData.periodDate &&
+          patientData.periodDate != undefined &&
+          patientData.periodDate != 'undefined'
+          ? patientData.periodDate
+          : ''
+      )
+    } else {
+      lastPapTextField.setText(
+        patientData.lastmenstrualPeriod &&
+          patientData.lastmenstrualPeriod != undefined &&
+          patientData.lastmenstrualPeriod != 'undefined'
+          ? patientData.lastmenstrualPeriod
+          : ''
+      )
+    }
   }
 
   fs.writeFileSync(
