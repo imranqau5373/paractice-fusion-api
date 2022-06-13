@@ -26,6 +26,11 @@ async function modifyPdf() {
   // fs.writeFileSync('./public/patientRecords/imigration-latest.pdf', await pdfDoc.save({updateFieldAppearances: false}));
   //const pdfBytes = await pdfDoc.save()
 }
+/* Covid */
+exports.writeCovidData = (filePath, patientData) => {
+  writeCovidData(filePath, patientData)
+}
+/*  */
 
 /* Medical Certificate */
 exports.writeMedicalCertificateData = (filePath, patientData) => {
@@ -50,6 +55,62 @@ exports.writeCashSuperBill = (filePath, patientData) => {
 
 exports.writeInsuranceSuperBill = (filePath, patientData) => {
   insuranceSuperBill(filePath, patientData)
+}
+/* Write Covid Data */
+async function writeCovidData(filePath, patientData) {
+  console.log('In write Covid data.')
+  console.log('In write imigration data with doctor data.', patientData)
+
+  const pdfDoc = await PDFDocument.load(
+    fs.readFileSync('./public/pdfFile/covid.pdf'),
+    { ignoreEncryption: true }
+  )
+  const form = pdfDoc.getForm()
+  const firstName = form.getTextField('firstName')
+  firstName.setText(patientData.firstName)
+
+  const lastNameTextField = form.getTextField('lastName')
+  lastNameTextField.setText(patientData.lastName)
+
+  const middleNameTextField = form.getTextField('middleName')
+  middleNameTextField.setText(
+    patientData.middleName &&
+      patientData.middleName != undefined &&
+      patientData.middleName != 'undefined'
+      ? patientData.middleName
+      : ''
+  )
+
+  const phoneNumberTextField = form.getTextField('phoneNumber')
+  phoneNumberTextField.setText(
+    patientData.mobilePhoneNo &&
+      patientData.mobilePhoneNo != undefined &&
+      patientData.mobilePhoneNo != 'undefined'
+      ? patientData.mobilePhoneNo
+      : ''
+  )
+
+  const dobTextField = form.getTextField('dob')
+  dobTextField.setText(patientData.dateOfBirth)
+
+  const ageTextField = form.getTextField('age')
+  ageTextField.setText(getAge(patientData.dateOfBirth))
+
+  const dateTextField = form.getTextField('date')
+  const d = new Date()
+  dateTextField.setText(
+    d.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
+
+  fs.writeFileSync(
+    filePath,
+    await pdfDoc.save({ updateFieldAppearances: false })
+  )
+  //const pdfBytes = await pdfDoc.save()
 }
 
 /*  */
