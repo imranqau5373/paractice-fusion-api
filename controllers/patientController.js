@@ -58,7 +58,18 @@ exports.addNewPatientRecord = (req, response, next) => {
       )
       patientData.medicalCertificateFilePath = medicalCertificateFilePath
       createMedicalCertificateForm(medicalCertificateFilePath, patientData)
+    }
+
+    /* Covid */
+    if (
+      patientData.reasonForVisit == 'Covid' &&
+      patientData.covidTesting == 'RapidAntigen'
+    ) {
+      const covidFilePath = getPdfPath(folderPath, 'covid')
+      patientData.covidFilePath = covidFilePath
+      createCovidForm(covidFilePath, patientData)
     } else {
+    /*  */
       patientData.isNewPatient = 'Yes'
       const insuranceFilePath = getPdfPath(folderPath, 'insurance-file')
       patientData.insuranceFilePath = insuranceFilePath
@@ -184,6 +195,7 @@ exports.getAllNewPatients = (req, response, next) => {
             insuranceFilePath: true,
             cashSuperBillFilePath: true,
             medicalExaminationFilePath: true,
+            covidFilePath: true,
             medicalCertificateFilePath: true,
             doctorFormPath: true,
             consentPath: true,
@@ -280,6 +292,11 @@ function createMedicalExaminationForm(filePath, patientData) {
 /*  */
 function createMedicalCertificateForm(filePath, patientData) {
   pdfController.writeMedicalCertificateData(filePath, patientData)
+}
+/*  */
+/* Covid */
+function createCovidForm(filePath, patientData) {
+  pdfController.writeCovidData(filePath, patientData)
 }
 /*  */
 function createInsuranceForm(filePath, patientData) {
