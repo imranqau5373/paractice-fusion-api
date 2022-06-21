@@ -63,7 +63,7 @@ exports.writeInsuranceSuperBill = (filePath, patientData) => {
   insuranceSuperBill(filePath, patientData)
 }
 
-/* Write Sport School Data */
+/* Write Sport School  */
 async function writeSchoolData(filePath, patientData) {
   const pdfDoc = await PDFDocument.load(
     fs.readFileSync('./public/pdfFile/sportPhysical.pdf'),
