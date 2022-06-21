@@ -26,6 +26,12 @@ async function modifyPdf() {
   // fs.writeFileSync('./public/patientRecords/imigration-latest.pdf', await pdfDoc.save({updateFieldAppearances: false}));
   //const pdfBytes = await pdfDoc.save()
 }
+
+/* Sport School Physical */
+exports.writeSchoolData = (filePath, patientData) => {
+  writeSchoolData(filePath, patientData)
+}
+/*  */
 /* Covid */
 exports.writeCovidData = (filePath, patientData) => {
   writeCovidData(filePath, patientData)
@@ -56,6 +62,569 @@ exports.writeCashSuperBill = (filePath, patientData) => {
 exports.writeInsuranceSuperBill = (filePath, patientData) => {
   insuranceSuperBill(filePath, patientData)
 }
+
+/* Write Sport School Data */
+async function writeSchoolData(filePath, patientData) {
+  const pdfDoc = await PDFDocument.load(
+    fs.readFileSync('./public/pdfFile/sportPhysical.pdf'),
+    { ignoreEncryption: true }
+  )
+  const form = pdfDoc.getForm()
+  const firstName = form.getTextField('Name')
+  firstName.setText(patientData.firstName)
+  const gender = form.getTextField('Sex')
+  gender.setText(patientData.gender)
+  const phoneNumberTextField = form.getTextField('Phone2')
+  phoneNumberTextField.setText(
+    patientData.mobilePhoneNo &&
+      patientData.mobilePhoneNo != undefined &&
+      patientData.mobilePhoneNo != 'undefined'
+      ? patientData.mobilePhoneNo
+      : ''
+  )
+
+  const dobTextField = form.getTextField('Date of Birth')
+  dobTextField.setText(patientData.dateOfBirth)
+
+  const ageTextField = form.getTextField('Age')
+  ageTextField.setText(getAge(patientData.dateOfBirth))
+
+  const grade = form.getTextField('Grade')
+  grade.setText(
+    patientData.grade &&
+      patientData.grade != undefined &&
+      patientData.grade != 'undefined'
+      ? patientData.grade
+      : ''
+  )
+
+  const school = form.getTextField('School')
+  school.setText(
+    patientData.school &&
+      patientData.school != undefined &&
+      patientData.school != 'undefined'
+      ? patientData.school
+      : ''
+  )
+
+  const dateTextField = form.getTextField('Date of Examination')
+  const d = new Date()
+  dateTextField.setText(
+    d.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  )
+  const emergencyName = form.getTextField('EmergencyName')
+  emergencyName.setText(
+    patientData.contactFirstName &&
+      patientData.contactFirstName != undefined &&
+      patientData.contactFirstName != 'undefined'
+      ? patientData.contactFirstName
+      : ''
+  )
+
+  const relationship = form.getTextField('Relationship')
+  relationship.setText(
+    patientData.contactRelation &&
+      patientData.contactRelation != undefined &&
+      patientData.contactRelation != 'undefined'
+      ? patientData.contactRelation
+      : ''
+  )
+
+  const contactPhone = form.getTextField('PhoneH')
+  contactPhone.setText(
+    patientData.contactPhone &&
+      patientData.contactPhone != undefined &&
+      patientData.contactPhone != 'undefined'
+      ? patientData.contactPhone
+      : ''
+  )
+
+  if (patientData.stdIllness == 'Yes') {
+    const illnessCheckBox = form.getCheckBox('Check Box101')
+    illnessCheckBox.check()
+  } else {
+    const noillnessCheckBox = form.getCheckBox('Check Box102')
+    noillnessCheckBox.check()
+  }
+
+  /*  */
+  if (patientData.stdHospitalized == 'Yes') {
+    const HospitalizedCheckBox = form.getCheckBox('Check BoxA')
+    HospitalizedCheckBox.check()
+  } else {
+    const noHospitalizedCheckBox = form.getCheckBox('Check Box104')
+    noHospitalizedCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdSurgery == 'Yes') {
+    const SurgeryCheckBox = form.getCheckBox('81')
+    SurgeryCheckBox.check()
+  } else {
+    const noSurgeryCheckBox = form.getCheckBox('82')
+    noSurgeryCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdHeartTest == 'Yes') {
+    const HeartTestCheckBox = form.getCheckBox('83')
+    HeartTestCheckBox.check()
+  } else {
+    const noHeartTestCheckBox = form.getCheckBox('84')
+    noHeartTestCheckBox.check()
+  }
+
+  /*  */
+  if (patientData.stdPassedOutEx == 'Yes') {
+    const PassedOutExCheckBox = form.getCheckBox('Check Box3')
+    PassedOutExCheckBox.check()
+  } else {
+    const noPassedOutExCheckBox = form.getCheckBox('1')
+    noPassedOutExCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdChestPainEx == 'Yes') {
+    const ChestPainExCheckBox = form.getCheckBox('Check Box2')
+    ChestPainExCheckBox.check()
+  } else {
+    const noChestPainExCheckBox = form.getCheckBox('Check Box4')
+    noChestPainExCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdTiredQuicklyEx == 'Yes') {
+    const TiredQuicklyExCheckBox = form.getCheckBox('Check Box5')
+    TiredQuicklyExCheckBox.check()
+  } else {
+    const noTiredQuicklyExCheckBox = form.getCheckBox('Check Box6')
+    noTiredQuicklyExCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdSkipHeartbeatEx == 'Yes') {
+    const SkipHeartbeatExCheckBox = form.getCheckBox('Check Box7')
+    SkipHeartbeatExCheckBox.check()
+  } else {
+    const noSkipHeartbeatExCheckBox = form.getCheckBox('Check Box8')
+    noSkipHeartbeatExCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdHighBlood == 'Yes') {
+    const HighBloodCheckBox = form.getCheckBox('Check Box9')
+    HighBloodCheckBox.check()
+  } else {
+    const noHighBloodCheckBox = form.getCheckBox('10')
+    noHighBloodCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdHeartMurmur == 'Yes') {
+    const HeartMurmurCheckBox = form.getCheckBox('11')
+    HeartMurmurCheckBox.check()
+  } else {
+    const noHeartMurmurCheckBox = form.getCheckBox('12')
+    noHeartMurmurCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdHeartProblemDeath == 'Yes') {
+    const HeartProblemDeathCheckBox = form.getCheckBox('13')
+    HeartProblemDeathCheckBox.check()
+  } else {
+    const noHeartProblemDeathCheckBox = form.getCheckBox('14')
+    noHeartProblemDeathCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdFamilyHeartProblem == 'Yes') {
+    const FamilyHeartProblemCheckBox = form.getCheckBox('2')
+    FamilyHeartProblemCheckBox.check()
+  } else {
+    const noFamilyHeartProblemCheckBox = form.getCheckBox('3')
+    noFamilyHeartProblemCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdViralInfection == 'Yes') {
+    const ViralInfectionCheckBox = form.getCheckBox('4')
+    ViralInfectionCheckBox.check()
+  } else {
+    const noViralInfectionCheckBox = form.getCheckBox('5')
+    noViralInfectionCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdDenied == 'Yes') {
+    const DeniedCheckBox = form.getCheckBox('6')
+    DeniedCheckBox.check()
+  } else {
+    const noDeniedCheckBox = form.getCheckBox('7')
+    noDeniedCheckBox.check()
+  }
+
+  /*  */
+  if (patientData.stdHeadInjury == 'Yes') {
+    const HeadInjuryCheckBox = form.getCheckBox('8')
+    HeadInjuryCheckBox.check()
+  } else {
+    const noHeadInjuryCheckBox = form.getCheckBox('9')
+    noHeadInjuryCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdMemoryLoss == 'Yes') {
+    const MemoryLossCheckBox = form.getCheckBox('15')
+    MemoryLossCheckBox.check()
+  } else {
+    const noMemoryLossCheckBox = form.getCheckBox('16')
+    noMemoryLossCheckBox.check()
+  }
+  /*  */
+  /*  */
+  /*  */
+  /*  */
+  if (patientData.stdSeizure == 'Yes') {
+    const SeizureCheckBox = form.getCheckBox('17')
+    SeizureCheckBox.check()
+  } else {
+    const noSeizureCheckBox = form.getCheckBox('18')
+    noSeizureCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdHeadache == 'Yes') {
+    const HeadacheCheckBox = form.getCheckBox('19')
+    HeadacheCheckBox.check()
+  } else {
+    const noHeadacheCheckBox = form.getCheckBox('20')
+    noHeadacheCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdNumbness == 'Yes') {
+    const NumbnessCheckBox = form.getCheckBox('21')
+    NumbnessCheckBox.check()
+  } else {
+    const noNumbnessCheckBox = form.getCheckBox('22')
+    noNumbnessCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdPinchedNerve == 'Yes') {
+    const PinchedNerveCheckBox = form.getCheckBox('23')
+    PinchedNerveCheckBox.check()
+  } else {
+    const noPinchedNerveCheckBox = form.getCheckBox('24')
+    noPinchedNerveCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdMissingOrgan == 'Yes') {
+    const MissingOrganCheckBox = form.getCheckBox('25')
+    MissingOrganCheckBox.check()
+  } else {
+    const noMissingOrganCheckBox = form.getCheckBox('26')
+    noMissingOrganCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdUnderDrCare == 'Yes') {
+    const UnderDrCareCheckBox = form.getCheckBox('27')
+    UnderDrCareCheckBox.check()
+  } else {
+    const noUnderDrCareCheckBox = form.getCheckBox('28')
+    noUnderDrCareCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdTakingMed == 'Yes') {
+    const TakingMedCheckBox = form.getCheckBox('29')
+    TakingMedCheckBox.check()
+  } else {
+    const noTakingMedCheckBox = form.getCheckBox('30')
+    noTakingMedCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdAlergic == 'Yes') {
+    const AlergicCheckBox = form.getCheckBox('31')
+    AlergicCheckBox.check()
+  } else {
+    const noAlergicCheckBox = form.getCheckBox('32')
+    noAlergicCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdDizzy == 'Yes') {
+    const DizzyCheckBox = form.getCheckBox('33')
+    DizzyCheckBox.check()
+  } else {
+    const noDizzyCheckBox = form.getCheckBox('34')
+    noDizzyCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdSkinProblem == 'Yes') {
+    const SkinProblemCheckBox = form.getCheckBox('35')
+    SkinProblemCheckBox.check()
+  } else {
+    const noSkinProblemCheckBox = form.getCheckBox('36')
+    noSkinProblemCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdIllnessInHeat == 'Yes') {
+    const IllnessInHeatCheckBox = form.getCheckBox('37')
+    IllnessInHeatCheckBox.check()
+  } else {
+    const noIllnessInHeatCheckBox = form.getCheckBox('38')
+    noIllnessInHeatCheckBox.check()
+  }
+
+  /*  */
+  if (patientData.stdEyeProblem == 'Yes') {
+    const EyeProblemCheckBox = form.getCheckBox('39')
+    EyeProblemCheckBox.check()
+  } else {
+    const noEyeProblemCheckBox = form.getCheckBox('40')
+    noEyeProblemCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdBreathness == 'Yes') {
+    const BreathnessCheckBox = form.getCheckBox('Check Boxb')
+    BreathnessCheckBox.check()
+  } else {
+    const noBreathnessCheckBox = form.getCheckBox('41')
+    noBreathnessCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdAsthma == 'Yes') {
+    const AsthmaCheckBox = form.getCheckBox('42')
+    AsthmaCheckBox.check()
+  } else {
+    const noAsthmaCheckBox = form.getCheckBox('43')
+    noAsthmaCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdSeasonalAlergy == 'Yes') {
+    const SeasonalAlergyCheckBox = form.getCheckBox('44')
+    SeasonalAlergyCheckBox.check()
+  } else {
+    const noSeasonalAlergyCheckBox = form.getCheckBox('45')
+    noSeasonalAlergyCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdProtective == 'Yes') {
+    const ProtectiveCheckBox = form.getCheckBox('46')
+    ProtectiveCheckBox.check()
+  } else {
+    const noProtectiveCheckBox = form.getCheckBox('47')
+    noProtectiveCheckBox.check()
+  }
+  if (patientData.stdInjurySwelling == 'Yes') {
+    const InjurySwellingCheckBox = form.getCheckBox('48')
+    InjurySwellingCheckBox.check()
+  } else {
+    const noInjurySwellingCheckBox = form.getCheckBox('49')
+    noInjurySwellingCheckBox.check()
+  }
+
+  if (patientData.stdFracturedBone == 'Yes') {
+    const FracturedBoneCheckBox = form.getCheckBox('50')
+    FracturedBoneCheckBox.check()
+  } else {
+    const noFracturedBoneCheckBox = form.getCheckBox('51')
+    noFracturedBoneCheckBox.check()
+  }
+  if (patientData.stdMusclePain == 'Yes') {
+    const MusclePainCheckBox = form.getCheckBox('52')
+    MusclePainCheckBox.check()
+  } else {
+    const noMusclePainCheckBox = form.getCheckBox('53')
+    noMusclePainCheckBox.check()
+  }
+
+  const stdFracturedHeadCheckBox = form.getCheckBox('54')
+  patientData.stdFracturedHead == 'true' ? stdFracturedHeadCheckBox.check() : ''
+
+  const FracturedNeckCheckBox = form.getCheckBox('55')
+  patientData.stdFracturedNeck == 'true' ? FracturedNeckCheckBox.check() : ''
+
+  const FracturedBackCheckBox = form.getCheckBox('56')
+  patientData.stdFracturedBack == 'true' ? FracturedBackCheckBox.check() : ''
+
+  const FracturedChestCheckBox = form.getCheckBox('57')
+  patientData.stdFracturedChest == 'true' ? FracturedChestCheckBox.check() : ''
+
+  const FracturedShoulderCheckBox = form.getCheckBox('58')
+  patientData.stdFracturedShoulder == 'true'
+    ? FracturedShoulderCheckBox.check()
+    : ''
+  const FracturedUpperarmCheckBox = form.getCheckBox('59')
+  patientData.stdFracturedUpperarm == 'true'
+    ? FracturedUpperarmCheckBox.check()
+    : ''
+
+  const FracturedElbowCheckBox = form.getCheckBox('60')
+  patientData.stdFracturedElbow == 'true' ? FracturedElbowCheckBox.check() : ''
+  const FracturedForearmCheckBox = form.getCheckBox('61')
+  patientData.stdFracturedForearm == 'true'
+    ? FracturedForearmCheckBox.check()
+    : ''
+
+  const FracturedWristCheckBox = form.getCheckBox('62')
+  patientData.stdFracturedWrist == 'true' ? FracturedWristCheckBox.check() : ''
+
+  const FracturedHandCheckBox = form.getCheckBox('63')
+  patientData.stdFracturedHand == 'true' ? FracturedHandCheckBox.check() : ''
+
+  const FracturedFingerCheckBox = form.getCheckBox('64')
+  patientData.stdFracturedFinger == 'true'
+    ? FracturedFingerCheckBox.check()
+    : ''
+
+  const FracturedFootCheckBox = form.getCheckBox('65')
+  patientData.stdFracturedFoot == 'true' ? FracturedFootCheckBox.check() : ''
+
+  const FracturedHipCheckBox = form.getCheckBox('66')
+  patientData.stdFracturedHip == 'true' ? FracturedHipCheckBox.check() : ''
+
+  const FracturedThighCheckBox = form.getCheckBox('67')
+  patientData.stdFracturedThigh == 'true' ? FracturedThighCheckBox.check() : ''
+
+  const FracturedKneeCheckBox = form.getCheckBox('68')
+  patientData.stdFracturedKnee == 'true' ? FracturedKneeCheckBox.check() : ''
+
+  const FracturedShinCheckBox = form.getCheckBox('69')
+  patientData.stdFracturedShin == 'true' ? FracturedShinCheckBox.check() : ''
+
+  const FracturedAnkleCheckBox = form.getCheckBox('70')
+  patientData.stdFracturedAnkle == 'true' ? FracturedAnkleCheckBox.check() : ''
+
+  /*  */
+  if (patientData.stdWeight == 'Yes') {
+    const WeightCheckBox = form.getCheckBox('71')
+    WeightCheckBox.check()
+  } else {
+    const noWeightCheckBox = form.getCheckBox('74')
+    noWeightCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdStress == 'Yes') {
+    const StressCheckBox = form.getCheckBox('72')
+    StressCheckBox.check()
+  } else {
+    const noStressCheckBox = form.getCheckBox('75')
+    noStressCheckBox.check()
+  }
+  /*  */
+  if (patientData.stdSickleCell == 'Yes') {
+    const SickleCellCheckBox = form.getCheckBox('73')
+    SickleCellCheckBox.check()
+  } else {
+    const noSickleCellCheckBox = form.getCheckBox('76')
+    noSickleCellCheckBox.check()
+  }
+
+  const stdFirstMenstrualTextField = form.getTextField(
+    '19 When was your first menstrual period'
+  )
+  stdFirstMenstrualTextField.setText(
+    patientData.stdFirstMenstrual &&
+      patientData.stdFirstMenstrual != undefined &&
+      patientData.stdFirstMenstrual != 'undefined'
+      ? patientData.stdFirstMenstrual
+      : ''
+  )
+  /*  */
+  const stdRecentMenstrualTextField = form.getTextField(
+    'When was your most recent menstrual period'
+  )
+  stdRecentMenstrualTextField.setText(
+    patientData.stdRecentMenstrual &&
+      patientData.stdRecentMenstrual != undefined &&
+      patientData.stdRecentMenstrual != 'undefined'
+      ? patientData.stdRecentMenstrual
+      : ''
+  )
+  /*  */
+  const stdMenstrualTimeTextField = form.getTextField('another')
+  stdMenstrualTimeTextField.setText(
+    patientData.stdMenstrualTime &&
+      patientData.stdMenstrualTime != undefined &&
+      patientData.stdMenstrualTime != 'undefined'
+      ? patientData.stdMenstrualTime
+      : ''
+  )
+  /*  */
+  const stdLastYearPeriodsTextField = form.getTextField(
+    'How many periods have you had in the last year'
+  )
+  stdLastYearPeriodsTextField.setText(
+    patientData.stdLastYearPeriods &&
+      patientData.stdLastYearPeriods != undefined &&
+      patientData.stdLastYearPeriods != 'undefined'
+      ? patientData.stdLastYearPeriods
+      : ''
+  )
+  /*  */
+  const stdLongestPeriodTimeTextField = form.getTextField('Longest time')
+  stdLongestPeriodTimeTextField.setText(
+    patientData.stdLongestPeriodTime &&
+      patientData.stdLongestPeriodTime != undefined &&
+      patientData.stdLongestPeriodTime != 'undefined'
+      ? patientData.stdLongestPeriodTime
+      : ''
+  )
+  /*  */
+  const stdTwoTesticleTextField = form.getTextField(
+    'Do you have two testicles?'
+  )
+  stdTwoTesticleTextField.setText(
+    patientData.stdTwoTesticle &&
+      patientData.stdTwoTesticle != undefined &&
+      patientData.stdTwoTesticle != 'undefined'
+      ? patientData.stdTwoTesticle
+      : ''
+  )
+
+  const stdTesticularSwellingTextField = form.getTextField(
+    'Do you have any swelling or masses?'
+  )
+  stdTesticularSwellingTextField.setText(
+    patientData.stdTesticularSwelling &&
+      patientData.stdTesticularSwelling != undefined &&
+      patientData.stdTesticularSwelling != 'undefined'
+      ? patientData.stdTesticularSwelling
+      : ''
+  )
+
+  /*  */
+  const stdECGCheckBox = form.getCheckBox('Check Box10')
+  patientData.stdECG == 'true' ? stdECGCheckBox.check() : ''
+  /*  */
+  const stdConcussionTextField = form.getTextField(
+    'When was your last concussion'
+  )
+  stdConcussionTextField.setText(
+    patientData.stdConcussion &&
+      patientData.stdConcussion != undefined &&
+      patientData.stdConcussion != 'undefined'
+      ? patientData.stdConcussion
+      : ''
+  )
+
+  /*  */
+  const stdMemoryLossExplainTextField = form.getTextField(
+    'If yes how many times'
+  )
+  stdMemoryLossExplainTextField.setText(
+    patientData.stdMemoryLossExplain &&
+      patientData.stdMemoryLossExplain != undefined &&
+      patientData.stdMemoryLossExplain != 'undefined'
+      ? patientData.stdMemoryLossExplain
+      : ''
+  )
+
+  /* Footer */
+  const addressTextField = form.getTextField('Address_2')
+  addressTextField.setText(
+    ' Southwest Urgent Care & Family Practice 5900 Chimney Rock, Suite X Houston, TX 77081'
+  )
+  const contactTextField = form.getTextField('Phone Number4')
+  contactTextField.setText('713-640-5754')
+
+  fs.writeFileSync(
+    filePath,
+    await pdfDoc.save({ updateFieldAppearances: false })
+  )
+  //const pdfBytes = await pdfDoc.save()
+}
+
 /* Write Covid Data */
 async function writeCovidData(filePath, patientData) {
   console.log('In write Covid data.')
@@ -66,13 +635,13 @@ async function writeCovidData(filePath, patientData) {
     { ignoreEncryption: true }
   )
   const form = pdfDoc.getForm()
-  const firstName = form.getTextField('firstName')
+  const firstName = form.getTextField('First Name')
   firstName.setText(patientData.firstName)
 
-  const lastNameTextField = form.getTextField('lastName')
+  const lastNameTextField = form.getTextField('Last Name')
   lastNameTextField.setText(patientData.lastName)
 
-  const middleNameTextField = form.getTextField('middleName')
+  const middleNameTextField = form.getTextField('Middle Name')
   middleNameTextField.setText(
     patientData.middleName &&
       patientData.middleName != undefined &&
@@ -81,7 +650,7 @@ async function writeCovidData(filePath, patientData) {
       : ''
   )
 
-  const phoneNumberTextField = form.getTextField('phoneNumber')
+  const phoneNumberTextField = form.getTextField('Phone Number')
   phoneNumberTextField.setText(
     patientData.mobilePhoneNo &&
       patientData.mobilePhoneNo != undefined &&
@@ -90,13 +659,13 @@ async function writeCovidData(filePath, patientData) {
       : ''
   )
 
-  const dobTextField = form.getTextField('dob')
+  const dobTextField = form.getTextField('Date of Birth')
   dobTextField.setText(patientData.dateOfBirth)
 
-  const ageTextField = form.getTextField('age')
+  const ageTextField = form.getTextField('Age')
   ageTextField.setText(getAge(patientData.dateOfBirth))
 
-  const dateTextField = form.getTextField('date')
+  const dateTextField = form.getTextField('Collection Date')
   const d = new Date()
   dateTextField.setText(
     d.toLocaleDateString('en-us', {

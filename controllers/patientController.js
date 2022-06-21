@@ -59,17 +59,20 @@ exports.addNewPatientRecord = (req, response, next) => {
       patientData.medicalCertificateFilePath = medicalCertificateFilePath
       createMedicalCertificateForm(medicalCertificateFilePath, patientData)
     }
+    /* Sport School Physical */
+    if (patientData.reasonForVisit == 'schoolPhysical') {
+      const schoolFilePath = getPdfPath(folderPath, 'school')
+      patientData.schoolFilePath = schoolFilePath
+      createSchoolForm(schoolFilePath, patientData)
+    }
 
     /* Covid */
-    if (
-      patientData.reasonForVisit == 'Covid' &&
-      patientData.covidTesting == 'RapidAntigen'
-    ) {
+    if (patientData.covidTesting == 'RapidAntigen') {
       const covidFilePath = getPdfPath(folderPath, 'covid')
       patientData.covidFilePath = covidFilePath
       createCovidForm(covidFilePath, patientData)
     } else {
-    /*  */
+      /*  */
       patientData.isNewPatient = 'Yes'
       const insuranceFilePath = getPdfPath(folderPath, 'insurance-file')
       patientData.insuranceFilePath = insuranceFilePath
@@ -196,6 +199,7 @@ exports.getAllNewPatients = (req, response, next) => {
             cashSuperBillFilePath: true,
             medicalExaminationFilePath: true,
             covidFilePath: true,
+            schoolFilePath: true,
             medicalCertificateFilePath: true,
             doctorFormPath: true,
             consentPath: true,
@@ -292,6 +296,11 @@ function createMedicalExaminationForm(filePath, patientData) {
 /*  */
 function createMedicalCertificateForm(filePath, patientData) {
   pdfController.writeMedicalCertificateData(filePath, patientData)
+}
+/*  */
+/* Sport School Physical */
+function createSchoolForm(filePath, patientData) {
+  pdfController.writeSchoolData(filePath, patientData)
 }
 /*  */
 /* Covid */
