@@ -37,13 +37,21 @@ exports.writeNewPatientData = (patientData, medicineData) => {
         children: [
           new Paragraph({
             children: [
+              new ImageRun({
+                data: fs.readFileSync('./public/logo/southwest-logo.png'),
+                transformation: {
+                  width: 570,
+                  height: 85,
+                },
+              }),
+
               new TextRun({
                 text: 'First Name: \t',
                 font: 'Calibri',
 
                 bold: true,
 
-                //  break: 2,
+                break: 3,
               }),
               new TextRun({
                 text: patientData.firstName ? patientData.firstName : '',
