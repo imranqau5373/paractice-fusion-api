@@ -204,6 +204,7 @@ exports.getAllNewPatients = (req, response, next) => {
             doctorFormPath: true,
             consentPath: true,
             someField: true,
+            covidTesting: true,
             createdDate: true,
           },
         }
