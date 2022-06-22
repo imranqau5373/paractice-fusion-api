@@ -89,6 +89,9 @@ async function writeSchoolData(filePath, patientData) {
   const ageTextField = form.getTextField('Age')
   ageTextField.setText(getAge(patientData.dateOfBirth))
 
+  const addressText = form.getTextField('Address')
+  addressText.setText(patientData.inputAddress)
+
   const grade = form.getTextField('Grade')
   grade.setText(
     patientData.grade &&
