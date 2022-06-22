@@ -610,6 +610,17 @@ async function writeSchoolData(filePath, patientData) {
       : ''
   )
 
+  const stdYesExplain = form.getTextField(
+    'EXPLAIN YES ANSWERS IN THE BOX BELOW attach another sheet if necessary'
+  )
+  stdYesExplain.setText(
+    patientData.stdYesExplain &&
+      patientData.stdYesExplain != undefined &&
+      patientData.stdYesExplain != 'undefined'
+      ? patientData.stdYesExplain
+      : ''
+  )
+
   /* Footer */
   const addressTextField = form.getTextField('Address_2')
   addressTextField.setText(
