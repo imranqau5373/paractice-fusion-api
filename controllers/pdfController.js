@@ -66,7 +66,7 @@ exports.writeInsuranceSuperBill = (filePath, patientData) => {
 /* Write Sport School  */
 async function writeSchoolData(filePath, patientData) {
   const pdfDoc = await PDFDocument.load(
-    fs.readFileSync('./public/pdfFile/sportPhysical.pdf'),
+    fs.readFileSync('./public/pdfFile/msportPhysical.pdf'),
     { ignoreEncryption: true }
   )
   const form = pdfDoc.getForm()
