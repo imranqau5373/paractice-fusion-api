@@ -121,28 +121,28 @@ async function writeSchoolData(filePath, patientData) {
   )
   const emergencyName = form.getTextField('EmergencyName')
   emergencyName.setText(
-    patientData.contactFirstName &&
-      patientData.contactFirstName != undefined &&
-      patientData.contactFirstName != 'undefined'
-      ? patientData.contactFirstName
+    patientData.emergencyName &&
+      patientData.emergencyName != undefined &&
+      patientData.emergencyName != 'undefined'
+      ? patientData.emergencyName
       : ''
   )
 
   const relationship = form.getTextField('Relationship')
   relationship.setText(
-    patientData.contactRelation &&
-      patientData.contactRelation != undefined &&
-      patientData.contactRelation != 'undefined'
-      ? patientData.contactRelation
+    patientData.emergencyRelation &&
+      patientData.emergencyRelation != undefined &&
+      patientData.emergencyRelation != 'undefined'
+      ? patientData.emergencyRelation
       : ''
   )
 
   const contactPhone = form.getTextField('PhoneH')
   contactPhone.setText(
-    patientData.contactPhone &&
-      patientData.contactPhone != undefined &&
-      patientData.contactPhone != 'undefined'
-      ? patientData.contactPhone
+    patientData.emergencyPhone &&
+      patientData.emergencyPhone != undefined &&
+      patientData.emergencyPhone != 'undefined'
+      ? patientData.emergencyPhone
       : ''
   )
 
@@ -613,6 +613,16 @@ async function writeSchoolData(filePath, patientData) {
       : ''
   )
 
+  /*  */
+  const stdhowsevereTextField = form.getTextField('How Severe')
+  stdhowsevereTextField.setText(
+    patientData.stdHowSevere &&
+      patientData.stdHowSevere != undefined &&
+      patientData.stdHowSevere != 'undefined'
+      ? patientData.stdHowSevere
+      : ''
+  )
+  /*  */
   const stdYesExplain = form.getTextField(
     'EXPLAIN YES ANSWERS IN THE BOX BELOW attach another sheet if necessary'
   )

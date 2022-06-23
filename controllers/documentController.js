@@ -348,7 +348,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               }),
               // Med Name
               new TextRun({
-                text: '1: Name:  ',
+                text:
+                  med[0] && med[0] != undefined && med[0] != 'undefined'
+                    ? '1: Name:  '
+                    : '',
 
                 bold: true,
                 break: 2,
@@ -361,7 +364,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               }),
               //
               new TextRun({
-                text: '    Potency:  ',
+                text:
+                  med[0] && med[0] != undefined && med[0] != 'undefined'
+                    ? '    Potency:  '
+                    : '',
                 bold: true,
                 break: 1,
               }),
@@ -372,7 +378,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '    Usage:  ',
+                text:
+                  med[0] && med[0] != undefined && med[0] != 'undefined'
+                    ? '    Usage:  '
+                    : '',
                 bold: true,
                 break: 1,
               }),
@@ -383,7 +392,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '2: Name:  ',
+                text:
+                  med[1] && med[1] != undefined && med[1] != 'undefined'
+                    ? '2: Name:  '
+                    : '',
                 bold: true,
                 break: 2,
               }),
@@ -394,7 +406,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '    Potency:  ',
+                text:
+                  med[1] && med[1] != undefined && med[1] != 'undefined'
+                    ? '    Potency:  '
+                    : '',
                 bold: true,
                 break: 1,
               }),
@@ -405,7 +420,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '    Usage:  ',
+                text:
+                  med[1] && med[1] != undefined && med[1] != 'undefined'
+                    ? '    Usage:  '
+                    : '',
                 bold: true,
                 break: 1,
               }),
@@ -416,7 +434,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     : '',
               }),
               new TextRun({
-                text: '3: Name:  ',
+                text:
+                  med[2] && med[2] != undefined && med[2] != 'undefined'
+                    ? '3: Name:  '
+                    : '',
                 bold: true,
                 break: 2,
               }),
@@ -431,7 +452,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               // Potency
 
               new TextRun({
-                text: '    Potency:  ',
+                text:
+                  med[2] && med[2] != undefined && med[2] != 'undefined'
+                    ? '    Potency:  '
+                    : '',
                 bold: true,
                 break: 1,
               }),
@@ -443,7 +467,10 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               }),
 
               new TextRun({
-                text: '    Usage:  ',
+                text:
+                  med[2] && med[2] != undefined && med[2] != 'undefined'
+                    ? '    Usage:  '
+                    : '',
                 bold: true,
                 break: 1,
               }),
@@ -453,6 +480,105 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                     ? med[2].usage
                     : '',
               }),
+
+              /*Med 4  */
+              new TextRun({
+                text:
+                  med[3] && med[3] != undefined && med[3] != 'undefined'
+                    ? '4: Name:  '
+                    : '',
+                bold: true,
+                break: 2,
+              }),
+              new TextRun({
+                text:
+                  med[3] && med[3] != undefined && med[3] != 'undefined'
+                    ? med[3].name
+                    : '',
+              }),
+
+              //
+              // Potency
+
+              new TextRun({
+                text:
+                  med[3] && med[3] != undefined && med[3] != 'undefined'
+                    ? '    Potency:  '
+                    : '',
+                bold: true,
+                break: 1,
+              }),
+              new TextRun({
+                text:
+                  med[3] && med[3] != undefined && med[3] != 'undefined'
+                    ? med[3].potency
+                    : '',
+              }),
+
+              new TextRun({
+                text:
+                  med[3] && med[3] != undefined && med[3] != 'undefined'
+                    ? '    Usage:  '
+                    : '',
+                bold: true,
+                break: 1,
+              }),
+              new TextRun({
+                text:
+                  med[3] && med[3] != undefined && med[3] != 'undefined'
+                    ? med[3].usage
+                    : '',
+              }),
+
+              /* Med 5 */
+              new TextRun({
+                text:
+                  med[4] && med[4] != undefined && med[4] != 'undefined'
+                    ? '5: Name:  '
+                    : ' ',
+                bold: true,
+                break: 2,
+              }),
+              new TextRun({
+                text:
+                  med[4] && med[4] != undefined && med[4] != 'undefined'
+                    ? med[4].name
+                    : '',
+              }),
+
+              //
+              // Potency
+
+              new TextRun({
+                text:
+                  med[4] && med[4] != undefined && med[4] != 'undefined'
+                    ? '    Potency:  '
+                    : '',
+                bold: true,
+                break: 1,
+              }),
+              new TextRun({
+                text:
+                  med[4] && med[4] != undefined && med[4] != 'undefined'
+                    ? med[4].potency
+                    : '',
+              }),
+
+              new TextRun({
+                text:
+                  med[4] && med[4] != undefined && med[4] != 'undefined'
+                    ? '    Usage:  '
+                    : '',
+                bold: true,
+                break: 1,
+              }),
+              new TextRun({
+                text:
+                  med[4] && med[4] != undefined && med[4] != 'undefined'
+                    ? med[4].usage
+                    : '',
+              }),
+
               new TextRun({
                 text: 'DO YOU SMOKE? \t',
                 bold: true,
