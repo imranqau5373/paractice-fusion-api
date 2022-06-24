@@ -589,14 +589,60 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               }),
 
               new TextRun({
-                text: '\t HOW MUCH: \t',
+                text: 'HOW MUCH: \t',
                 bold: true,
 
-                //  break: 2,
+                break: 2,
               }),
               new TextRun({
-                text: patientData.smokeExplain ? patientData.smokeExplain : '',
+                text:
+                  patientData.exSmoker == 'true' &&
+                  patientData.exSmoker != undefined &&
+                  patientData.exSmoker != 'undefined'
+                    ? 'Ex-Smoker   '
+                    : '',
               }),
+              new TextRun({
+                text:
+                  patientData.lightSmoker == 'true' &&
+                  patientData.lightSmoker != undefined &&
+                  patientData.lightSmoker != 'undefined'
+                    ? '1-9 cigs/day   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.moderateSmoker == 'true' &&
+                  patientData.moderateSmoker != undefined &&
+                  patientData.moderateSmoker != 'undefined'
+                    ? '10-19 cigs/day   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.heavySmoker == 'true' &&
+                  patientData.heavySmoker != undefined &&
+                  patientData.heavySmoker != 'undefined'
+                    ? '20-39 Cigs/Day   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.veryHeavySmoker == 'true' &&
+                  patientData.veryHeavySmoker != undefined &&
+                  patientData.veryHeavySmoker != 'undefined'
+                    ? '40+ cigs/day   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.electronicSmoker == 'true' &&
+                  patientData.electronicSmoker != undefined &&
+                  patientData.electronicSmoker != 'undefined'
+                    ? 'Elec'
+                    : '',
+              }),
+
               new TextRun({
                 text: 'CHEW TOBACCO?  \t',
                 bold: true,
@@ -606,16 +652,44 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                 text: patientData.tobacco,
               }),
               new TextRun({
-                text: '\t HOW MUCH: \t',
+                text: ' HOW MUCH: \t',
                 bold: true,
 
-                //   break: 2,
+                break: 2,
               }),
               new TextRun({
-                text: patientData.tobaccoExplain
-                  ? patientData.tobaccoExplain
-                  : '',
+                text:
+                  patientData.socialTbc == 'true' &&
+                  patientData.socialTbc != undefined &&
+                  patientData.socialTbc != 'undefined'
+                    ? 'Social   '
+                    : '',
               }),
+              new TextRun({
+                text:
+                  patientData.lessThenAWeekTbc == 'true' &&
+                  patientData.lessThenAWeekTbc != undefined &&
+                  patientData.lessThenAWeekTbc != 'undefined'
+                    ? 'less then 1 can/week   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.oneCanAWeekTbc == 'true' &&
+                  patientData.oneCanAWeekTbc != undefined &&
+                  patientData.oneCanAWeekTbc != 'undefined'
+                    ? '1/week   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.twoOrMoreTbc == 'true' &&
+                  patientData.twoOrMoreTbc != undefined &&
+                  patientData.twoOrMoreTbc != 'undefined'
+                    ? '2+/week   '
+                    : '',
+              }),
+
               new TextRun({
                 text: 'DO YOU DRINK ALCOHOL?  \t',
                 bold: true,
@@ -625,15 +699,42 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                 text: patientData.alcohol,
               }),
               new TextRun({
-                text: '\t HOW MUCH: \t',
+                text: 'HOW MUCH: \t',
                 bold: true,
 
-                //   break: 2,
+                break: 2,
               }),
               new TextRun({
-                text: patientData.alcoholExplain
-                  ? patientData.alcoholExplain
-                  : '',
+                text:
+                  patientData.oneDrinkADay == 'true' &&
+                  patientData.oneDrinkADay != undefined &&
+                  patientData.oneDrinkADay != 'undefined'
+                    ? '1/Day   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.twoToThreeDrinksAWeek == 'true' &&
+                  patientData.twoToThreeDrinksAWeek != undefined &&
+                  patientData.twoToThreeDrinksAWeek != 'undefined'
+                    ? '2-3/week   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.fiveOrMoreDrinksAWeek == 'true' &&
+                  patientData.fiveOrMoreDrinksAWeek != undefined &&
+                  patientData.fiveOrMoreDrinksAWeek != 'undefined'
+                    ? '5+   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.socialDrinker == 'true' &&
+                  patientData.socialDrinker != undefined &&
+                  patientData.socialDrinker != 'undefined'
+                    ? 'Social   '
+                    : '',
               }),
               new TextRun({
                 text: 'DO YOU USE DRUGS?  \t',
@@ -644,12 +745,65 @@ exports.writeNewPatientData = (patientData, medicineData) => {
                 text: patientData.drugs,
               }),
               new TextRun({
-                text: '\t HOW MUCH: \t',
+                text: 'HOW MUCH: \t',
                 bold: true,
-                //  break: 2,
+                break: 2,
               }),
               new TextRun({
-                text: patientData.drugsExplain ? patientData.drugsExplain : '',
+                text:
+                  patientData.drugTHC == 'true' &&
+                  patientData.drugTHC != undefined &&
+                  patientData.drugTHC != 'undefined'
+                    ? 'THC   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.drugCOC == 'true' &&
+                  patientData.drugCOC != undefined &&
+                  patientData.drugCOC != 'undefined'
+                    ? 'COC   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.drugMET == 'true' &&
+                  patientData.drugMET != undefined &&
+                  patientData.drugMET != 'undefined'
+                    ? 'MET   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.drugOPI == 'true' &&
+                  patientData.drugOPI != undefined &&
+                  patientData.drugOPI != 'undefined'
+                    ? 'OPI   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.drugPCP == 'true' &&
+                  patientData.drugPCP != undefined &&
+                  patientData.drugPCP != 'undefined'
+                    ? 'PCP   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.drugAMP == 'true' &&
+                  patientData.drugAMP != undefined &&
+                  patientData.drugAMP != 'undefined'
+                    ? 'AMP   '
+                    : '',
+              }),
+              new TextRun({
+                text:
+                  patientData.drugOther == 'true' &&
+                  patientData.drugOther != undefined &&
+                  patientData.drugOther != 'undefined'
+                    ? 'Other'
+                    : '',
               }),
               new TextRun({
                 text: 'REASON FOR VISIT TODAY:  \t',

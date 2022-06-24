@@ -2338,28 +2338,150 @@ async function writeDoctorData(filePath, patientData) {
   const smokingTextField = form.getTextField('SMOKING')
   if (patientData.smoke == 'No') {
     smokingTextField.setText(patientData.smoke)
-  } else {
-    smokingTextField.setText(patientData.smokeExplain)
+  } else if (
+    patientData.exSmoker == 'true' &&
+    patientData.exSmoker != undefined &&
+    patientData.exSmoker != 'undefined'
+  ) {
+    smokingTextField.setText('Ex-Smoker')
+  } else if (
+    patientData.lightSmoker == 'true' &&
+    patientData.lightSmoker != undefined &&
+    patientData.lightSmoker != 'undefined'
+  ) {
+    smokingTextField.setText('1-9 cigs/day')
+  } else if (
+    patientData.moderateSmoker == 'true' &&
+    patientData.moderateSmoker != undefined &&
+    patientData.moderateSmoker != 'undefined'
+  ) {
+    smokingTextField.setText('10-19 cigs/day')
+  } else if (
+    patientData.heavySmoker == 'true' &&
+    patientData.heavySmoker != undefined &&
+    patientData.heavySmoker != 'undefined'
+  ) {
+    smokingTextField.setText('20-29 cigs/day')
+  } else if (
+    patientData.veryHeavySmoker == 'true' &&
+    patientData.veryHeavySmoker != undefined &&
+    patientData.veryHeavySmoker != 'undefined'
+  ) {
+    smokingTextField.setText('40+ cigs/day')
+  } else if (
+    patientData.electronicSmoker == 'true' &&
+    patientData.electronicSmoker != undefined &&
+    patientData.electronicSmoker != 'undefined'
+  ) {
+    smokingTextField.setText('Elec')
   }
+
   // Tobacco
   const tbaccoTextField = form.getTextField('TOBACCO')
   if (patientData.tobacco == 'No') {
     tbaccoTextField.setText(patientData.tobacco)
-  } else {
-    tbaccoTextField.setText(patientData.tobaccoExplain)
+  } else if (
+    patientData.socialTbc == 'true' &&
+    patientData.socialTbc != undefined &&
+    patientData.socialTbc != 'undefined'
+  ) {
+    tbaccoTextField.setText('Social')
+  } else if (
+    patientData.lessThenAWeekTbc == 'true' &&
+    patientData.lessThenAWeekTbc != undefined &&
+    patientData.lessThenAWeekTbc != 'undefined'
+  ) {
+    tbaccoTextField.setText('Less than 1 can/week')
+  } else if (
+    patientData.oneCanAweekTbc == 'true' &&
+    patientData.oneCanAweekTbc != undefined &&
+    patientData.oneCanAweekTbc != 'undefined'
+  ) {
+    tbaccoTextField.setText('1/week')
+  } else if (
+    patientData.twoOrMoreTbc == 'true' &&
+    patientData.twoOrMoreTbc != undefined &&
+    patientData.twoOrMoreTbc != 'undefined'
+  ) {
+    tbaccoTextField.setText('2+/week')
   }
   // Alcohol
   const alcoholTextField = form.getTextField('ALCOHOL')
-  alcoholTextField.setText(
-    patientData.alcohol == 'No'
-      ? patientData.alcohol
-      : patientData.alcoholExplain
-  )
+  if (patientData.alcohol == 'No') {
+    alcoholTextField.setText(patientData.alcohol)
+  } else if (
+    patientData.oneDrinkADay == 'true' &&
+    patientData.oneDrinkADay != undefined &&
+    patientData.oneDrinkADay != 'undefined'
+  ) {
+    alcoholTextField.setText('1/day')
+  } else if (
+    patientData.twoToThreeDrinksAWeek == 'true' &&
+    patientData.twoToThreeDrinksAWeek != undefined &&
+    patientData.twoToThreeDrinksAWeek != 'undefined'
+  ) {
+    alcoholTextField.setText('2-3/week')
+  } else if (
+    patientData.fiveOrMoreDrinksAWeek == 'true' &&
+    patientData.fiveOrMoreDrinksAWeek != undefined &&
+    patientData.fiveOrMoreDrinksAWeek != 'undefined'
+  ) {
+    alcoholTextField.setText('5+')
+  } else if (
+    patientData.socialDrinker == 'true' &&
+    patientData.socialDrinker != undefined &&
+    patientData.socialDrinker != 'undefined'
+  ) {
+    alcoholTextField.setText('Social')
+  }
 
   const drugsTextField = form.getTextField('DRUGS')
-  drugsTextField.setText(
-    patientData.drugs == 'No' ? patientData.drugs : patientData.drugsExplain
-  )
+  if (patientData.drugs == 'No') {
+    drugsTextField.setText(patientData.drugs)
+  } else if (
+    patientData.drugTHC == 'true' &&
+    patientData.drugTHC != undefined &&
+    patientData.drugTHC != 'undefined'
+  ) {
+    drugsTextField.setText('THC')
+  } else if (
+    patientData.drugCOC == 'true' &&
+    patientData.drugCOC != undefined &&
+    patientData.drugCOC != 'undefined'
+  ) {
+    drugsTextField.setText('COC')
+  } else if (
+    patientData.drugMET == 'true' &&
+    patientData.drugMET != undefined &&
+    patientData.drugMET != 'undefined'
+  ) {
+    drugsTextField.setText('MET')
+  } else if (
+    patientData.drugOPI == 'true' &&
+    patientData.drugOPI != undefined &&
+    patientData.drugOPI != 'undefined'
+  ) {
+    drugsTextField.setText('OPI')
+  } else if (
+    patientData.drugPCP == 'true' &&
+    patientData.drugPCP != undefined &&
+    patientData.drugPCP != 'undefined'
+  ) {
+    drugsTextField.setText('PCP')
+  } else if (
+    patientData.drugAMP == 'true' &&
+    patientData.drugAMP != undefined &&
+    patientData.drugAMP != 'undefined'
+  ) {
+    drugsTextField.setText('AMP')
+  } else if (
+    patientData.drugOther == 'true' &&
+    patientData.drugOther != undefined &&
+    patientData.drugOther != 'undefined'
+  ) {
+    drugsTextField.setText('Other')
+  }
+
   // Marital Status
   const marriedTextField = form.getTextField('MARRIED')
 
