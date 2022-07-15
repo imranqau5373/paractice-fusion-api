@@ -6,11 +6,15 @@ var logger = require('morgan')
 var mongo = require('mongodb')
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://localhost:27017/mydb'
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/SWU')
 var cors = require('cors')
 
 var indexRouter = require('./routes/index')
 var patientRouter = require('./routes/patient')
 var pdfRouter = require('./routes/pdf')
+var usersRouter = require('./routes/users')
+
 const bodyParser = require('body-parser')
 var app = express()
 
@@ -49,6 +53,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter)
 app.use('/patient', patientRouter)
 app.use('/pdf', pdfRouter)
+app.use('/users', usersRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
