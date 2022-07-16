@@ -7,7 +7,7 @@ var mongo = require('mongodb')
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://localhost:27017/mydb'
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/SWU')
+mongoose.connect('mongodb://localhost:27017/SWU')
 var cors = require('cors')
 
 var indexRouter = require('./routes/index')
@@ -28,11 +28,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(
-  cors({
-    origin: 'http://eagle1103.startdedicated.com',
-  })
-)
+app.use(cors())
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
