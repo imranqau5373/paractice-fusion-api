@@ -1092,13 +1092,13 @@ exports.writeNewPatientData = (patientData, medicineData) => {
               /* Insurance ID Card */
               new TextRun({
                 text:
-                  patientData.insurance == 'Yes' ? 'ID CARD PICTURE \t' : '',
+                  (patientData.insurance == 'Yes' && patientData.adult === 'Yes') ? 'ID CARD PICTURE \t' : '',
                 bold: true,
                 break: patientData.insurance == 'Yes' ? 2 : 0,
               }),
               new ImageRun({
                 data:
-                  patientData.insurance == 'Yes'
+                  (patientData.insurance == 'Yes' && patientData.adult === 'Yes')
                     ? fs.readFileSync(
                         './uploads/' +
                           patientData.idCardPicturePath +

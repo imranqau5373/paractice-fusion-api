@@ -5,12 +5,12 @@ const docx = require('docx')
 const { Document, Packer, Paragraph, TextRun } = docx
 var MongoClient = require('mongodb').MongoClient
 const res = require('express/lib/response')
-var url = 'mongodb://localhost:27017/'
+var url = 'mongodb://127.0.0.1:27017/'
 
 exports.addNewPatientRecord = (req, response, next) => {
   console.log('test new data')
   MongoClient.connect(url, function (err, db) {
-    console.log('New patient data.')
+    console.log('In Add new Patient.')
     const patientData = req.body
     const dir = './public/patientRecords'
     createPatientRecordFolder(dir)

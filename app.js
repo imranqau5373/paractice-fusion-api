@@ -5,9 +5,11 @@ var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var mongo = require('mongodb')
 var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb://localhost:27017/mydb'
-var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/SWU')
+var url = 'mongodb://127.0.0.1:27017/mydb'
+//var mongoose = require('mongoose')
+//mongoose.connect('mongodb://127.0.0.1:27017/SWU', { useUnifiedTopology: true,useNewUrlParser: true })
+//mongoose.connect('mongodb://localhost:27017/mydb', { useUnifiedTopology: true,useNewUrlParser: true })
+
 var cors = require('cors')
 
 var indexRouter = require('./routes/index')
@@ -36,11 +38,11 @@ app.use(
   })
 )
 
-//MongoClient.connect(url, function (err, db) {
+// MongoClient.connect(url, function (err, db) {
 // if (err) throw err
 // console.log('Database created!')
 // db.close()
-//})
+// })
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*')
