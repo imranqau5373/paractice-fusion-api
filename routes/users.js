@@ -41,7 +41,11 @@ router.post('/login', function (req, res, next) {
         return res.status(501).json({ message: 'Error registering user.' })
       }
       else{
-        return res.status(201).json(result);
+        let token = jwt.sign({ username: doc.username }, 'secret', {
+          expiresIn: '3600h',
+        })
+
+        return res.status(200).json(token);
       }
     })
   });
