@@ -189,6 +189,7 @@ exports.getAllNewPatients = (req, response, next) => {
             _id: false,
             firstName: true,
             lastName: true,
+            adult: true,
             email: true,
             dateOfBirth: true,
             insurance: true,
