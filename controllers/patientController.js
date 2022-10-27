@@ -192,6 +192,7 @@ exports.getAllNewPatients = (req, response, next) => {
             adult: true,
             email: true,
             dateOfBirth: true,
+            gender:true,
             insurance: true,
             filePath: true,
             reasonForVisit: true,
