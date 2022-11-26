@@ -1,3 +1,5 @@
 node_modules
 uploads
 public/patientRecords
+public/existingPatientRecords
+

@@ -114,6 +114,7 @@ exports.addExistingPatientRecord = (req, response, next) => {
     const consentPath = getConsentPath(folderPath)
     const guardianPath = getGuardianPath(folderPath)
     const doctorFilePath = getPdfPath(folderPath, 'doctor-form')
+    patientData.doctorFormPath = doctorFilePath
     patientData.signaturePath = signaturePath
     patientData.filePath = filePath
     patientData.consentPath = consentPath
@@ -260,12 +261,39 @@ exports.getAllExistingPatients = (req, response, next) => {
     var dbo = db.db('mydb')
     dbo
       .collection('ExistingPatientRecords')
-      .find({})
+      .find({},
+        {
+          projection: {
+            _id: false,
+            firstName: true,
+            lastName: true,
+            adult: true,
+            email: true,
+            dateOfBirth: true,
+            gender:true,
+            insurance: true,
+            filePath: true,
+            reasonForVisit: true,
+            imigrationFilePath: true,
+            insuranceFilePath: true,
+            cashSuperBillFilePath: true,
+            medicalExaminationFilePath: true,
+            covidFilePath: true,
+            schoolFilePath: true,
+            medicalCertificateFilePath: true,
+            doctorFormPath: true,
+            consentPath: true,
+            someField: true,
+            covidTesting: true,
+            createdDate: true,
+          },
+        }
+        )
       .toArray(function (err, result) {
         if (err) throw err
         console.log('New Patient Record Inserted')
         db.close()
-        result.json(result)
+        response.json(result)
       })
   })
 }
