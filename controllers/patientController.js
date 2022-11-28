@@ -121,14 +121,14 @@ exports.addExistingPatientRecord = (req, response, next) => {
     saveSignatureImage(patientData.signatureImg, signaturePath)
     const doc = documentController.writeExistingPatientData(patientData)
     createDoctorForm(doctorFilePath, patientData)
-    if (patientData.adult == 'Yes') {
+    createDoctorForm(doctorFilePath, patientData)
+    if (patientData.adult == 'No') {
       const consentPath = getConsentPath(folderPath)
       patientData.consentPath = consentPath
       createConsentDoc(
         consentPath,
         patientData.firstName + ' ' + patientData.lastName,
         patientData.guardianName,
-
         patientData.witnessName
       )
     }
@@ -158,6 +158,14 @@ exports.addExistingPatientRecord = (req, response, next) => {
       patientData.medicalCertificateFilePath = medicalCertificateFilePath
       createMedicalCertificateForm(medicalCertificateFilePath, patientData)
     }
+    // vcovid
+    if (patientData.covidTesting == 'RapidAntigen') {
+      const covidFilePath = getPdfPath(folderPath, 'covid')
+      patientData.covidFilePath = covidFilePath
+      createCovidForm(covidFilePath, patientData)
+    }
+
+
     if (patientData.insurance == 'No') {
       const cashSuperBillFilePath = getPdfPath(folderPath, 'cash-super-bill')
       patientData.cashSuperBillFilePath = cashSuperBillFilePath
