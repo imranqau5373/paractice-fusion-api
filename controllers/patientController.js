@@ -137,6 +137,12 @@ exports.addExistingPatientRecord = (req, response, next) => {
       patientData.imigrationFilePath = imigrationFilePath
       createImgrationForm(imigrationFilePath, patientData)
     }
+    /* Sport School Physical */
+    if (patientData.reasonForVisit == 'schoolPhysical') {
+      const schoolFilePath = getPdfPath(folderPath, 'school')
+      patientData.schoolFilePath = schoolFilePath
+      createSchoolForm(schoolFilePath, patientData)
+    }
     if (patientData.reasonForVisit == 'dotPhysical') {
       const medicalExaminationFilePath = getPdfPath(
         folderPath,

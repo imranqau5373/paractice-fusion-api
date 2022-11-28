@@ -733,7 +733,11 @@ async function writeMedicalCertificateData(filePath, patientData) {
     'formMCSA-5876[0].page1[0].driverBox[0].licenseState[0]'
   )
   const optionss = licenseStateDropdown.getOptions(patientData.licenseState)
-  licenseStateDropdown.select(patientData.licenseState)
+  licenseStateDropdown.select( patientData.licenseState &&
+    patientData.licenseState != undefined &&
+    patientData.licenseState != 'undefined'
+    ? patientData.licenseState
+    : ' ')
 
   /* Driver Address */
   const addressTextField = form.getTextField(
@@ -750,7 +754,11 @@ async function writeMedicalCertificateData(filePath, patientData) {
     'formMCSA-5876[0].page1[0].driverBox[0].driverState[0]'
   )
   const options = stateDropdown.getOptions(patientData.state)
-  stateDropdown.select(patientData.state)
+  stateDropdown.select(patientData.state &&
+    patientData.state != undefined &&
+    patientData.state != 'undefined'
+    ? patientData.state
+    : ' ')
   /* zipcode */
   const zipCodeTextField = form.getTextField(
     'formMCSA-5876[0].page1[0].driverBox[0].driverZip[0]'
@@ -774,7 +782,7 @@ async function writeMedicalCertificateData(filePath, patientData) {
     filePath,
     await pdfDoc.save({ updateFieldAppearances: false })
   )
-}
+  }
 
 /*  */
 
@@ -883,10 +891,12 @@ async function writeImigrationData(filePath, patientData) {
     'form1[0].#subform[0].P1Line2_State[0]'
   )
   const options = stateDropdown.getOptions(patientData.state)
-  stateDropdown.select(patientData.state)
-  if (patientData.state == 'undefined') {
-    stateDropdown.select('')
-  }
+  stateDropdown.select(patientData.state &&
+    patientData.state != undefined &&
+    patientData.state != 'undefined'
+    ? patientData.state
+    : ' ')
+ 
 
   if (patientData.gender == 'Male') {
     const maleCheckBox = form.getCheckBox(
@@ -1411,10 +1421,13 @@ async function writeMedicalExaminationData(filePath, patientData) {
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverState[0]'
   )
   const options = stateDropdown.getOptions(patientData.state)
-  stateDropdown.select(patientData.state)
-  if (patientData.state == 'undefined') {
-    stateDropdown.select('')
-  }
+  stateDropdown.select(patientData.state &&
+    patientData.state != undefined &&
+    patientData.state != 'undefined'
+    ? patientData.state
+    : ' ')
+
+
 
   const zipCodeTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].driverZip[0]'
@@ -1441,10 +1454,11 @@ async function writeMedicalExaminationData(filePath, patientData) {
     'MCSA-5875[0].Page1[0].driverPersonal[0].licenseState[0]'
   )
   const optionss = licenseStateDropdown.getOptions(patientData.licenseState)
-  licenseStateDropdown.select(patientData.licenseState)
-  if (patientData.licenseState == 'undefined') {
-    licenseStateDropdown.select('')
-  }
+  licenseStateDropdown.select(patientData.licenseState &&
+    patientData.licenseState != undefined &&
+    patientData.licenseState != 'undefined'
+    ? patientData.licenseState
+    : ' ')
   const emailTextField = form.getTextField(
     'MCSA-5875[0].Page1[0].driverPersonal[0].emailAddress[0]'
   )
