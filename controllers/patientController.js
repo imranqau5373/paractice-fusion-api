@@ -158,13 +158,12 @@ exports.addExistingPatientRecord = (req, response, next) => {
       patientData.medicalCertificateFilePath = medicalCertificateFilePath
       createMedicalCertificateForm(medicalCertificateFilePath, patientData)
     }
-    // vcovid
+    /* Covid */
     if (patientData.covidTesting == 'RapidAntigen') {
       const covidFilePath = getPdfPath(folderPath, 'covid')
       patientData.covidFilePath = covidFilePath
       createCovidForm(covidFilePath, patientData)
     }
-
 
     if (patientData.insurance == 'No') {
       const cashSuperBillFilePath = getPdfPath(folderPath, 'cash-super-bill')
